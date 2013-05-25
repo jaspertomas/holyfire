@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Location:</b>
+  <%= @blessing.location %>
+</p>
+
+<p>
+  <b>Date:</b>
+  <%= @blessing.date %>
+</p>
+
+<p>
+  <b>Contactinfo:</b>
+  <%= @blessing.contactinfo %>
+</p>
+
+<p>
+  <b>Comments:</b>
+  <%= @blessing.comments %>
+</p>
+
+
+<%= link_to 'Edit', edit_blessing_path(@blessing) %> |
+<%= link_to 'Back', blessings_path %>
+
+
+
+<%=render 'showchildren'%>

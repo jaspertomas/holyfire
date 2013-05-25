@@ -1,0 +1,6 @@
+Mon, 13 May 2013 20:42:13 +0800
+doc/README_FOR_APP	Mon, 13 May 2013 20:19:30 +0800
+app/controllers/application_controller.rb	Mon, 13 May 2013 20:19:30 +0800
+app/controllers/static_pages_controller.rb	Mon, 13 May 2013 20:38:22 +0800
+app/helpers/application_helper.rb	Mon, 13 May 2013 20:19:30 +0800
+app/helpers/static_pages_helper.rb	Mon, 13 May 2013 20:38:22 +0800

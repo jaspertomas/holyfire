@@ -1,0 +1,78 @@
+<%= form_for(@participant) do |f| %>
+  <% if @participant.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@participant.errors.count, "error") %> prohibited this participant from being saved:</h2>
+
+      <ul>
+      <% @participant.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :blessing_id %>: 
+    <%= f.hidden_field :blessing_id %>
+    <%= @participant.blessing %>
+  </div>
+  <div class="field">
+    <%= f.label :batch_id %>: 
+    <%= f.hidden_field :batch_id %>
+    <%= ((@participant.batch!=nil) ? @participant.batch : "") %>
+  </div>
+  
+<table border=0>
+	<tr>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td><%= f.label :sex %></td>
+		<td colspan=7><%= f.text_field :sex %></td>
+	</tr>
+	<tr>
+		<td><%= f.label :name %></td>
+		<td colspan=7><%= f.text_field :name %></td>
+	</tr>
+	<tr>
+		<td><%= f.label :age %></td>
+		<td colspan=3><%= f.text_field :age %></td>
+		<td><%= f.label :occupation %></td>
+		<td colspan=3><%= f.text_field :occupation %></td>
+	</tr>
+	<tr>
+		<td><%= f.label :introducer %></td>
+		<td colspan=7><%= f.text_field :introducer %></td>
+	</tr>
+	<tr>
+		<td><%= f.label :guarantor %></td>
+		<td colspan=7><%= f.text_field :guarantor %></td>
+	</tr>
+	<tr>
+		<td><%= f.label :tel %></td>
+		<td colspan=7><%= f.text_field :tel %></td>
+	</tr>
+	<tr>
+		<td><%= f.label :missionary %></td>
+		<td colspan=7><%= f.text_field :missionary %></td>
+	</tr>
+	<tr>
+		<td><%= f.label :remark %></td>
+		<td colspan=3><%= f.text_field :remark %></td>
+		<td><%= f.label :donation %></td>
+		<td colspan=3><%= f.text_field :donation %></td>
+	</tr>	
+</table>
+
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

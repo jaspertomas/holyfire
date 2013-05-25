@@ -1,0 +1,604 @@
+    cd RailsProjects/rails_projects/
+    subl rptas1/
+    rails new rptas2 --skip-test-unit 
+    cd rptas2
+    subl .
+    history
+
+#edit Gemfile
+--------------
+
+gem 'rails', '3.2.3'
+gem 'bootstrap-sass', '2.1' 
+gem 'bcrypt-ruby', '3.0.1' 
+
+group :development do
+  gem 'annotate'
+end
+
+group :development, :test do 
+	gem 'sqlite3', '1.3.5'
+	gem 'rspec-rails', '2.9.0'
+end
+
+# Gems used only for assets and not required # in production environments by default. 
+group :assets do
+  gem 'sass-rails',   '3.2.4'
+  gem 'coffee-rails', '3.2.2'
+  gem 'uglifier', '1.2.3'
+end
+
+gem 'jquery-rails', '~>2.0.0'
+
+group :test do
+  gem 'capybara', '1.1.2'
+  gem 'guard-spork', '0.3.2'
+  gem 'spork', '0.9.0'
+end
+
+group :production do 
+	gem 'pg', '0.12.2'
+end
+
+gem 'rack', '1.4.1'
+--------------
+
+bundle update rack  #only once per computer?
+bundle install --without production
+
+=====Customize .gitignore==============
+
+#edit .gitignore, add these lines
+----------------
+.buildpath
+.project
+----------------
+
+=====Create and add to repository=========
+git init
+git add .
+git commit -m "Initial commit"
+git remote add origin git@github.com:jaspertomas/rptas2.git
+git push -u origin master
+heroku create --stack cedar
+git push heroku master
+heroku rename rptas2
+heroku open
+
+#only if you have a database
+heroku run rake db:migrate
+
+
+=======Create home page======================
+#delete public/index.html
+
+rails generate controller StaticPages index help admin error initdb --no-test-framework
+
+#edit config/routes.rb: add this line
+---------------------
+  root :to => 'static_pages#index'   
+---------------------
+
+
+#create test file for static_pages controller
+rails generate integration_test static_pages
+
+
+
+
+=======Configure test to run with spork======================
+
+
+
+
+#create file spec/spec_helper.rb
+----------------------------------------------
+require 'rubygems'
+require 'spork'
+#uncomment the following line to use spork with the debugger
+#require 'spork/ext/ruby-debug'
+
+Spork.prefork do
+  # Loading more in this block will cause your tests to run faster. However,
+  # if you change any configuration or code from libraries loaded here, you'll
+  # need to restart spork for it take effect.
+ENV["RAILS_ENV"] ||= 'test'
+require File.expand_path("../../config/environment", __FILE__)
+require 'rspec/rails'
+require 'rspec/autorun'
+# Requires supporting ruby files with custom matchers and macros, etc, # in spec/support/ and its subdirectories. Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
+RSpec.configure do |config|
+# == Mock Framework
+#
+# If you prefer to use mocha, flexmock or RR, uncomment the appropriate line: #
+# config.mock_with :mocha
+# config.mock_with :flexmock
+# config.mock_with :rr config.mock_with :rspec
+    # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
+config.fixture_path = "#{::Rails.root}/spec/fixtures"
+# If you're not using ActiveRecord, or you'd prefer not to run each of your # examples within a transaction, remove the following line or assign false # instead of true.
+config.use_transactional_fixtures = true
+# If true, the base class of anonymous controllers will be inferred
+# automatically. This will be the default behavior in future versions of # rspec-rails.
+config.infer_base_class_for_anonymous_controllers = false
+  end
+end
+
+Spork.each_run do
+  # This code will be run each time you run your specs.
+
+end
+
+# --- Instructions ---
+# Sort the contents of this file into a Spork.prefork and a Spork.each_run
+# block.
+#
+# The Spork.prefork block is run only once when the spork server is started.
+# You typically want to place most of your (slow) initializer code in here, in
+# particular, require'ing any 3rd-party gems that you don't normally modify
+# during development.
+#
+# The Spork.each_run block is run each time you run your specs.  In case you
+# need to load files that tend to change during development, require them here.
+# With Rails, your application modules are loaded automatically, so sometimes
+# this block can remain empty.
+#
+# Note: You can modify files loaded *from* the Spork.each_run block without
+# restarting the spork server.  However, this file itself will not be reloaded,
+# so if you change any of the code inside the each_run block, you still need to
+# restart the server.  In general, if you have non-trivial code in this file,
+# it's advisable to move it into a separate file so you can easily edit it
+# without restarting spork.  (For example, with RSpec, you could move
+# non-trivial code into a file spec/support/my_helper.rb, making sure that the
+# spec/support/* files are require'd from inside the each_run block.)
+#
+# Any code that is left outside the two blocks will be run during preforking
+# *and* during each_run -- that's probably not what you want.
+#
+# These instructions should self-destruct in 10 seconds.  If they don't, feel
+# free to delete them.
+
+
+
+
+# This file is copied to spec/ when you run 'rails generate rspec:install'
+ENV["RAILS_ENV"] ||= 'test'
+require File.expand_path("../../config/environment", __FILE__)
+require 'rspec/rails'
+require 'rspec/autorun'
+
+# Requires supporting ruby files with custom matchers and macros, etc,
+# in spec/support/ and its subdirectories.
+Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
+
+RSpec.configure do |config|
+  # ## Mock Framework
+  #
+  # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
+  #
+  # config.mock_with :mocha
+  # config.mock_with :flexmock
+  # config.mock_with :rr
+
+  # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
+  config.fixture_path = "#{::Rails.root}/spec/fixtures"
+
+  # If you're not using ActiveRecord, or you'd prefer not to run each of your
+  # examples within a transaction, remove the following line or assign false
+  # instead of true.
+  config.use_transactional_fixtures = true
+
+  # If true, the base class of anonymous controllers will be inferred
+  # automatically. This will be the default behavior in future versions of
+  # rspec-rails.
+  config.infer_base_class_for_anonymous_controllers = false
+end
+
+----------------------------------------------
+
+(only once per computer?)
+#install spork support
+bundle exec spork --bootstrap
+
+
+#create a file /.rspec file
+---------------------------------------------
+--colour
+--drb
+---------------------------------------------
+
+
+
+======================================
+
+
+#run spork (if not yet running)
+bundle exec spork
+
+#run test
+bundle exec rspec spec/requests/
+
+
+======================================
+#create documentation
+
+rake doc:app
+
+========How to use Branching===================
+
+========Branch out and give up - citizen1=========
+
+#create branch to develop first version of citizen model
+git checkout -b citizen1
+
+#see all branches, * means active branch
+git branch
+
+<do stuff, mess up>
+
+#revert
+git add .
+git checkout -f
+<do stuff, ly mess up>
+
+#give up on citizen1 branch
+#revert to master branch
+git checkout master
+#destroy citizen1 branch
+git branch -D citizen1
+
+========Branch out - citizen2 branch=========
+
+#create branch to develop 2nd version of citizen model
+git checkout -b citizen2
+
+#see all branches, * means active branch
+git branch
+
+=======Create model: Brainstorms=============
+
+rails generate scaffold Brainstorms name:string description:text parent_id:integer
+bundle exec rake db:migrate
+bundle exec annotate --position before
+
+Modify model:
+app/models/brainstorm.rb
+ class Brainstorm < ActiveRecord::Base
+  attr_accessible :description, :name, :parent_id
+  belongs_to :parent, :class_name => "Brainstorm", :foreign_key => 'parent_id'
+ end
+
+Try it out in rails console:
+
+>> b=Brainstorm.last
+  Brainstorm Load (0.3ms)  SELECT "brainstorms".* FROM "brainstorms" ORDER BY "brainstorms"."id" DESC LIMIT 1
+ => #<Brainstorm id: 2, name: "b", description: "basdf", parent_id: 1, created_at: "2013-05-13 12:54:08", updated_at: "2013-05-13 12:54:08"> 
+>> a=b.parent
+ => #<Brainstorm id: 1, name: "a", description: "asdf", parent_id: nil, created_at: "2013-05-13 12:53:52", updated_at: "2013-05-13 12:53:52"> 
+>> a.parent
+ => nil 
+
+IT WORKS!V =)
+
+
+=======Create model=============
+
+rails generate scaffold Qualifiers name:string description:text brainstorm_id:integer parent_id:integer type_id:integer
+rails generate scaffold Ideas name:string description:text brainstorm_id:integer 
+bundle exec rake db:migrate
+bundle exec annotate --position before
+
+=======Create Comment model as polymorphic=============
+
+see http://guides.rubyonrails.org/association_basics.html
+under "Polymorphic"
+
+rails generate scaffold Comments content:text commentable_type:string commentable_id:integer
+
+this does the same thing, 
+plus adds an index on commentable_id
+and a belongs_to in the model
+
+rails generate scaffold Comments content:text commentable:references
+
+Edit the model and the migration, add the string 
+ , :polymorphic => true
+model:
+  belongs_to :commentable, :polymorphic => true
+migration:
+        t.references :commentable, :polymorphic => true
+
+Migrate:
+ bundle exec rake db:migrate
+ bundle exec annotate --position before
+
+
+Edit app/views/comments/form
+change 
+  <div class="field">
+    <%= f.label :commentable %><br />
+    <%= f.text_field :commentable %>
+  </div>
+to
+  <div class="field">
+    <%= f.label :commentable_type %><br />
+    <%= f.text_field :commentable_type %>
+  </div>
+  <div class="field">
+    <%= f.label :commentable_id %><br />
+    <%= f.text_field :commentable_id %>
+  </div>
+  
+Edit app/models/comments.rb
+change
+  attr_accessible :content, :commentable_type, :commentable_id
+to
+  attr_accessible :content, :commentable
+  
+
+Now you can comment on anything by adding this to their model:
+  has_many :comments, :as => :commentable
+  
+Add this line to brainstorms, ideas and qualifiers  
+
+
+
+
+TRY IT!
+
+Make sure there's at least 1 brainstorm record
+
+http://localhost:3000/comments/new
+
+type "Brainstorm" as commentable_type
+type "1" as commentable_id 
+
+save
+
+The comment show page shows the brainstorm as an object
+
+@comment.commentable
+
+=======this might be useful========
+http://stackoverflow.com/questions/12311602/activerecord-has-many-with-custom-foreign-key-sql-expression
+class Person < ActiveRecord::Base
+  has_many :messages, :finder_sql => lambda{ "SELECT * FROM messages WHERE messages.person_id=#{id} OR messages.person_id IS NULL" }
+end
+
+
+
+=======Customize layout==========
+
+#modified app/views/layouts/application.html.erb
+
+----------------
+<body>
+
+<%= link_to "Home", static_pages_home_path %>
+|
+<%= link_to "Brainstorms", brainstorms_path %>
+|
+<%= link_to "Qualifiers", qualifiers_path %>
+|
+<%= link_to "Ideas", ideas_path %>
+|
+<%= link_to "Comments", comments_path %>
+
+<%= yield %>
+
+</body>
+-----------------
+
+rails generate scaffold User name:string email:string password_digest:string is_admin:boolean
+
+==========STOPPED HERE============
+
+#trying to show child items of citizen
+created fragment app/views/citizens/_showchildren.html.erb
+(-----------------
+
+
+
+
+
+<p><b>Properties:</b>
+<table border=1>
+
+  <tr>
+  <td>PIN</td>
+  <td>LOCATION</td>
+  <td>TDN</td>
+  <td>CLASSIFICATION</td>
+
+  </tr>
+<%
+@citizen.properties.each do |property|
+  %>
+  <tr>
+  <td><%=property.pin%></td>
+  <td><%=property.location%></td>
+  <td><%=property.tdn%></td>
+  <td><%=property.classification%></td>
+  <td><%= link_to 'Show', property %></td>
+    <td><%= link_to 'Edit', edit_property_path(property) %></td>
+  <td><%= link_to 'Destroy', property, confirm: 'Are you sure?', method: :delete %>
+  </td>
+
+  </tr>
+<%
+end
+%>
+
+</table>
+<%=link_to "New Property",new_property_path+"?citizen_id="+@citizen.id.to_s%>
+ 
+</p>
+
+-----------------)
+modified app/views/citizens/show.html.erb
+(-----------------
+<%= render 'showchildren' %><br><br>
+
+-----------------)
+
+
+==========Don't do this=================
+
+#this can get messy: pushing child branch to heroku
+#push citizen2 branch to heroku
+git push heroku citizen2:master
+#setup heroku database
+heroku run rake db:migrate
+heroku restart
+heroku open
+===========================
+
+  503  git add .
+  504  git commit -a -m "models and cruds working properly, with relationship"
+#merge citizen2 with master branch
+  506  git checkout master
+  507  git merge citizen2
+#destroy citizen2 branch
+  509  git branch -d citizen2
+  510  git push
+--------------
+  511  git push heroku
+
+
+
+#setup heroku database
+
+heroku run rake db:migrate
+heroku restart
+heroku open
+============
+=======
+Reverting heroku database: only if necessary
+
+heroku run rake db:migrate VERSION=0
+
+
+
+==========User registration===============
+
+
+
+Edit migrate file:
+-----
+class CreateUsers < ActiveRecord::Migration
+  def change
+    create_table :users do |t|
+      t.string :name
+      t.string :email
+      t.string :password_digest
+
+      t.timestamps
+    end
+    add_index :users, :email, unique: true #<-add this
+  end
+end
+
+-----
+
+bundle exec rake db:migrate
+bundle exec rake db:test:prepare
+
+Edit user.rb
+----
+
+class User < ActiveRecord::Base
+
+ attr_accessible :email, :name, :password, :password_confirmation
+ has_secure_password
+ before_validation { |user| user.email = email.downcase }
+
+ validates :name, presence: true, length: { maximum: 50 }
+ VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+ validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }, uniqueness: true
+ validates :password, presence: true, length: { minimum: 6 }
+ validates :password_confirmation, presence: true
+end
+
+----
+
+edit user_spec.rb
+----
+
+require 'spec_helper' 
+describe User do
+
+ before do
+   #initialize the test object with the password "foobar"
+   @user = User.new(name: "Example User", email: "user@example.com", password: "foobar", password_confirmation: "foobar")
+ end
+
+ subject { @user }
+
+ #test for all fields, as well as the .authenticate method
+ it { should respond_to(:name) }
+ it { should respond_to(:email) }
+ it { should respond_to(:password_digest) }
+ it { should respond_to(:password) }
+ it { should respond_to(:password_confirmation) }
+ it { should respond_to(:authenticate) }
+ it { should be_valid }
+
+# ...
+
+ #We set the password and password_confirmation fields to empty (a space) and test it. This should not be valid. 
+ describe "when password is not present" do
+  before { @user.password = @user.password_confirmation = " " }
+  it { should_not be_valid }
+ end
+ 
+ #We test that if password and password_confirmation do not match, this should not be valid.
+ describe "when password doesn't match confirmation" do
+  before { @user.password_confirmation = "mismatch" }
+  it { should_not be_valid }
+ end
+
+ #There is one case, impossible on the web, but possible on the console - if password or password_confirmation is "nil", validation does not work. So we test for this too. 
+ describe "when password confirmation is nil" do
+  before { @user.password_confirmation = nil }
+  it { should_not be_valid }
+ end
+
+ #test a too short password 
+ describe "with a password that's too short" do
+   before { @user.password = @user.password_confirmation = "a" * 5 }
+   it { should be_invalid }
+ end
+
+ #simulate registration 
+ #then simulate logins
+ #first try a valid password
+ #then an invalid password
+ describe "return value of authenticate method" do
+   before { @user.save }
+
+   #login starts here
+   let(:found_user) { User.find_by_email(@user.email) }
+
+   #this login is valid
+   describe "with valid password" do
+     it { should == found_user.authenticate(@user.password) }
+   end
+
+   #this login is invalid
+   describe "with invalid password" do
+     let(:user_for_invalid_password) { found_user.authenticate("invalid") }
+
+     it { should_not == user_for_invalid_password }
+     specify { user_for_invalid_password.should be_false }
+   end
+ end 
+end
+----
+bundle exec rspec spec/
+
+=========Add User Registration=============
+
+Check out wiki for Chapter 7 Walkthrough
+No login yet!
+
+  

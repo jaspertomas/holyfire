@@ -1,0 +1,32 @@
+<h1>Listing blessings</h1>
+
+<table>
+  <tr>
+    <th>Location</th>
+    <th>Date</th>
+    <th>Contactinfo</th>
+    <th>Comments</th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @blessings.each do |blessing| %>
+  <tr>
+    <td><%= blessing.location %></td>
+    <td><%= blessing.date %></td>
+    <td><%= blessing.contactinfo %></td>
+    <td><%= blessing.comments %></td>
+    <td><% if @currentblessingsetting.value==blessing.id.to_s %>Current Blessing<% else %><%= link_to 'Set as Current', "blessings/set?id="+blessing.id.to_s, method: :post %><% end %></td>
+    <td><%= link_to 'Show', blessing %></td>
+    <td><%= link_to 'Edit', edit_blessing_path(blessing) %></td>
+    <td><%= link_to 'Delete', blessing, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Blessing', new_blessing_path %>
+

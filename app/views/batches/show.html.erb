@@ -1,0 +1,23 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>No:</b>
+  <%= @batch.no %>
+</p>
+
+<p>
+  <b>Gender:</b>
+  <%= @batch.gender %>
+</p>
+
+<p>
+  <b>Blessing:</b>
+  <%= @batch.blessing_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_batch_path(@batch) %> |
+<%= link_to 'Back', batches_path %>
+
+
+<%=render 'showchildren'%>

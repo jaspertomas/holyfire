@@ -1,0 +1,35 @@
+
+    <% if signed_in? %>
+<table width=100%>
+<tr>
+<td>
+
+<%=render 'layouts/menu'%>
+
+</td>
+<td align=right>
+
+
+  Welcome, <%=current_user.name%> | <%= link_to "Sign out", signout_path, method: "delete" %>
+
+
+
+
+</td>
+</tr>
+<table>
+
+    <% #else %>
+  <%#= link_to "Sign in", signin_path %>
+  <% end %>
+  
+<hr>
+	<font color=green>
+      <% flash.each do |key, value| %>
+	      <% if value != notice %>
+    	    <div class="alert alert-<%= key %>"><%= value %></div>
+	      <% end %>
+      <% end %>
+  </font>
+    
+  

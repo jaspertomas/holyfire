@@ -1,0 +1,70 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Sex:</b>
+  <%= @participant.sex %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @participant.name %>
+</p>
+
+<p>
+  <b>Age:</b>
+  <%= @participant.age %>
+</p>
+
+<p>
+  <b>Occupation:</b>
+  <%= @participant.occupation %>
+</p>
+
+<p>
+  <b>Introducer:</b>
+  <%= @participant.introducer %>
+</p>
+
+<p>
+  <b>Guarantor:</b>
+  <%= @participant.guarantor %>
+</p>
+
+<p>
+  <b>Address:</b>
+  <%= @participant.address %>
+</p>
+
+<p>
+  <b>Tel:</b>
+  <%= @participant.tel %>
+</p>
+
+<p>
+  <b>Missionary:</b>
+  <%= @participant.missionary %>
+</p>
+
+<p>
+  <b>Remark:</b>
+  <%= @participant.remark %>
+</p>
+
+<p>
+  <b>Donation:</b>
+  <%= @participant.donation %>
+</p>
+
+<p>
+  <b>Batch:</b>
+  <%= @participant.batch_id %>
+</p>
+
+<p>
+  <b>Blessing:</b>
+  <%= @participant.blessing_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_participant_path(@participant) %> |
+<%= link_to 'Back', participants_path %>

@@ -1,0 +1,44 @@
+<br>
+<br>
+<hr>
+<b>Unbatched Participants:</b>
+<table border=1>
+<%
+@blessing.participants.reverse.each do |participant|
+  if participant.batch_id.nil?
+%>  
+  <tr VALIGN=TOP>
+    <td align=center><%=participant.to_s%></td>
+    <td align=center><%= link_to 'Edit', edit_participant_path(participant) %></td>
+    <td align=center><%= link_to 'Delete', participant, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+
+<%
+  end
+end
+%>
+</table>  
+<%=link_to "New participant",new_participant_path+"?blessing_id="+@blessing.id.to_s%>
+
+<br>
+<br>
+<hr>
+  
+<b>Batches:</b>
+<table border=1>
+<%
+@blessing.batches.reverse.each do |batch|
+%>  
+  <tr VALIGN=TOP>
+    <td align=center><%= link_to batch.to_s, batch_path(batch) %></td>
+    <td align=center><%= link_to 'Edit', edit_batch_path(batch) %></td>
+    <td align=center><%= link_to 'Delete', batch, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+
+<%
+end
+%>
+</table>  
+<%#=link_to "New Batch",new_batch_path+"?blessing_id="+@blessing.id.to_s%>
+
+  

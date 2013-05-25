@@ -1,0 +1,40 @@
+<%= form_for(@blessing) do |f| %>
+  <% if @blessing.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@blessing.errors.count, "error") %> prohibited this blessing from being saved:</h2>
+
+      <ul>
+      <% @blessing.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :location %><br />
+    <%= f.text_field :location %>
+  </div>
+  <div class="field">
+    <%= f.label :date %><br />
+    <input id="blessing_date_1i" name="blessing[date(1i)]">
+  </div>
+  <div class="field">
+    <%= f.label :contactinfo %><br />
+    <%= f.text_area :contactinfo %>
+  </div>
+  <div class="field">
+    <%= f.label :comments %><br />
+    <%= f.text_area :comments %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+
+<script>
+$(function() {
+  $('#blessing_date_1i').datepicker();
+});
+</script>
