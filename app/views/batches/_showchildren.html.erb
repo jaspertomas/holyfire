@@ -33,6 +33,7 @@ end
     <td align=center><%=participant.to_s%></td>
     <td align=center><%= link_to 'Edit', edit_participant_path(participant) %></td>
     <td align=center><%= link_to 'Delete', participant, confirm: 'Are you sure?', method: :delete %></td>
+    <td align=center><%= link_to 'Remove from Batch', batches_removeparticipant_path+"?id=" + @batch.id.to_s + "&participant_id=" + participant.id.to_s, method: :post %></td>
   </tr>
 
 <%

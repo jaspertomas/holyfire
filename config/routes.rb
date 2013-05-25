@@ -4,12 +4,13 @@ Holyfire::Application.routes.draw do
   resources :settings
 
   resources :blessings
+  post "/blessings/current"
   post "/blessings/set"
+  post "/blessings/addbatch"
 
   resources :batches
   post "/batches/addparticipant"
-
-  resources :brainstorms
+  post "/batches/removeparticipant"
 
   resources :sessions, only: [:new, :create, :destroy]
   match '/signup', to: 'users#new'
@@ -18,8 +19,6 @@ Holyfire::Application.routes.draw do
   
   resources :users  
   match '/signup', to: 'users#new'  
-  get '/qualifiers/showchildrentable/:id' => 'qualifiers#showchildrentable'
-  get '/brainstorms/showchildrentable/:id' => 'brainstorms#showchildrentable'
 
   get "static_pages/index"
 

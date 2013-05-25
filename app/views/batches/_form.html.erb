@@ -12,16 +12,17 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :no %><br />
+    <%= f.label :blessing_id %><br />
+    <%= f.hidden_field :blessing_id %>
+    <%= @batch.blessing %>
+  </div>
+  <div class="field">
+    Batch <%= f.label :no %><br />
     <%= f.text_field :no %>
   </div>
   <div class="field">
-    <%= f.label :gender %><br />
+    Batch <%= f.label :gender %><br />
     <%= f.text_field :gender %>
-  </div>
-  <div class="field">
-    <%= f.label :blessing_id %><br />
-    <%= f.number_field :blessing_id %>
   </div>
   <div class="actions">
     <%= f.submit %>

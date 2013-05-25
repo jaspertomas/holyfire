@@ -17,7 +17,8 @@
   </div>
   <div class="field">
     <%= f.label :date %><br />
-    <input id="blessing_date_1i" name="blessing[date(1i)]">
+	<%= f.text_field :datestring, :class => 'datepicker' %>	
+
   </div>
   <div class="field">
     <%= f.label :contactinfo %><br />
@@ -35,6 +36,7 @@
 
 <script>
 $(function() {
-  $('#blessing_date_1i').datepicker();
+  $('.datepicker').datepicker();
 });
 </script>
+

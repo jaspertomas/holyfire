@@ -14,7 +14,7 @@
 ActiveRecord::Schema.define(:version => 20130525102650) do
 
   create_table "batches", :force => true do |t|
-    t.string   "no"
+    t.integer  "no"
     t.string   "gender"
     t.integer  "blessing_id"
     t.datetime "created_at",  :null => false

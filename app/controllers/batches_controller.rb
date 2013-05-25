@@ -87,12 +87,21 @@ class BatchesController < ApplicationController
     @batch = Batch.find(params[:id])
     @participant=Participant.find(params[:participant_id])      
     
-    @participant.batch_id=@batch.id  
+    @participant.update_attributes(batch_id: @batch.id)  
       
     flash[:success] = "Participant "+@participant.to_s+" successfully added to "+@batch.to_s
 
-    redirect_to @batch
+    redirect_to @batch    
+  end    
+  def removeparticipant
+    @batch = Batch.find(params[:id])
+    @participant=Participant.find(params[:participant_id])      
     
+    @participant.update_attributes(batch_id: nil)  
+      
+    flash[:success] = "Participant "+@participant.to_s+" successfully removed from "+@batch.to_s
+
+    redirect_to @batch    
   end    
   
 end
