@@ -35,4 +35,4 @@ end
 gem 'rack', '1.4.1'
 
 gem 'jquery-ui-rails'
-#gem 'validates_timeliness', '~> 3.0'
+gem 'validates_timeliness', '~> 3.0'

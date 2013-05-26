@@ -2,12 +2,15 @@
 <br>
 <hr>
 <b>Unbatched Participants:</b>
+<%=form_tag batches_massaddparticipant_path, :method => :post do%>
+<input type=hidden name=id id=id value=<%=@batch.id%> >
 <table border=1>
 <%
 @batch.blessing.participants.reverse.each do |participant|
   if participant.batch_id.nil?
 %>  
   <tr VALIGN=TOP>
+    <td align=center><%=check_box_tag "participant_ids[]", participant.id %></td>
     <td align=center><%=participant.to_s%></td>
     <td align=center><%= link_to 'Edit', edit_participant_path(participant) %></td>
     <td align=center><%= link_to 'Delete', participant, confirm: 'Are you sure?', method: :delete %></td>
@@ -19,24 +22,32 @@
 end
 %>
 </table>  
+
+<%= submit_tag "Add Multiple Participants" %>
+<%end%>
+
+
+
 <%#=link_to "New participant",new_participant_path+"?blessing_id="+@blessing.id.to_s%>
 
 <br>
 <br>
 <hr>
 <b>Batch Participants:</b>
+<%=form_tag batches_massremoveparticipant_path, :method => :post do%>
+<input type=hidden name=id id=id value=<%=@batch.id%> >
 <table border=1>
-<%
-@batch.participants.reverse.each do |participant|
-%>  
+<% @batch.participants.reverse.each do |participant| %>  
   <tr VALIGN=TOP>
+    <td align=center><%=check_box_tag "participant_ids[]", participant.id %></td>
     <td align=center><%=participant.to_s%></td>
     <td align=center><%= link_to 'Edit', edit_participant_path(participant) %></td>
     <td align=center><%= link_to 'Delete', participant, confirm: 'Are you sure?', method: :delete %></td>
     <td align=center><%= link_to 'Remove from Batch', batches_removeparticipant_path+"?id=" + @batch.id.to_s + "&participant_id=" + participant.id.to_s, method: :post %></td>
   </tr>
 
-<%
-end
-%>
+<%end%>
 </table>  
+
+<%= submit_tag "Remove Multiple Participants" %>
+<%end%>

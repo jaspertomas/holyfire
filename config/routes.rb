@@ -9,8 +9,11 @@ Holyfire::Application.routes.draw do
   post "/blessings/addbatch"
 
   resources :batches
+    #, :collection => { :massaddparticipant => :put}
   post "/batches/addparticipant"
   post "/batches/removeparticipant"
+  post "/batches/massaddparticipant"
+  post "/batches/massremoveparticipant"
 
   resources :sessions, only: [:new, :create, :destroy]
   match '/signup', to: 'users#new'
