@@ -24,6 +24,8 @@ class ParticipantsController < ApplicationController
   # GET /participants/new
   # GET /participants/new.json
   def new
+    #admin and encoder only
+    return redirect_to static_pages_adminonlyerror_path if !current_user.is_admin && !current_user.is_encoder
     @participant = Participant.new
     @participant.blessing_id=params[:blessing_id]
 
@@ -35,12 +37,16 @@ class ParticipantsController < ApplicationController
 
   # GET /participants/1/edit
   def edit
+    #admin and encoder only
+    return redirect_to static_pages_adminonlyerror_path if !current_user.is_admin && !current_user.is_encoder
     @participant = Participant.find(params[:id])
   end
 
   # POST /participants
   # POST /participants.json
   def create
+    #admin and encoder only
+    return redirect_to static_pages_adminonlyerror_path if !current_user.is_admin && !current_user.is_encoder
     @participant = Participant.new(params[:participant])
 
     respond_to do |format|
@@ -65,6 +71,8 @@ class ParticipantsController < ApplicationController
   # PUT /participants/1
   # PUT /participants/1.json
   def update
+    #admin and encoder only
+    return redirect_to static_pages_adminonlyerror_path if !current_user.is_admin && !current_user.is_encoder
     @participant = Participant.find(params[:id])
 
     respond_to do |format|
@@ -81,6 +89,8 @@ class ParticipantsController < ApplicationController
   # DELETE /participants/1
   # DELETE /participants/1.json
   def destroy
+    #admin and encoder only
+    return redirect_to static_pages_adminonlyerror_path if !current_user.is_admin && !current_user.is_encoder
     @participant = Participant.find(params[:id])
     @participant.destroy
 

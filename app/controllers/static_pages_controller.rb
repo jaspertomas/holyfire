@@ -13,6 +13,15 @@ class StaticPagesController < ApplicationController
   def error
   end
 
+  def adminonlyerror
+  end
+
+  def encoderonlyerror
+  end
+
+  def batcheronlyerror
+  end
+
   def initdb
   end
 end

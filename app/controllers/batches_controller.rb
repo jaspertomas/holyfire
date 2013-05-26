@@ -2,6 +2,8 @@ class BatchesController < ApplicationController
   # GET /batches
   # GET /batches.json
   def index
+    #admin only
+    return redirect_to static_pages_adminonlyerror_path if !current_user.is_admin 
     @batches = Batch.all
 
     respond_to do |format|
@@ -25,6 +27,8 @@ class BatchesController < ApplicationController
   # GET /batches/new
   # GET /batches/new.json
   def new
+    #admin and batcher only
+    return redirect_to static_pages_adminonlyerror_path if !current_user.is_admin && !current_user.is_batcher
     @batch = Batch.new
     @batch.blessing_id=params[:blessing_id]
 
@@ -36,12 +40,16 @@ class BatchesController < ApplicationController
 
   # GET /batches/1/edit
   def edit
+    #admin and batcher only
+    return redirect_to static_pages_adminonlyerror_path if !current_user.is_admin && !current_user.is_batcher
     @batch = Batch.find(params[:id])
   end
 
   # POST /batches
   # POST /batches.json
   def create
+    #admin and batcher only
+    return redirect_to static_pages_adminonlyerror_path if !current_user.is_admin && !current_user.is_batcher
     @batch = Batch.new(params[:batch])
 
     respond_to do |format|
@@ -58,6 +66,8 @@ class BatchesController < ApplicationController
   # PUT /batches/1
   # PUT /batches/1.json
   def update
+    #admin and batcher only
+    return redirect_to static_pages_adminonlyerror_path if !current_user.is_admin && !current_user.is_batcher
     @batch = Batch.find(params[:id])
 
     respond_to do |format|
@@ -74,6 +84,8 @@ class BatchesController < ApplicationController
   # DELETE /batches/1
   # DELETE /batches/1.json
   def destroy
+    #admin and batcher only
+    return redirect_to static_pages_adminonlyerror_path if !current_user.is_admin && !current_user.is_batcher
     @batch = Batch.find(params[:id])
     @batch.destroy
 
@@ -85,6 +97,8 @@ class BatchesController < ApplicationController
 
 
   def addparticipant
+    #admin and batcher only
+    return redirect_to static_pages_adminonlyerror_path if !current_user.is_admin && !current_user.is_batcher
     @batch = Batch.find(params[:id])
     @participant=Participant.find(params[:participant_id])      
     
@@ -95,6 +109,8 @@ class BatchesController < ApplicationController
     redirect_to @batch    
   end    
   def removeparticipant
+    #admin and batcher only
+    return redirect_to static_pages_adminonlyerror_path if !current_user.is_admin && !current_user.is_batcher
     @batch = Batch.find(params[:id])
     @participant=Participant.find(params[:participant_id])      
     
@@ -105,12 +121,16 @@ class BatchesController < ApplicationController
     redirect_to @batch    
   end    
   def massaddparticipant
+    #admin and batcher only
+    return redirect_to static_pages_adminonlyerror_path if !current_user.is_admin && !current_user.is_batcher
     @batch = Batch.find(params[:id])
     Participant.update_all(["batch_id=?",@batch.id], :id=>params[:participant_ids])
     flash[:success] = "Participant "+@participant.to_s+" successfully added to "+@batch.to_s
     redirect_to @batch    
   end 
   def massremoveparticipant
+    #admin and batcher only
+    return redirect_to static_pages_adminonlyerror_path if !current_user.is_admin && !current_user.is_batcher
     if params[:commit]=="Remove Multiple Participants"
       @batch = Batch.find(params[:id])
       Participant.update_all(["batch_id=?",nil], :id=>params[:participant_ids])

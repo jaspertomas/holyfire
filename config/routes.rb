@@ -33,6 +33,9 @@ Holyfire::Application.routes.draw do
   get "static_pages/admin"
 
   get "static_pages/error"
+  get "static_pages/adminonlyerror"
+  get "static_pages/encoderonlyerror"
+  get "static_pages/batcheronlyerror"
 
   get "static_pages/initdb"
   

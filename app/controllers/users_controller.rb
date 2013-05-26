@@ -24,6 +24,8 @@ class UsersController < ApplicationController
   # GET /users/new
   # GET /users/new.json
   def new
+    #admin only
+    return redirect_to static_pages_adminonlyerror_path if !current_user.is_admin
     @user = User.new
 
     respond_to do |format|
@@ -34,12 +36,16 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+    #admin only
+    return redirect_to static_pages_adminonlyerror_path if !current_user.is_admin
     @user = User.find(params[:id])
   end
 
   # POST /users
   # POST /users.json
   def create
+    #admin only
+    return redirect_to static_pages_adminonlyerror_path if !current_user.is_admin
     params[:user][:is_admin]= params[:user].has_key?("is_admin") ? 1 : 0
     params[:user][:is_encoder]= params[:user].has_key?("is_encoder") ? 1 : 0
     params[:user][:is_batcher]= params[:user].has_key?("is_batcher") ? 1 : 0
@@ -69,6 +75,8 @@ class UsersController < ApplicationController
   # PUT /users/1
   # PUT /users/1.json
   def update
+    #admin only
+    return redirect_to static_pages_adminonlyerror_path if !current_user.is_admin
     params[:user][:is_admin]= params[:user].has_key?("is_admin") ? 1 : 0
     params[:user][:is_encoder]= params[:user].has_key?("is_encoder") ? 1 : 0
     params[:user][:is_batcher]= params[:user].has_key?("is_batcher") ? 1 : 0
@@ -90,6 +98,8 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
+    #admin only
+    return redirect_to static_pages_adminonlyerror_path if !current_user.is_admin
     @user = User.find(params[:id])
     @user.destroy
 

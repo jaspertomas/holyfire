@@ -2,6 +2,7 @@ class BlessingsController < ApplicationController
   # GET /blessings
   # GET /blessings.json
   def index
+    return redirect_to static_pages_adminonlyerror_path if !current_user.is_admin 
     @blessings = Blessing.all
     @currentblessingsetting=Setting.find_by_name("currentblessing")
 
@@ -25,6 +26,8 @@ class BlessingsController < ApplicationController
   # GET /blessings/new
   # GET /blessings/new.json
   def new
+    #admin only
+    return redirect_to static_pages_adminonlyerror_path if !current_user.is_admin
     @blessing = Blessing.new
 
     respond_to do |format|
@@ -35,12 +38,17 @@ class BlessingsController < ApplicationController
 
   # GET /blessings/1/edit
   def edit
+    #admin only
+    return redirect_to static_pages_adminonlyerror_path if !current_user.is_admin 
+    #return redirect_to controller:"static_pages", action:"error", title:"Access Denied", message:"Sorry, only administrators can access this"
     @blessing = Blessing.find(params[:id])
   end
 
   # POST /blessings
   # POST /blessings.json
   def create
+    #admin only
+    return redirect_to static_pages_adminonlyerror_path if !current_user.is_admin 
     @blessing = Blessing.new(params[:blessing])
 
     #parse date string to date
@@ -65,6 +73,8 @@ class BlessingsController < ApplicationController
   # PUT /blessings/1
   # PUT /blessings/1.json
   def update
+    #admin only
+    return redirect_to static_pages_adminonlyerror_path if !current_user.is_admin 
     @blessing = Blessing.find(params[:id])
 
     #parse date string to date
@@ -89,6 +99,8 @@ class BlessingsController < ApplicationController
   # DELETE /blessings/1
   # DELETE /blessings/1.json
   def destroy
+    #admin only
+    return redirect_to static_pages_adminonlyerror_path if !current_user.is_admin 
     @blessing = Blessing.find(params[:id])
     @blessing.destroy
 
@@ -99,6 +111,8 @@ class BlessingsController < ApplicationController
   end
 
   def set
+    #admin only
+    return redirect_to static_pages_adminonlyerror_path if !current_user.is_admin 
     # @params=params
     @blessing = Blessing.find(params[:id])
     @setting=Setting.find_by_name("currentblessing")
@@ -110,7 +124,8 @@ class BlessingsController < ApplicationController
     
   end    
   def addbatch
-    # @params=params
+    #admin and batcher only
+    return redirect_to static_pages_adminonlyerror_path if !current_user.is_admin && !current_user.is_batcher
     @blessing = Blessing.find(params[:id])
     maxbatchno=0
     
@@ -130,8 +145,10 @@ class BlessingsController < ApplicationController
     redirect_to  @blessing
     
   end 
-  def current
-    # @params=params
+  
+  #show current blessing - redirect from menu home link
+  def current 
+    #anybody can access
     @currentblessingsetting=Setting.find_by_name("currentblessing")
     
     if @currentblessingsetting==nil
@@ -145,11 +162,12 @@ class BlessingsController < ApplicationController
     redirect_to  @blessing
     
   end 
+  #not implemented yet
   def massdeleteparticipant
-    @batch = Batch.find(params[:id])
-    Participant.update_all(["batch_id=?",@batch.id], :id=>params[:participant_ids])
-    flash[:success] = "Participant "+@participant.to_s+" successfully added to "+@batch.to_s
-    redirect_to @batch    
+#    @batch = Batch.find(params[:id])
+#    Participant.update_all(["batch_id=?",@batch.id], :id=>params[:participant_ids])
+#    flash[:success] = "Participant "+@participant.to_s+" successfully added to "+@batch.to_s
+#    redirect_to @batch    
   end   
   
 end
