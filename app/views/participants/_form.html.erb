@@ -14,7 +14,7 @@
   <div class="field">
     <%= f.label :blessing_id %>: 
     <%= f.hidden_field :blessing_id %>
-    <%= @participant.blessing %>
+    <%= link_to @participant.blessing, @participant.blessing %>
   </div>
   <div class="field">
     <%= f.label :batch_id %>: 
@@ -74,5 +74,8 @@
 
   <div class="actions">
     <%= f.submit %>
+    <br><%= f.submit "Create participant and add another" %>
+    
+    
   </div>
 <% end %>

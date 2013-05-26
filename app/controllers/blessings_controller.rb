@@ -123,7 +123,7 @@ class BlessingsController < ApplicationController
     maxbatchno+=1
     
     Batch.create(no: maxbatchno, blessing_id: @blessing.id, gender:"M")
-    Batch.create(no: maxbatchno, blessing_id: @blessing.id, gender:"F")
+#    Batch.create(no: maxbatchno, blessing_id: @blessing.id, gender:"F")
     
     flash[:success] = "Successfully created batch "+maxbatchno.to_s+" for "+@blessing.to_s
 
@@ -145,4 +145,11 @@ class BlessingsController < ApplicationController
     redirect_to  @blessing
     
   end 
+  def massdeleteparticipant
+    @batch = Batch.find(params[:id])
+    Participant.update_all(["batch_id=?",@batch.id], :id=>params[:participant_ids])
+    flash[:success] = "Participant "+@participant.to_s+" successfully added to "+@batch.to_s
+    redirect_to @batch    
+  end   
+  
 end

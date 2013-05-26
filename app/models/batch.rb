@@ -8,6 +8,6 @@ class Batch < ActiveRecord::Base
   validates :blessing_id, presence: true
   
   def to_s
-    self.blessing.location+"-"+self.no.to_s+"-"+self.gender
+    self.blessing.location+"-"+self.no.to_s
   end
 end

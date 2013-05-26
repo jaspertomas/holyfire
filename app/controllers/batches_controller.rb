@@ -14,6 +14,7 @@ class BatchesController < ApplicationController
   # GET /batches/1.json
   def show
     @batch = Batch.find(params[:id])
+    @gender = params[:gender]
 
     respond_to do |format|
       format.html # show.html.erb
@@ -122,4 +123,12 @@ class BatchesController < ApplicationController
       redirect_to @batch    
     end
   end 
+
+
+  def error
+    @title=params[:title]
+    @message=params[:message]
+    @redirectto=params[:redirectto]
+  end  
 end
+

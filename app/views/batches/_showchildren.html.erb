@@ -7,7 +7,7 @@
 <table border=1>
 <%
 @batch.blessing.participants.reverse.each do |participant|
-  if participant.batch_id.nil?
+  if participant.batch_id.nil? && participant.sex==@gender
 %>  
   <tr VALIGN=TOP>
     <td align=center><%=check_box_tag "participant_ids[]", participant.id %></td>
@@ -37,7 +37,10 @@ end
 <%=form_tag batches_massremoveparticipant_path, :method => :post do%>
 <input type=hidden name=id id=id value=<%=@batch.id%> >
 <table border=1>
-<% @batch.participants.reverse.each do |participant| %>  
+<% 
+@batch.participants.reverse.each do |participant| 
+  if participant.sex==@gender
+%>  
   <tr VALIGN=TOP>
     <td align=center><%=check_box_tag "participant_ids[]", participant.id %></td>
     <td align=center><%=participant.to_s%></td>
@@ -46,7 +49,10 @@ end
     <td align=center><%= link_to 'Remove from Batch', batches_removeparticipant_path+"?id=" + @batch.id.to_s + "&participant_id=" + participant.id.to_s, method: :post %></td>
   </tr>
 
-<%end%>
+<%
+end
+end
+%>
 </table>  
 
 <%= submit_tag "Remove Multiple Participants" %>

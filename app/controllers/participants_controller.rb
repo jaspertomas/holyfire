@@ -45,8 +45,16 @@ class ParticipantsController < ApplicationController
 
     respond_to do |format|
       if @participant.save
-        format.html { redirect_to @participant.blessing, notice: 'Participant was successfully created.' }
-        format.json { render json: @participant, status: :created, location: @participant }
+        flash[:success] = "Participant "+@participant.name+" was successfully created."
+        if params[:commit]=="Create participant and add another"
+          format.html { redirect_to action:"new", controller:"participants", blessing_id: @participant.blessing_id, notice: 'Participant was successfully created.' }
+          format.json { render json: @participant, status: :created, location: @participant }
+        elsif
+          format.html { redirect_to @participant.blessing, notice: 'Participant was successfully created.' }
+          format.json { render json: @participant, status: :created, location: @participant }
+        end
+        
+        
       else
         format.html { render action: "new" }
         format.json { render json: @participant.errors, status: :unprocessable_entity }

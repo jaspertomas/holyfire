@@ -7,6 +7,7 @@ Holyfire::Application.routes.draw do
   post "/blessings/current"
   post "/blessings/set"
   post "/blessings/addbatch"
+  post "/blessings/massdeleteparticipant"
 
   resources :batches
     #, :collection => { :massaddparticipant => :put}
@@ -14,6 +15,7 @@ Holyfire::Application.routes.draw do
   post "/batches/removeparticipant"
   post "/batches/massaddparticipant"
   post "/batches/massremoveparticipant"
+  post "/batches/error"
 #  post "/batches/moveparticipant"
 
   resources :sessions, only: [:new, :create, :destroy]

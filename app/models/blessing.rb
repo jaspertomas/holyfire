@@ -4,8 +4,8 @@ class Blessing < ActiveRecord::Base
   has_many :batches
   has_many :participants
   validates :location, presence: true
-#  validate :validate_date
-  validates_date :date, :on_or_before => lambda { Date.current }
+  validate :validate_date
+#  validates_date :date, :on_or_before => lambda { Date.current }
 
   
   def to_s
@@ -28,25 +28,25 @@ class Blessing < ActiveRecord::Base
   end
   
   
-#  private
-#  
-#  def validate_datestring
-#      if self.datestring.nil?
-#        return false
-#      elsif self.datestring.empty? 
-#        return false
-#      else
-#        begin
-#          self.date=DateTime.strptime(self.datestring, "%m/%d/%Y")
-#        rescue ArgumentError
-#          false
-#        end
-#      end
-#  end
-#  
-#  def validate_date
-#    errors.add("Date", "is invalid.") unless validate_datestring
-#  end  
-#  
+  private
+  
+  def validate_datestring
+      if self.datestring.nil?
+        return false
+      elsif self.datestring.empty? 
+        return false
+      else
+        begin
+          self.date=DateTime.strptime(self.datestring, "%m/%d/%Y")
+        rescue ArgumentError
+          false
+        end
+      end
+  end
+  
+  def validate_date
+    errors.add("Date", "is invalid.") unless validate_datestring
+  end  
+  
   
 end
