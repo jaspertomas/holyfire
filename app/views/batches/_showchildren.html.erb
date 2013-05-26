@@ -3,6 +3,7 @@
 <hr>
 <b>Unbatched Participants:</b>
 <%=form_tag batches_massaddparticipant_path, :method => :post do%>
+<input type=hidden name=gender id=gender value=<%= @gender %>>
 <input type=hidden name=id id=id value=<%=@batch.id%> >
 <table border=1>
 <%
@@ -35,6 +36,8 @@ end
 <hr>
 <b>Batch Participants:</b>
 <%=form_tag batches_massremoveparticipant_path, :method => :post do%>
+<input type=hidden name=gender id=gender value=<%= @gender %>>
+
 <input type=hidden name=id id=id value=<%=@batch.id%> >
 <table border=1>
 <% 

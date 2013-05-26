@@ -106,7 +106,7 @@ class BatchesController < ApplicationController
       
     flash[:success] = "Participant "+@participant.to_s+" successfully added to "+@batch.to_s
 
-    redirect_to @batch    
+    redirect_to controller:"batches", action: "show", id: @batch.id, gender:params[:gender]
   end    
   def removeparticipant
     #admin and batcher only
@@ -118,7 +118,7 @@ class BatchesController < ApplicationController
       
     flash[:success] = "Participant "+@participant.to_s+" successfully removed from "+@batch.to_s
 
-    redirect_to @batch    
+    redirect_to controller:"batches", action: "show", id: @batch.id, gender:params[:gender]
   end    
   def massaddparticipant
     #admin and batcher only
@@ -126,7 +126,7 @@ class BatchesController < ApplicationController
     @batch = Batch.find(params[:id])
     Participant.update_all(["batch_id=?",@batch.id], :id=>params[:participant_ids])
     flash[:success] = "Participant "+@participant.to_s+" successfully added to "+@batch.to_s
-    redirect_to @batch    
+    redirect_to controller:"batches", action: "show", id: @batch.id, gender:params[:gender]
   end 
   def massremoveparticipant
     #admin and batcher only
@@ -135,12 +135,12 @@ class BatchesController < ApplicationController
       @batch = Batch.find(params[:id])
       Participant.update_all(["batch_id=?",nil], :id=>params[:participant_ids])
       flash[:success] = "Participant "+@participant.to_s+" successfully removed from "+@batch.to_s
-      redirect_to @batch    
+      redirect_to controller:"batches", action: "show", id: @batch.id, gender:params[:gender]
     elsif params[:commit]=="Move Multiple Participants to"
       @batch = Batch.find(params[:id])
       Participant.update_all(["batch_id=?",params[:movetobatch_id]], :id=>params[:participant_ids])
       flash[:success] = "Participant "+@participant.to_s+" successfully removed from "+@batch.to_s
-      redirect_to @batch    
+      redirect_to controller:"batches", action: "show", id: @batch.id, gender:params[:gender]
     end
   end 
 
