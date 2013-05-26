@@ -28,7 +28,7 @@ class BatchesController < ApplicationController
   # GET /batches/new.json
   def new
     #admin and batcher only
-    return redirect_to static_pages_adminonlyerror_path if !current_user.is_admin && !current_user.is_batcher
+    return redirect_to static_pages_batcheronlyerror_path if !current_user.is_admin && !current_user.is_batcher
     @batch = Batch.new
     @batch.blessing_id=params[:blessing_id]
 
@@ -41,7 +41,7 @@ class BatchesController < ApplicationController
   # GET /batches/1/edit
   def edit
     #admin and batcher only
-    return redirect_to static_pages_adminonlyerror_path if !current_user.is_admin && !current_user.is_batcher
+    return redirect_to static_pages_batcheronlyerror_path if !current_user.is_admin && !current_user.is_batcher
     @batch = Batch.find(params[:id])
   end
 
@@ -49,7 +49,7 @@ class BatchesController < ApplicationController
   # POST /batches.json
   def create
     #admin and batcher only
-    return redirect_to static_pages_adminonlyerror_path if !current_user.is_admin && !current_user.is_batcher
+    return redirect_to static_pages_batcheronlyerror_path if !current_user.is_admin && !current_user.is_batcher
     @batch = Batch.new(params[:batch])
 
     respond_to do |format|
@@ -67,7 +67,7 @@ class BatchesController < ApplicationController
   # PUT /batches/1.json
   def update
     #admin and batcher only
-    return redirect_to static_pages_adminonlyerror_path if !current_user.is_admin && !current_user.is_batcher
+    return redirect_to static_pages_batcheronlyerror_path if !current_user.is_admin && !current_user.is_batcher
     @batch = Batch.find(params[:id])
 
     respond_to do |format|
@@ -85,7 +85,7 @@ class BatchesController < ApplicationController
   # DELETE /batches/1.json
   def destroy
     #admin and batcher only
-    return redirect_to static_pages_adminonlyerror_path if !current_user.is_admin && !current_user.is_batcher
+    return redirect_to static_pages_batcheronlyerror_path if !current_user.is_admin && !current_user.is_batcher
     @batch = Batch.find(params[:id])
     @batch.destroy
 
@@ -98,7 +98,7 @@ class BatchesController < ApplicationController
 
   def addparticipant
     #admin and batcher only
-    return redirect_to static_pages_adminonlyerror_path if !current_user.is_admin && !current_user.is_batcher
+    return redirect_to static_pages_batcheronlyerror_path if !current_user.is_admin && !current_user.is_batcher
     @batch = Batch.find(params[:id])
     @participant=Participant.find(params[:participant_id])      
     
@@ -110,7 +110,7 @@ class BatchesController < ApplicationController
   end    
   def removeparticipant
     #admin and batcher only
-    return redirect_to static_pages_adminonlyerror_path if !current_user.is_admin && !current_user.is_batcher
+    return redirect_to static_pages_batcheronlyerror_path if !current_user.is_admin && !current_user.is_batcher
     @batch = Batch.find(params[:id])
     @participant=Participant.find(params[:participant_id])      
     
@@ -122,7 +122,7 @@ class BatchesController < ApplicationController
   end    
   def massaddparticipant
     #admin and batcher only
-    return redirect_to static_pages_adminonlyerror_path if !current_user.is_admin && !current_user.is_batcher
+    return redirect_to static_pages_batcheronlyerror_path if !current_user.is_admin && !current_user.is_batcher
     @batch = Batch.find(params[:id])
     Participant.update_all(["batch_id=?",@batch.id], :id=>params[:participant_ids])
     flash[:success] = "Participant "+@participant.to_s+" successfully added to "+@batch.to_s
@@ -130,7 +130,7 @@ class BatchesController < ApplicationController
   end 
   def massremoveparticipant
     #admin and batcher only
-    return redirect_to static_pages_adminonlyerror_path if !current_user.is_admin && !current_user.is_batcher
+    return redirect_to static_pages_batcheronlyerror_path if !current_user.is_admin && !current_user.is_batcher
     if params[:commit]=="Remove Multiple Participants"
       @batch = Batch.find(params[:id])
       Participant.update_all(["batch_id=?",nil], :id=>params[:participant_ids])

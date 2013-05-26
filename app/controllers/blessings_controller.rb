@@ -125,7 +125,7 @@ class BlessingsController < ApplicationController
   end    
   def addbatch
     #admin and batcher only
-    return redirect_to static_pages_adminonlyerror_path if !current_user.is_admin && !current_user.is_batcher
+    return redirect_to static_pages_batcheronlyerror_path if !current_user.is_admin && !current_user.is_batcher
     @blessing = Blessing.find(params[:id])
     maxbatchno=0
     
