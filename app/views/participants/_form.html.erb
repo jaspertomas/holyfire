@@ -35,7 +35,11 @@
 	</tr>
 	<tr>
 		<td><%= f.label :sex %></td>
-		<td colspan=7><%= f.text_field :sex %></td>
+		<td colspan=7>
+		<%=select_tag "sex", '<option value=M>M</option>\n<option value=F>F</option>\n'.html_safe,  id:"participant_sex".html_safe, name:"participant[sex]" %>
+		</td>
+
+
 	</tr>
 	<tr>
 		<td><%= f.label :name %></td>

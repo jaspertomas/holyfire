@@ -1,5 +1,6 @@
 Holyfire::Application.routes.draw do
   resources :participants
+  post "/participants/finalize"
 
   resources :settings
 
@@ -39,7 +40,7 @@ Holyfire::Application.routes.draw do
 
   get "static_pages/initdb"
   
-  root :to => 'static_pages#index'  
+  root :to => 'blessings#current'  
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
