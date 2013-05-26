@@ -14,6 +14,7 @@ Holyfire::Application.routes.draw do
   post "/batches/removeparticipant"
   post "/batches/massaddparticipant"
   post "/batches/massremoveparticipant"
+#  post "/batches/moveparticipant"
 
   resources :sessions, only: [:new, :create, :destroy]
   match '/signup', to: 'users#new'

@@ -110,9 +110,16 @@ class BatchesController < ApplicationController
     redirect_to @batch    
   end 
   def massremoveparticipant
-    @batch = Batch.find(params[:id])
-    Participant.update_all(["batch_id=?",nil], :id=>params[:participant_ids])
-    flash[:success] = "Participant "+@participant.to_s+" successfully removed from "+@batch.to_s
-    redirect_to @batch    
+    if params[:commit]=="Remove Multiple Participants"
+      @batch = Batch.find(params[:id])
+      Participant.update_all(["batch_id=?",nil], :id=>params[:participant_ids])
+      flash[:success] = "Participant "+@participant.to_s+" successfully removed from "+@batch.to_s
+      redirect_to @batch    
+    elsif params[:commit]=="Move Multiple Participants to"
+      @batch = Batch.find(params[:id])
+      Participant.update_all(["batch_id=?",params[:movetobatch_id]], :id=>params[:participant_ids])
+      flash[:success] = "Participant "+@participant.to_s+" successfully removed from "+@batch.to_s
+      redirect_to @batch    
+    end
   end 
 end

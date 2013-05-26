@@ -50,4 +50,12 @@ end
 </table>  
 
 <%= submit_tag "Remove Multiple Participants" %>
+<br><%= submit_tag "Move Multiple Participants to" %>
+<%
+batches=""
+@batch.blessing.batches.each do |batch|
+	batches+="<option value="+batch.id.to_s+">Batch "+batch.no.to_s+"</option>\n"
+end
+%>
+<%=select_tag "movetobatch_id", batches.html_safe %>
 <%end%>
