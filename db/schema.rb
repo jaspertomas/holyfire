@@ -44,8 +44,9 @@ ActiveRecord::Schema.define(:version => 20130525102650) do
     t.string   "donation"
     t.integer  "batch_id"
     t.integer  "blessing_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.boolean  "is_finalized"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "settings", :force => true do |t|
@@ -61,6 +62,8 @@ ActiveRecord::Schema.define(:version => 20130525102650) do
     t.string   "email"
     t.string   "password_digest"
     t.boolean  "is_admin"
+    t.boolean  "is_encoder"
+    t.boolean  "is_batcher"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
     t.string   "remember_token"

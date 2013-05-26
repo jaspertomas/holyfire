@@ -14,6 +14,8 @@ class CreateParticipants < ActiveRecord::Migration
       t.string :donation
       t.integer :batch_id
       t.integer :blessing_id
+      t.boolean :is_finalized
+
 
       t.timestamps
     end

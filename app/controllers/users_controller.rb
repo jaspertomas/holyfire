@@ -40,6 +40,17 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
+    params[:user][:is_admin]= params[:user].has_key?("is_admin") ? 1 : 0
+    params[:user][:is_encoder]= params[:user].has_key?("is_encoder") ? 1 : 0
+    params[:user][:is_batcher]= params[:user].has_key?("is_batcher") ? 1 : 0
+    
+    #if first user, enforce is admin 
+    if User.all.empty?
+      params[:user][:is_admin]=1
+      params[:user][:is_encoder]=1
+      params[:user][:is_batcher]=1
+    end
+
     @user = User.new(params[:user])
 
     respond_to do |format|
@@ -58,8 +69,13 @@ class UsersController < ApplicationController
   # PUT /users/1
   # PUT /users/1.json
   def update
+    params[:user][:is_admin]= params[:user].has_key?("is_admin") ? 1 : 0
+    params[:user][:is_encoder]= params[:user].has_key?("is_encoder") ? 1 : 0
+    params[:user][:is_batcher]= params[:user].has_key?("is_batcher") ? 1 : 0
+    
+    
     @user = User.find(params[:id])
-
+    
     respond_to do |format|
       if @user.update_attributes(params[:user])
         format.html { redirect_to @user, notice: 'User was successfully updated.' }

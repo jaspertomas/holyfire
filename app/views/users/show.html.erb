@@ -9,6 +9,14 @@
   <b>Is admin:</b>
   <%= @user.is_admin %>
 </p>
+<p>
+  <b>Is encoder:</b>
+  <%= @user.is_encoder %>
+</p>
+<p>
+  <b>Is batcher:</b>
+  <%= @user.is_batcher %>
+</p>
 
 <br><hr>
 <%= link_to 'Edit', edit_user_path(@user) %> |

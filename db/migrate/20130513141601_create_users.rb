@@ -5,6 +5,8 @@ class CreateUsers < ActiveRecord::Migration
       t.string :email
       t.string :password_digest
       t.boolean :is_admin
+      t.boolean :is_encoder
+      t.boolean :is_batcher
 
       t.timestamps
     end

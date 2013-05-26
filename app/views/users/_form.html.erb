@@ -17,7 +17,14 @@
       <%= f.password_field :password_confirmation %>
  <br>
     <%= f.label :is_admin %>
-    <%= f.check_box :is_admin %>
+    <input <%if @user.is_admin%>checked="checked"<%end%> id="user_is_admin" name="user[is_admin]" type="checkbox" />
+ <br>
+    <%= f.label :is_encoder %>
+    <input <%if @user.is_encoder%>checked="checked"<%end%> id="user_is_encoder" name="user[is_encoder]" type="checkbox" />
+ <br>
+    <%= f.label :is_batcher %>
+    <input <%if @user.is_batcher%>checked="checked"<%end%> id="user_is_batcher" name="user[is_batcher]" type="checkbox" />
+    
  <br>
 
 
