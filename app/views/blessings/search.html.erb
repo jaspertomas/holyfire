@@ -11,8 +11,7 @@
     <th>Show</th>
     <th>Edit</th>
     <th>Delete</th>
-    <th>Batch</th>
-    <th>Blessing</th>
+    <th>Blessing/Batch</th>
     <th>Occupation</th>
     <th>Introducer</th>
     <th>Guarantor</th>
@@ -31,8 +30,12 @@
     <td><%= link_to 'Show', participant %></td>
     <td><%= link_to 'Edit', edit_participant_path(participant) %></td>
     <td><%= link_to 'Delete', participant, confirm: 'Are you sure?', method: :delete %></td>
-    <td><%= link_to participant.batch, participant.batch %></td>
-    <td><%= link_to participant.blessing, participant.blessing %></td>
+    <td>
+    <%if participant.batch %>
+    	<%= link_to participant.batch, batch_path(participant.batch, gender:participant.sex) %>
+	<%else%>
+		<%= link_to participant.blessing, participant.blessing %></td>
+	<%end%>
     <td><%= participant.occupation %></td>
     <td><%= participant.introducer %></td>
     <td><%= participant.guarantor %></td>
