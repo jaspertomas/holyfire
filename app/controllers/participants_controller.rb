@@ -77,7 +77,13 @@ class ParticipantsController < ApplicationController
 
     respond_to do |format|
       if @participant.update_attributes(params[:participant])
-        format.html { redirect_to @participant.blessing, notice: 'Participant was successfully updated.' }
+        format.html do
+          if @participant.batch_id!=nil 
+            redirect_to controller:"batches", action: "show", id: @participant.batch.id, gender:@participant.sex
+          else
+            redirect_to @participant.blessing, notice: 'Participant was successfully updated.' 
+          end
+        end
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -111,5 +117,6 @@ class ParticipantsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
 
 end

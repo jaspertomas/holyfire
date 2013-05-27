@@ -78,8 +78,12 @@
 
   <div class="actions">
     <%= f.submit %>
-    <br><%= f.submit "Create participant and add another" %>
-    
+    <% 
+    #only if action = new
+    if params[:action]=="new" 
+    %>
+    	<br><%= f.submit "Create participant and add another" %>
+    <%end%>
     
   </div>
 <% end %>

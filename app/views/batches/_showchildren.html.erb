@@ -35,7 +35,7 @@ end
 <br>
 <hr>
 <b>Batch Participants:</b>
-<%=form_tag batches_massremoveparticipant_path, :method => :post do%>
+<%=form_tag batches_massprocessparticipant_path, :method => :post do%>
 <input type=hidden name=gender id=gender value=<%= @gender %>>
 
 <input type=hidden name=id id=id value=<%=@batch.id%> >
@@ -45,11 +45,12 @@ end
   if participant.sex==@gender
 %>  
   <tr VALIGN=TOP>
-    <td align=center><%=check_box_tag "participant_ids[]", participant.id %></td>
+    <td align=center><%if !participant.is_finalized %><%=check_box_tag "participant_ids[]", participant.id %><%else%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%end%></td>
     <td align=center><%=participant.to_s%></td>
     <td align=center><%= link_to 'Edit', edit_participant_path(participant) %></td>
-    <td align=center><%= link_to 'Delete', participant, confirm: 'Are you sure?', method: :delete %></td>
-    <td align=center><%= link_to 'Remove from Batch', batches_removeparticipant_path+"?id=" + @batch.id.to_s + "&participant_id=" + participant.id.to_s, method: :post %></td>
+    <td align=center><%if !participant.is_finalized %><%= link_to 'Delete', participant, confirm: 'Are you sure?', method: :delete %><%end%></td>
+    <td align=center><%if !participant.is_finalized %><%= link_to 'Remove from Batch', batches_removeparticipant_path+"?id=" + @batch.id.to_s + "&participant_id=" + participant.id.to_s, method: :post %><%end%></td>
+    <td align=center><%if !participant.is_finalized %><%= link_to 'Finalize', batches_finalizeparticipant_path+"?id=" + @batch.id.to_s + "&participant_id=" + participant.id.to_s, method: :post %><%end%></td>
   </tr>
 
 <%
@@ -57,6 +58,7 @@ end
 end
 %>
 </table>  
+
 
 <%= submit_tag "Remove Multiple Participants" %>
 <br><%= submit_tag "Move Multiple Participants to" %>
@@ -67,4 +69,5 @@ batches=""
 end
 %>
 <%=select_tag "movetobatch_id", batches.html_safe %>
+<br><%= submit_tag "Finalize Multiple Participants" %>
 <%end%>

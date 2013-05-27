@@ -124,24 +124,50 @@ class BatchesController < ApplicationController
     #admin and batcher only
     return redirect_to static_pages_batcheronlyerror_path if !current_user.is_admin && !current_user.is_batcher
     @batch = Batch.find(params[:id])
+    
+    if params[:participant_ids].nil?
+      flash[:error] = "0 participants selected"
+      redirect_to controller:"batches", action: "show", id: @batch.id, gender:params[:gender]
+      return 
+    end
+    
     Participant.update_all(["batch_id=?",@batch.id], :id=>params[:participant_ids])
-    flash[:success] = "Participant "+@participant.to_s+" successfully added to "+@batch.to_s
+    flash[:success] = params[:participant_ids].count.to_s+" participant"+(params[:participant_ids].count>1 ? "s" : "" )+" successfully added to "+@batch.to_s
     redirect_to controller:"batches", action: "show", id: @batch.id, gender:params[:gender]
   end 
-  def massremoveparticipant
+  def massprocessparticipant
     #admin and batcher only
     return redirect_to static_pages_batcheronlyerror_path if !current_user.is_admin && !current_user.is_batcher
+    @batch = Batch.find(params[:id])
+
+    if params[:participant_ids].nil?
+      flash[:error] = "0 participants selected"
+      redirect_to controller:"batches", action: "show", id: @batch.id, gender:params[:gender]
+      return 
+    end
+    
     if params[:commit]=="Remove Multiple Participants"
-      @batch = Batch.find(params[:id])
       Participant.update_all(["batch_id=?",nil], :id=>params[:participant_ids])
-      flash[:success] = "Participant "+@participant.to_s+" successfully removed from "+@batch.to_s
+      flash[:success] = " participant "+@participant.to_s+" successfully removed from "+@batch.to_s
       redirect_to controller:"batches", action: "show", id: @batch.id, gender:params[:gender]
     elsif params[:commit]=="Move Multiple Participants to"
-      @batch = Batch.find(params[:id])
       Participant.update_all(["batch_id=?",params[:movetobatch_id]], :id=>params[:participant_ids])
       flash[:success] = "Participant "+@participant.to_s+" successfully removed from "+@batch.to_s
       redirect_to controller:"batches", action: "show", id: @batch.id, gender:params[:gender]
+    elsif params[:commit]=="Finalize Multiple Participants"
+      Participant.update_all(["is_finalized=?",true], :id=>params[:participant_ids])
+      flash[:success] = "Participant "+@participant.to_s+" successfully finalized to "+@batch.to_s
+      redirect_to controller:"batches", action: "show", id: @batch.id, gender:params[:gender]
     end
+  end 
+  def finalizeparticipant
+    #admin and batcher only
+    return redirect_to static_pages_batcheronlyerror_path if !current_user.is_admin && !current_user.is_batcher
+    @batch = Batch.find(params[:id])
+    @participant=Participant.find(params[:participant_id])      
+    @participant.update_attributes(is_finalized: true)  
+    flash[:success] = "Participant "+@participant.to_s+" successfully finalized to "+@batch.to_s
+    redirect_to controller:"batches", action: "show", id: @batch.id, gender:@participant.sex
   end 
 
 

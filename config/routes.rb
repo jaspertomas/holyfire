@@ -15,7 +15,9 @@ Holyfire::Application.routes.draw do
   post "/batches/addparticipant"
   post "/batches/removeparticipant"
   post "/batches/massaddparticipant"
-  post "/batches/massremoveparticipant"
+  post "/batches/massprocessparticipant"
+#  post "/batches/massfinalizeparticipant"
+  post "/batches/finalizeparticipant"
   post "/batches/error"
 #  post "/batches/moveparticipant"
 
