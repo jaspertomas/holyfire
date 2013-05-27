@@ -5,6 +5,8 @@
     <th>Name</th>
     <!--th>Email</th-->
     <th>Is admin</th>
+    <th>Is encoder</th>
+    <th>Is batcher</th>
     <th></th>
     <th></th>
     <th></th>
@@ -15,6 +17,8 @@
     <td><%= user.name %></td>
     <!--td><%#= user.email %></td-->
     <td><%= user.is_admin %></td>
+    <td><%= user.is_encoder %></td>
+    <td><%= user.is_batcher %></td>
     <td><%= link_to 'Show', user %></td>
     <td><%= link_to 'Edit', edit_user_path(user) %></td>
     <td><%= link_to 'Destroy', user, confirm: 'Are you sure?', method: :delete %></td>

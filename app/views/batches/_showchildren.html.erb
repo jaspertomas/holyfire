@@ -50,9 +50,9 @@ end
     <td align=center><%=participant.to_s%></td>
     <td align=center><%= link_to 'View', participant_path(participant) %></td>
     <td align=center><%= link_to 'Edit', edit_participant_path(participant) %></td>
-    <td align=center><%if !participant.is_finalized %><%= link_to 'Delete', participant, confirm: 'Are you sure?', method: :delete %><%end%></td>
+    <td align=center><%if !participant.is_finalized %><%= link_to 'Delete', participant, confirm: 'Delete: Are you sure?', method: :delete %><%end%></td>
     <td align=center><%if !participant.is_finalized %><%= link_to 'Remove from Batch', batches_removeparticipant_path+"?id=" + @batch.id.to_s + "&participant_id=" + participant.id.to_s, method: :post %><%end%></td>
-    <td align=center><%if !participant.is_finalized %><%= link_to 'Finalize', batches_finalizeparticipant_path+"?id=" + @batch.id.to_s + "&participant_id=" + participant.id.to_s, method: :post %><%end%></td>
+    <td align=center><%if !participant.is_finalized %><%= link_to 'Finalize', batches_finalizeparticipant_path+"?id=" + @batch.id.to_s + "&participant_id=" + participant.id.to_s, confirm: 'Finalize: Are you sure?', method: :post %><%end%></td>
   </tr>
 
 <%
@@ -71,5 +71,5 @@ batches=""
 end
 %>
 <%=select_tag "movetobatch_id", batches.html_safe %>
-<br><%= submit_tag "Finalize Multiple Participants" %>
+<br><%= submit_tag "Finalize Multiple Participants", confirm: 'Finalize: Are you sure?' %>
 <%end%>

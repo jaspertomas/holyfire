@@ -19,7 +19,9 @@ class ApplicationController < ActionController::Base
     end
     
     #if user table is empty, force create admin user account
-    if User.all.empty? 
+    if params[:action].include? 'error'
+      #allow
+    elsif User.all.empty? 
       #if users/new or users/create, let it pass
       if !(params[:controller]=="users" && (params[:action]=="new" || params[:action]=="create")) 
         return redirect_to new_user_url
