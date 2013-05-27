@@ -171,7 +171,9 @@ class BlessingsController < ApplicationController
   end   
   def search
     
-    @participants=Participant.find(:all, :conditions => ['name LIKE ?', "%#{params[:search]}%"])
+#    @participants=Participant.find(:all, :conditions => ['name LIKE ?', "%#{params[:search]}%"])
+    @participants=Participant.find_all_by_lowercasing_name(params[:search])
+
     flash[:success] = @participants.count.to_s+" results found"
  
   end   

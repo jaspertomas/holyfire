@@ -36,4 +36,11 @@ class Participant < ActiveRecord::Base
   def to_s
     name + "(" + sex + ")"
   end
+  
+  def self.find_all_by_lowercasing_name(str)
+    wrapped = "'%"+ "#{str.downcase}" + "%'"
+    return Participant.where("lower(\"participants\".\"name\") LIKE (#{wrapped})")
+#      wrapped = str_array.collect { |a| "'%"+ "#{a.downcase}" + "%'" }
+#      return Participant.where("lower(\"participants\".\"name\") LIKE (#{wrapped.join(', ')})")
+  end  
 end
