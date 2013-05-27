@@ -38,3 +38,4 @@ gem 'jquery-ui-rails'
 gem 'validates_timeliness', '~> 3.0'
 
 gem 'thin'
+gem 'clerk'

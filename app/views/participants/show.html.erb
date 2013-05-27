@@ -1,5 +1,10 @@
 <p id="notice"><%= notice %></p>
-
+<p>
+Created by <%= @participant.created_by.name %> at <%= l(@participant.created_at, :format => :long) %>
+</p>
+<p>
+Updated by <%= @participant.updated_by.name %> at <%= l(@participant.updated_at, :format => :long) %>
+</p>
 <p>
   <b>Sex:</b>
   <%= @participant.sex %>

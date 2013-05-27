@@ -22,9 +22,12 @@
 #
 
 class Participant < ActiveRecord::Base
-  attr_accessible :address, :age, :batch_id, :blessing_id, :donation, :guarantor, :introducer, :missionary, :name, :occupation, :remark, :sex, :tel, :is_finalized
+  track_who_does_it
+  attr_accessible :address, :age, :batch_id, :blessing_id, :donation, :guarantor, :introducer, :missionary, :name, :occupation, :remark, :sex, :tel, :is_finalized, :created_by_id, :updated_by_id
   belongs_to :blessing
   belongs_to :batch
+  belongs_to :created_by, :class_name => "User", :foreign_key => 'created_by_id'
+  belongs_to :updated_by, :class_name => "User", :foreign_key => 'updated_by_id'
   validates :name, presence: true
   validates :age, presence: true
   validates :sex, presence: true

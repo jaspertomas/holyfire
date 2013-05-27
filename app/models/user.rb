@@ -14,11 +14,11 @@
 #  remember_token  :string(255)
 #
 
-class User < ActiveRecord::Base
-end
+
 
 class User < ActiveRecord::Base
-
+  include SentientUser
+  track_who_does_it
  attr_accessible :email, :is_admin, :is_encoder, :is_batcher, :name, :password, :password_confirmation
  has_secure_password
  #before_validation { |user| user.email = email.downcase }

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130525102650) do
+ActiveRecord::Schema.define(:version => 20130527065850) do
 
   create_table "batches", :force => true do |t|
     t.integer  "no"
@@ -45,8 +45,10 @@ ActiveRecord::Schema.define(:version => 20130525102650) do
     t.integer  "batch_id"
     t.integer  "blessing_id"
     t.boolean  "is_finalized"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.integer  "created_by_id"
+    t.integer  "updated_by_id"
   end
 
   create_table "settings", :force => true do |t|

@@ -169,5 +169,10 @@ class BlessingsController < ApplicationController
 #    flash[:success] = "Participant "+@participant.to_s+" successfully added to "+@batch.to_s
 #    redirect_to @batch    
   end   
-  
+  def search
+    
+    @participants=Participant.find(:all, :conditions => ['name LIKE ?', "%#{params[:search]}%"])
+    flash[:success] = @participants.count.to_s+" results found"
+ 
+  end   
 end

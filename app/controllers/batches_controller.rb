@@ -106,7 +106,7 @@ class BatchesController < ApplicationController
       
     flash[:success] = "Participant "+@participant.to_s+" successfully added to "+@batch.to_s
 
-    redirect_to controller:"batches", action: "show", id: @batch.id, gender:params[:gender]
+    redirect_to controller:"batches", action: "show", id: @batch.id, gender:@participant.sex
   end    
   def removeparticipant
     #admin and batcher only
@@ -118,7 +118,7 @@ class BatchesController < ApplicationController
       
     flash[:success] = "Participant "+@participant.to_s+" successfully removed from "+@batch.to_s
 
-    redirect_to controller:"batches", action: "show", id: @batch.id, gender:params[:gender]
+    redirect_to controller:"batches", action: "show", id: @batch.id, gender:@participant.sex
   end    
   def massaddparticipant
     #admin and batcher only
