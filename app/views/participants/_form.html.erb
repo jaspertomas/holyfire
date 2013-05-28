@@ -36,10 +36,8 @@
 	<tr>
 		<td><%= f.label :sex %></td>
 		<td colspan=7>
-		<%=select_tag "sex", '<option value=M>M</option>\n<option value=F>F</option>\n'.html_safe,  id:"participant_sex".html_safe, name:"participant[sex]" %>
+		<%=select_tag "sex", ('<option value=M '+(@participant.sex=="M" ? 'selected=selected' : "")+' >M</option>\n<option value=F '+(@participant.sex=="F" ? 'selected=selected' : "")+' >F</option>\n').html_safe, id:"participant_sex".html_safe, name:"participant[sex]" %>
 		</td>
-
-
 	</tr>
 	<tr>
 		<td><%= f.label :name %></td>
