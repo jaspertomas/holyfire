@@ -35,7 +35,10 @@ class StaticPagesController < ApplicationController
   
   def search
     @params=params
-    @participants = Participant.find_all_by_lowercasing_name(params[:search]).page(params[:page]).per(30)
+    
+    str_array=params[:search].split(" ")
+    
+    @participants = Participant.find_all_by_lowercasing_name(str_array).page(params[:page]).per(30)
       
     flash[:success] = @participants.count.to_s+" results found"
  
