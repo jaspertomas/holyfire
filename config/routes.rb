@@ -9,7 +9,7 @@ Holyfire::Application.routes.draw do
   post "/blessings/set"
   post "/blessings/addbatch"
   post "/blessings/massdeleteparticipant"
-  post "/blessings/search"
+
 
   resources :batches
     #, :collection => { :massaddparticipant => :put}
@@ -40,6 +40,8 @@ Holyfire::Application.routes.draw do
   get "static_pages/adminonlyerror"
   get "static_pages/encoderonlyerror"
   get "static_pages/batcheronlyerror"
+
+  get "static_pages/search"
 
   get "static_pages/initdb"
   
