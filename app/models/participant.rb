@@ -43,4 +43,11 @@ class Participant < ActiveRecord::Base
 #      wrapped = str_array.collect { |a| "'%"+ "#{a.downcase}" + "%'" }
 #      return Participant.where("lower(\"participants\".\"name\") LIKE (#{wrapped.join(', ')})")
   end  
+#  
+#  scope :all_participants
+#
+#  def self.admin_participants(page = 1)
+#    self.all_participants
+#  end  
+  
 end

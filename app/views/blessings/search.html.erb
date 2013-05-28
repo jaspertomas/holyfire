@@ -2,7 +2,9 @@
 <hr>
 
 <h1>Listing participants</h1>
-
+<hr>
+<%= paginate @participants, :params => { method: :post } %>
+<hr>
 <table>
   <tr>
     <th>Sex</th>
@@ -47,5 +49,6 @@
   </tr>
 <% end %>
 </table>
-
+<hr>
+<%= paginate @participants %>
 <br />
