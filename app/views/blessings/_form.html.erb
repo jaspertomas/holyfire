@@ -17,8 +17,7 @@
   </div>
   <div class="field">
     <%= f.label :date %><br />
-	<%= f.text_field :datestring, :class => 'datepicker' %>	
-
+	<%= f.text_field :date, :class => 'datepicker'  %>	
   </div>
   <div class="field">
     <%= f.label :contactinfo %><br />
@@ -36,7 +35,7 @@
 
 <script>
 $(function() {
-  $('.datepicker').datepicker();
+  $('.datepicker').datepicker({ dateFormat: 'yy-mm-dd' });
 });
 </script>
 

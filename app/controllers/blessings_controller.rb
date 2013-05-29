@@ -52,11 +52,11 @@ class BlessingsController < ApplicationController
     @blessing = Blessing.new(params[:blessing])
 
     #parse date string to date
-    begin
-      params[:blessing][:date] = DateTime.strptime(params[:blessing][:datestring], "%m/%d/%Y")
-    rescue ArgumentError
-      params[:blessing][:date]=nil
-    end    
+#    begin
+#      params[:blessing][:date] = DateTime.strptime(params[:blessing][:datestring], "%m/%d/%Y")
+#    rescue ArgumentError
+#      params[:blessing][:date]=nil
+#    end    
 
     respond_to do |format|
       if @blessing.save
@@ -78,11 +78,11 @@ class BlessingsController < ApplicationController
     @blessing = Blessing.find(params[:id])
 
     #parse date string to date
-    begin
-      params[:blessing][:date] = DateTime.strptime(params[:blessing][:datestring], "%m/%d/%Y")
-    rescue ArgumentError
-      params[:blessing][:date]=nil
-    end    
+#    begin
+#      params[:blessing][:date] = DateTime.strptime(params[:blessing][:datestring], "%m/%d/%Y")
+#    rescue ArgumentError
+#      params[:blessing][:date]=nil
+#    end    
     
     
     respond_to do |format|
