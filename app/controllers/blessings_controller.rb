@@ -17,6 +17,31 @@ class BlessingsController < ApplicationController
   def show
     @blessing = Blessing.find(params[:id])
 
+    @sort = params[:sort]
+    @sort="id" if @sort==nil
+    @order = params[:order]
+    @order="normal" if @order==nil
+    #cookies.permanent[:gender] = @gender
+
+      
+    @participants=@blessing.participants
+    if @sort=='id'
+    elsif @sort=='name'
+      @participants.sort! { |a,b| a.name <=> b.name }
+    elsif @sort=='sex'
+      @participants.sort! { |a,b| a.sex <=> b.sex }
+    elsif @sort=='age'
+      @participants.sort! { |a,b| a.age <=> b.age }
+    elsif @sort=='donation'
+      @participants.sort! { |a,b| a.donation <=> b.donation }
+#    elsif @sort=='batch'
+#      @participants.sort! { |a,b| a.batch_id <=> b.batch_id }
+    end
+    
+    if @order=='reverse'
+      @participants=@participants.reverse
+    end    
+      
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @blessing }
