@@ -26,7 +26,8 @@ class BatchesController < ApplicationController
 
       
     @participants=@batch.blessing.participants
-    if @sort=='id'
+    if @sort=='no'
+      @participants.sort! { |a,b| a.no <=> b.no }
     elsif @sort=='name'
       @participants.sort! { |a,b| a.name <=> b.name }
     elsif @sort=='sex'
