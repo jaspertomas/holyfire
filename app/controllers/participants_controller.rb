@@ -27,7 +27,11 @@ class ParticipantsController < ApplicationController
     #admin and encoder only
     return redirect_to static_pages_encoderonlyerror_path if !current_user.is_admin && !current_user.is_encoder
     @participant = Participant.new
+    @nextno=Participant.maximum("no",conditions:['blessing_id = ? ', params[:blessing_id]])#.where('blessing.id = ?', params[:blessing_id])
+    @nextno=0 if @nextno==nil
+    @nextno+=1
     @participant.blessing_id=params[:blessing_id]
+    @participant.no=@nextno
 
     respond_to do |format|
       format.html # new.html.erb

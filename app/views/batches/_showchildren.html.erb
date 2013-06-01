@@ -1,18 +1,32 @@
 <br>
 <br>
 <hr>
+
 <b>Unbatched Participants:</b>
 <%=form_tag batches_massaddparticipant_path, :method => :post do%>
 <input type=hidden name=gender id=gender value=<%= @gender %>>
 <input type=hidden name=id id=id value=<%=@batch.id%> >
-<table border=1>
-<%
-@batch.blessing.participants.reverse.each do |participant|
-  if participant.batch_id.nil? && participant.sex==@gender
+
+<table border=1 id="unbatchedparticipantstable">
+  <tr VALIGN=TOP>
+    <th align=center><%=check_box_tag "unbatched_participants_check_all"%></th>
+    <th align=center><%=link_to 'No', batch_path(@batch) + '?gender='+@gender+'&sort=no'+(@order=='normal'&&@sort=='no' ? '&order=reverse' : "")%></td>
+    <th align=center><%=link_to 'Name', batch_path(@batch) + '?gender='+@gender+'&sort=name'+(@order=='normal'&&@sort=='name' ? '&order=reverse' : "")%></td>
+    <th align=center><%=link_to 'Sex', batch_path(@batch) + '?gender='+@gender+'&sort=sex'+(@order=='normal'&&@sort=='sex' ? '&order=reverse' : "")%></td>
+    <th align=center><%=link_to 'Age', batch_path(@batch) + '?gender='+@gender+'&sort=age'+(@order=='normal'&&@sort=='age' ? '&order=reverse' : "")%></td>
+    <th align=center><%=link_to 'Donation', batch_path(@batch) + '?gender='+@gender+'&sort=donation'+(@order=='normal'&&@sort=='donation' ? '&order=reverse' : "")%></td>
+  </tr>
+
+<% @participants.each do |participant|
+  if participant.batch_id.nil? && ( @gender=="Both" || participant.sex==@gender)
 %>  
   <tr VALIGN=TOP>
     <td align=center><%=check_box_tag "participant_ids[]", participant.id %></td>
+    <td align=center><%= participant.no %></td>
     <td align=center><%=participant.to_s%></td>
+    <td align=center><%= participant.sex %></td>
+    <td align=center><%= participant.age %></td>
+    <td align=center><%= participant.donation %></td>
     <td align=center><%= link_to 'View', participant_path(participant) %></td>
     <td align=center><%= link_to 'Edit', edit_participant_path(participant) %></td>
     <td align=center><%= link_to 'Delete', participant, confirm: 'Are you sure?', method: :delete %></td>
@@ -40,14 +54,26 @@ end
 <input type=hidden name=gender id=gender value=<%= @gender %>>
 
 <input type=hidden name=id id=id value=<%=@batch.id%> >
-<table border=1>
-<% 
-@batch.participants.reverse.each do |participant| 
-  if participant.sex==@gender
+
+<table border=1 id="batchedparticipantstable">
+  <tr VALIGN=TOP>
+    <th align=center><%=check_box_tag "batched_participants_check_all"%></th>
+    <th align=center><%=link_to 'No', batch_path(@batch) + '?gender='+@gender+'&sort=no'+(@order=='normal'&&@sort=='no' ? '&order=reverse' : "")%></td>
+    <th align=center><%=link_to 'Name', batch_path(@batch) + '?gender='+@gender+'&sort=name'+(@order=='normal'&&@sort=='name' ? '&order=reverse' : "")%></td>
+    <th align=center><%=link_to 'Sex', batch_path(@batch) + '?gender='+@gender+'&sort=sex'+(@order=='normal'&&@sort=='sex' ? '&order=reverse' : "")%></td>
+    <th align=center><%=link_to 'Age', batch_path(@batch) + '?gender='+@gender+'&sort=age'+(@order=='normal'&&@sort=='age' ? '&order=reverse' : "")%></td>
+    <th align=center><%=link_to 'Donation', batch_path(@batch) + '?gender='+@gender+'&sort=donation'+(@order=='normal'&&@sort=='donation' ? '&order=reverse' : "")%></td>
+  </tr>
+<% @participants.each do |participant| 
+  if participant.batch_id==@batch.id && ( @gender=="Both" || participant.sex==@gender)
 %>  
   <tr VALIGN=TOP>
     <td align=center><%if !participant.is_finalized %><%=check_box_tag "participant_ids[]", participant.id %><%else%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%end%></td>
+    <td align=center><%= participant.no %></td>
     <td align=center><%=participant.to_s%></td>
+    <td align=center><%= participant.sex %></td>
+    <td align=center><%= participant.age %></td>
+    <td align=center><%= participant.donation %></td>
     <td align=center><%= link_to 'View', participant_path(participant) %></td>
     <td align=center><%= link_to 'Edit', edit_participant_path(participant) %></td>
     <td align=center><%if !participant.is_finalized %><%= link_to 'Delete', participant, confirm: 'Delete: Are you sure?', method: :delete %><%end%></td>
@@ -73,3 +99,13 @@ end
 <%=select_tag "movetobatch_id", batches.html_safe %>
 <br><%= submit_tag "Finalize Multiple Participants", confirm: 'Finalize: Are you sure?' %>
 <%end%>
+
+<script>
+
+$('#unbatched_participants_check_all').click(function() {
+	$('#unbatchedparticipantstable #participant_ids_').prop('checked', $('#unbatched_participants_check_all').prop('checked'));
+});
+$('#batched_participants_check_all').click(function() {
+	$('#batchedparticipantstable #participant_ids_').prop('checked', $('#batched_participants_check_all').prop('checked'));
+});
+</script>

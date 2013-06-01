@@ -17,7 +17,30 @@ class BatchesController < ApplicationController
   def show
     @batch = Batch.find(params[:id])
     @gender = params[:gender]
+    @gender="Both" if @gender==nil
+    @sort = params[:sort]
+    @sort="id" if @sort==nil
+    @order = params[:order]
+    @order="normal" if @order==nil
+    cookies.permanent[:gender] = @gender
 
+      
+    @participants=@batch.blessing.participants
+    if @sort=='id'
+    elsif @sort=='name'
+      @participants.sort! { |a,b| a.name <=> b.name }
+    elsif @sort=='sex'
+      @participants.sort! { |a,b| a.sex <=> b.sex }
+    elsif @sort=='age'
+      @participants.sort! { |a,b| a.age <=> b.age }
+    elsif @sort=='donation'
+      @participants.sort! { |a,b| a.donation <=> b.donation }
+    end
+    
+    if @order=='reverse'
+      @participants=@participants.reverse
+    end    
+      
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @batch }
@@ -106,7 +129,7 @@ class BatchesController < ApplicationController
       
     flash[:success] = "Participant "+@participant.to_s+" successfully added to "+@batch.to_s
 
-    redirect_to controller:"batches", action: "show", id: @batch.id, gender:@participant.sex
+    redirect_to controller:"batches", action: "show", id: @batch.id, gender:params[:gender]
   end    
   def removeparticipant
     #admin and batcher only
@@ -118,8 +141,17 @@ class BatchesController < ApplicationController
       
     flash[:success] = "Participant "+@participant.to_s+" successfully removed from "+@batch.to_s
 
-    redirect_to controller:"batches", action: "show", id: @batch.id, gender:@participant.sex
+    redirect_to controller:"batches", action: "show", id: @batch.id, gender:params[:gender]
   end    
+  def finalizeparticipant
+    #admin and batcher only
+    return redirect_to static_pages_batcheronlyerror_path if !current_user.is_admin && !current_user.is_batcher
+    @batch = Batch.find(params[:id])
+    @participant=Participant.find(params[:participant_id])      
+    @participant.update_attributes(is_finalized: true)  
+    flash[:success] = "Participant "+@participant.to_s+" successfully finalized to "+@batch.to_s
+    redirect_to controller:"batches", action: "show", id: @batch.id, gender:params[:gender]
+  end 
   def massaddparticipant
     #admin and batcher only
     return redirect_to static_pages_batcheronlyerror_path if !current_user.is_admin && !current_user.is_batcher
@@ -159,15 +191,6 @@ class BatchesController < ApplicationController
       flash[:success] = "Participant "+@participant.to_s+" successfully finalized to "+@batch.to_s
       redirect_to controller:"batches", action: "show", id: @batch.id, gender:params[:gender]
     end
-  end 
-  def finalizeparticipant
-    #admin and batcher only
-    return redirect_to static_pages_batcheronlyerror_path if !current_user.is_admin && !current_user.is_batcher
-    @batch = Batch.find(params[:id])
-    @participant=Participant.find(params[:participant_id])      
-    @participant.update_attributes(is_finalized: true)  
-    flash[:success] = "Participant "+@participant.to_s+" successfully finalized to "+@batch.to_s
-    redirect_to controller:"batches", action: "show", id: @batch.id, gender:@participant.sex
   end 
 
 

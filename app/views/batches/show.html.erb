@@ -10,8 +10,13 @@
 </p>
 
 <p>
-  <b>Batch Gender:</b>
-  <%= @gender %>
+  <b>Gender:</b>
+  <%= @gender %> 
+  (Choose: 
+  <%=link_to 'Male', batch_path(@batch) + "?gender=M" %> 
+  <%=link_to 'Female', batch_path(@batch) + '?gender=F'%>
+  <%=link_to 'Both', batch_path(@batch)%>
+  )
 </p>
 
 

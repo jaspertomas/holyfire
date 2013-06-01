@@ -23,7 +23,7 @@
 
 class Participant < ActiveRecord::Base
   track_who_does_it
-  attr_accessible :address, :age, :batch_id, :blessing_id, :donation, :guarantor, :introducer, :missionary, :name, :occupation, :remark, :sex, :tel, :is_finalized, :created_by_id, :updated_by_id
+  attr_accessible :address, :age, :batch_id, :blessing_id, :donation, :guarantor, :introducer, :missionary, :name, :occupation, :remark, :sex, :tel, :is_finalized, :created_by_id, :updated_by_id, :no
   belongs_to :blessing
   belongs_to :batch
   belongs_to :created_by, :class_name => "User", :foreign_key => 'created_by_id'
@@ -34,7 +34,7 @@ class Participant < ActiveRecord::Base
   validates :blessing_id, presence: true
 
   def to_s
-    name + "(" + sex + ")"
+    name #+ "(" + sex + ")"
   end
   
   def self.find_all_by_lowercasing_name(str_array)

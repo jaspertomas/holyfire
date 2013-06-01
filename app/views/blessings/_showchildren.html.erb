@@ -3,12 +3,22 @@
 <hr>
 <b>Unbatched Participants:</b>
 <table border=1>
-<%
-@blessing.participants.reverse.each do |participant|
+  <tr VALIGN=TOP>
+    <th align=center>No</td>
+    <th align=center>Name</td>
+    <th align=center>Sex</td>
+    <th align=center>Age</td>
+    <th align=center>Donation</td>
+  </tr>
+  <% @blessing.participants.reverse.each do |participant|
   if participant.batch_id.nil?
 %>  
   <tr VALIGN=TOP>
+    <td align=center><%= participant.no %></td>
     <td align=center><%=participant.to_s%></td>
+    <td align=center><%= participant.sex %></td>
+    <td align=center><%= participant.age %></td>
+    <td align=center><%= participant.donation %></td>
     <td align=center><%= link_to 'Edit', edit_participant_path(participant) %></td>
     <td align=center><%= link_to 'Delete', participant, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
