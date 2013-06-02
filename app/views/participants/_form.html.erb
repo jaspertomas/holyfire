@@ -40,7 +40,7 @@
 	<tr>
 		<td><%= f.label :sex %></td>
 		<td colspan=7>
-		<%=select_tag @participant.sex, options_for_select([['Male', 'M'], ['Female', 'F']]), id:"participant_sex".html_safe, name:"participant[sex]" %>
+		<%=select_tag @participant.sex, options_for_select([['Male', 'M'], ['Female', 'F']],@participant.sex), id:"participant_sex".html_safe, name:"participant[sex]" %>
 		</td>
 	</tr>
 	<tr>
