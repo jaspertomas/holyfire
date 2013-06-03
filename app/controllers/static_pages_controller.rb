@@ -11,6 +11,8 @@ class StaticPagesController < ApplicationController
   end
 
   def error
+    @title=params[:title]
+    @message=params[:message]
   end
 
   def adminonlyerror

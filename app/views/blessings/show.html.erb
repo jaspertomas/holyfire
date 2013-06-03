@@ -20,6 +20,19 @@
   <%= @blessing.comments %>
 </p>
 
+<p>
+  <b>Participant count:</b> 
+  Total:
+  <%= @blessing.participants.count %>, 
+  Male:
+  <%= @blessing.participants.select{|p| p.sex == 'M' }.size %>, 
+  Female:
+  <%= @blessing.participants.select{|p| p.sex == 'F' }.size %>, 
+  Batched:
+  <%= @blessing.participants.select{|p| p.batch_id != nil }.size %>, 
+  Unbatched:
+  <%= @blessing.participants.select{|p| p.batch_id == nil }.size %>
+</p>
 
 <%= link_to 'Edit', edit_blessing_path(@blessing) %> |
 <%= link_to 'Back', blessings_path %>

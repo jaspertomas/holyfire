@@ -8,7 +8,15 @@
   <b>Batch No:</b>
   <%= @batch.no %>
 </p>
-
+<p>
+  <b>Participant count:</b> 
+  Total:
+  <%= @batch.participants.count %>, 
+  Male:
+  <%= @batch.participants.select{|p| p.sex == 'M' }.size %>, 
+  Female:
+  <%= @batch.participants.select{|p| p.sex == 'F' }.size %>
+</p>
 <p>
   <b>Gender:</b>
   <%= @gender %> 
