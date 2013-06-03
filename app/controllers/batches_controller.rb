@@ -45,6 +45,7 @@ class BatchesController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @batch }
+      format.csv { render text: @batch.to_csv }
     end
   end
 
