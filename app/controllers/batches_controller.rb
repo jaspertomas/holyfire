@@ -9,6 +9,8 @@ class BatchesController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @batches }
+      format.csv { render text: Batch.to_csv }
+      format.xls #{ render text: Batch.to_csv(col_sep: "\t") }
     end
   end
 
@@ -45,7 +47,6 @@ class BatchesController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @batch }
-      format.csv { render text: @batch.to_csv }
     end
   end
 
