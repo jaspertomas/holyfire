@@ -162,13 +162,13 @@ class BatchesController < ApplicationController
     
     if params[:participant_ids].nil?
       flash[:error] = "0 participants selected"
-      redirect_to controller:"batches", action: "show", id: @batch.id, gender:params[:gender]
+      redirect_to controller:"batches", action: "show", id: @batch.id, gender:cookies[:gender]
       return 
     end
     
     Participant.update_all(["batch_id=?",@batch.id], :id=>params[:participant_ids])
     flash[:success] = params[:participant_ids].count.to_s+" participant"+(params[:participant_ids].count>1 ? "s" : "" )+" successfully added to "+@batch.to_s
-    redirect_to controller:"batches", action: "show", id: @batch.id, gender:params[:gender]
+    redirect_to controller:"batches", action: "show", id: @batch.id, gender:cookies[:gender]
   end 
   def massprocessparticipant
     #admin and batcher only
@@ -177,22 +177,22 @@ class BatchesController < ApplicationController
 
     if params[:participant_ids].nil?
       flash[:error] = "0 participants selected"
-      redirect_to controller:"batches", action: "show", id: @batch.id, gender:params[:gender]
+      redirect_to controller:"batches", action: "show", id: @batch.id, gender:cookies[:gender]
       return 
     end
     
     if params[:commit]=="Remove Multiple Participants"
       Participant.update_all(["batch_id=?",nil], :id=>params[:participant_ids])
       flash[:success] = " participant "+@participant.to_s+" successfully removed from "+@batch.to_s
-      redirect_to controller:"batches", action: "show", id: @batch.id, gender:params[:gender]
+      redirect_to controller:"batches", action: "show", id: @batch.id, gender:cookies[:gender]
     elsif params[:commit]=="Move Multiple Participants to"
       Participant.update_all(["batch_id=?",params[:movetobatch_id]], :id=>params[:participant_ids])
       flash[:success] = "Participant "+@participant.to_s+" successfully removed from "+@batch.to_s
-      redirect_to controller:"batches", action: "show", id: @batch.id, gender:params[:gender]
+      redirect_to controller:"batches", action: "show", id: @batch.id, gender:cookies[:gender]
     elsif params[:commit]=="Finalize Multiple Participants"
       Participant.update_all(["is_finalized=?",true], :id=>params[:participant_ids])
       flash[:success] = "Participant "+@participant.to_s+" successfully finalized to "+@batch.to_s
-      redirect_to controller:"batches", action: "show", id: @batch.id, gender:params[:gender]
+      redirect_to controller:"batches", action: "show", id: @batch.id, gender:cookies[:gender]
     end
   end 
 
