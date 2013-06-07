@@ -25,5 +25,7 @@ class Blessing < ActiveRecord::Base
     self.location
   end  
 
-  
+  def filenamefriendlylocation
+    location.gsub(/ /, '')
+  end
 end
