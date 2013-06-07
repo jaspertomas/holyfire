@@ -42,7 +42,7 @@ unbatched_participants.sort! { |a,b| a.name <=> b.name }
       <Font x:Family="Swiss" ss:Bold="1" />
     </Style>
   </Styles>
-  <Worksheet ss:Name="Sheet1">
+  <Worksheet ss:Name="Normal">
     <Table ss:ExpandedColumnCount="2" ss:ExpandedRowCount="5"
            x:FullColumns="1" x:FullRows="1">
 
@@ -151,5 +151,84 @@ unbatched_participants.sort! { |a,b| a.name <=> b.name }
       <ProtectObjects>False</ProtectObjects>
       <ProtectScenarios>False</ProtectScenarios>
     </WorksheetOptions>
+  </Worksheet>
+  <Worksheet ss:Name="Sql">
+  
+    <Table ss:ExpandedColumnCount="2" ss:ExpandedRowCount="5"
+           x:FullColumns="1" x:FullRows="1">
+
+      <Row>
+	        <Cell><Data ss:Type="String">
+				<%
+				values=[]
+				Blessing.column_names.each do |colname|
+					values << "'"+@blessing.attributes.values_at(colname)[0].to_s+"'"
+				end
+				%>	        
+<%="INSERT INTO blessings (#{Blessing.column_names.join(',')}) VALUES ( #{ values.join(",") } )" %>
+	        </Data></Cell>
+      </Row>
+      
+	      <Row>
+	      </Row>	      
+      <!--Batches header-->
+      <Row><Cell><Data ss:Type="String"><%="INSERT INTO batches (#{Batch.column_names.join(',')}) VALUES "%></Data></Cell></Row>
+
+      <!--Batches-->
+      <% 
+        querysegments=[]
+      	@blessing.batches.each do |batch| 
+			values=[]
+			Batch.column_names.each do |colname|
+				values << "'"+batch.attributes.values_at(colname)[0].to_s+"'"
+			end
+      		querysegments << "( #{ values.join(",") } )"
+      	end
+      	
+      	query=querysegments.join(",\n")
+      	
+      	querysegments=query.split("\n")
+      
+        querysegments.each do |qs|
+      %>
+	      <Row>
+		        <Cell><Data ss:Type="String">
+<%=qs %>
+		        </Data></Cell>
+	      </Row>
+      <%end%>
+
+	      <Row>
+	      </Row>	      
+      <!--Participants header-->
+      <Row><Cell><Data ss:Type="String"><%="INSERT INTO participants (#{Participant.column_names.join(',')}) VALUES "%></Data></Cell></Row>
+
+
+      <!--Participants-->
+      <% 
+        querysegments=[]
+      	@blessing.participants.each do |participant| 
+			values=[]
+			Participant.column_names.each do |colname|
+				values << "'"+participant.attributes.values_at(colname)[0].to_s+"'"
+			end
+      		querysegments << "( #{ values.join(",") } )"
+      	end
+      	
+      	query=querysegments.join(",\n")
+      	
+      	querysegments=query.split("\n")
+      
+        querysegments.each do |qs|
+      %>
+	      <Row>
+		        <Cell><Data ss:Type="String">
+<%=qs %>
+		        </Data></Cell>
+	      </Row>
+      <%end%>
+
+
+   </Table>  
   </Worksheet>
  </Workbook>
