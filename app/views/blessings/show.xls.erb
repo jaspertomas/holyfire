@@ -1,0 +1,142 @@
+<% participant_column_names=["name", "sex", "age", "occupation", "introducer", "guarantor", "address", "tel", "missionary", "remark", "donation", "batch_id", "blessing_id", "is_finalized", "created_at", "updated_at", "created_by_id", "updated_by_id", "no"]%>
+<% unbatched_participants=@blessing.participants.select{|participant| participant.batch_id == nil }%>
+<?xml version="1.0"?>
+ <?mso-application progid="Excel.Sheet"?>
+ <Workbook
+   xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+   xmlns:o="urn:schemas-microsoft-com:office:office"
+   xmlns:x="urn:schemas-microsoft-com:office:excel"
+   xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+   xmlns:html="http://www.w3.org/TR/REC-html40">
+  <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+    <Author>Darl McBride</Author>
+    <LastAuthor>Bill Gates</LastAuthor>
+    <Created>2007-03-15T23:04:04Z</Created>
+    <Company>SCO Group, Inc.</Company>
+    <Version>11.8036</Version>
+  </DocumentProperties>
+  <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+    <WindowHeight>6795</WindowHeight>
+    <WindowWidth>8460</WindowWidth>
+    <WindowTopX>120</WindowTopX>
+    <WindowTopY>15</WindowTopY>
+    <ProtectStructure>False</ProtectStructure>
+    <ProtectWindows>False</ProtectWindows>
+  </ExcelWorkbook>
+  <Styles>
+    <Style ss:ID="Default" ss:Name="Normal">
+      <Alignment ss:Vertical="Bottom" />
+      <Borders />
+      <Font />
+      <Interior />
+      <NumberFormat />
+      <Protection />
+    </Style>
+    <Style ss:ID="s21">
+      <Font x:Family="Swiss" ss:Bold="1" />
+    </Style>
+  </Styles>
+  <Worksheet ss:Name="Sheet1">
+    <Table ss:ExpandedColumnCount="2" ss:ExpandedRowCount="5"
+           x:FullColumns="1" x:FullRows="1">
+
+	<!--Blessing header-->           
+           
+      <Row>
+        <% Blessing.column_names.each do |colname| %>
+	        <Cell><Data ss:Type="String"><%=colname%></Data></Cell>
+        <% end %>
+      </Row>
+	<!--Blessing-->           
+      <Row>
+        <% Blessing.column_names.each do |colname| %>
+	        <Cell><Data ss:Type="String"><%=@blessing.attributes.values_at(colname)[0]%></Data></Cell>
+        <% end %>
+      </Row>
+      
+      <Row>
+      </Row>
+      
+      <Row>
+	        <Cell><Data ss:Type="String">Total Participants. </Data></Cell>
+			<Cell></Cell>
+	        <Cell><Data ss:Type="String"><%=@blessing.participants.count%></Data></Cell>
+      </Row>
+      <Row>
+      </Row>
+
+      <Row>
+	        <Cell><Data ss:Type="String">Unbatched Participants: </Data></Cell>
+			<Cell></Cell>
+	        <Cell><Data ss:Type="String"><%=unbatched_participants.size%></Data></Cell>
+      </Row>
+      
+      <Row>
+    	<Cell></Cell>
+        <% participant_column_names.each do |colname| %>
+	        <Cell><Data ss:Type="String"><%=colname%></Data></Cell>
+        <% end %>
+      </Row>  
+      <%unbatched_participants.each do |p|%>
+      <Row>
+    	<Cell></Cell>
+	        <Cell><Data ss:Type="String"><%=p.name%></Data></Cell>
+      </Row>
+      <%end%>
+        
+      <Row>
+      </Row>
+	<!--Batches-->           
+      <% @blessing.batches.each do |batch| %>
+      <Row>
+	        <Cell><Data ss:Type="String">Batch No. </Data></Cell>
+	        <Cell><Data ss:Type="String"><%=batch.no%></Data></Cell>
+	        <Cell><Data ss:Type="String">Participants: </Data></Cell>
+	        <Cell><Data ss:Type="String"><%=batch.participants.count%></Data></Cell>
+      </Row>
+  	<!--Participants header-->   
+      <Row>
+    	<Cell></Cell>
+        <% participant_column_names.each do |colname| %>
+	        <Cell><Data ss:Type="String"><%=colname%></Data></Cell>
+        <% end %>
+      </Row>
+      
+  	<!--Participants-->   
+      <% !batch.participants { |a,b| a.name.downcase <=> b.name.downcase }.each do |participant| %>
+ 	 	<!--Participant-->   
+      <Row>
+  		<!--Spacer-->   
+  	  	<Cell></Cell>
+ 	 	<!--Participant attribs-->   
+        <% participant_column_names.each do |colname| %>
+	        <Cell><Data ss:Type="String"><%=participant.attributes.values_at(colname)[0]%></Data></Cell>
+    	  <% end %>
+      </Row>
+ 	 	<!--End Participant-->   
+ 	 	
+        <% end %>
+  	<!--End Participants-->   
+      <% end %>
+  	<!--End Batches-->   
+    </Table>    
+    
+    <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+      <Print>
+        <ValidPrinterInfo />
+        <HorizontalResolution>600</HorizontalResolution>
+        <VerticalResolution>600</VerticalResolution>
+      </Print>
+      <Selected />
+      <Panes>
+        <Pane>
+          <Number>3</Number>
+          <ActiveRow>5</ActiveRow>
+          <ActiveCol>1</ActiveCol>
+        </Pane>
+      </Panes>
+      <ProtectObjects>False</ProtectObjects>
+      <ProtectScenarios>False</ProtectScenarios>
+    </WorksheetOptions>
+  </Worksheet>
+ </Workbook>
