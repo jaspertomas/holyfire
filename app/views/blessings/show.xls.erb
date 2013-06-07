@@ -157,17 +157,14 @@ unbatched_participants.sort! { |a,b| a.name <=> b.name }
     <Table ss:ExpandedColumnCount="2" ss:ExpandedRowCount="5"
            x:FullColumns="1" x:FullRows="1">
 
-      <Row>
-	        <Cell><Data ss:Type="String">
-				<%
-				values=[]
-				Blessing.column_names.each do |colname|
-					values << "'"+@blessing.attributes.values_at(colname)[0].to_s+"'"
-				end
-				%>	        
-<%="INSERT INTO blessings (#{Blessing.column_names.join(',')}) VALUES ( #{ values.join(",") } )" %>
-	        </Data></Cell>
-      </Row>
+	<%
+	values=[]
+	Blessing.column_names.each do |colname|
+		values << "'"+@blessing.attributes.values_at(colname)[0].to_s+"'"
+	end
+	%>	
+      <Row><Cell><Data ss:Type="String"><%="INSERT INTO blessings (#{Blessing.column_names.join(',')}) VALUES ( #{ values.join(",") } )" %>
+	        </Data></Cell></Row>
       
 	      <Row>
 	      </Row>	      
@@ -191,11 +188,7 @@ unbatched_participants.sort! { |a,b| a.name <=> b.name }
       
         querysegments.each do |qs|
       %>
-	      <Row>
-		        <Cell><Data ss:Type="String">
-<%=qs %>
-		        </Data></Cell>
-	      </Row>
+	      <Row><Cell><Data ss:Type="String"><%=qs %></Data></Cell></Row>
       <%end%>
 
 	      <Row>
@@ -221,11 +214,7 @@ unbatched_participants.sort! { |a,b| a.name <=> b.name }
       
         querysegments.each do |qs|
       %>
-	      <Row>
-		        <Cell><Data ss:Type="String">
-<%=qs %>
-		        </Data></Cell>
-	      </Row>
+	      <Row><Cell><Data ss:Type="String"><%=qs %></Data></Cell></Row>
       <%end%>
 
 
