@@ -163,7 +163,7 @@ unbatched_participants.sort! { |a,b| a.name <=> b.name }
 		values << "'"+@blessing.attributes.values_at(colname)[0].to_s+"'"
 	end
 	%>	
-      <Row><Cell><Data ss:Type="String"><%="INSERT INTO blessings (#{Blessing.column_names.join(',')}) VALUES ( #{ values.join(",") } )" %>
+      <Row><Cell><Data ss:Type="String"><%="INSERT INTO blessings (#{Blessing.column_names.join(',')}) VALUES ( #{ values.join(",") } );" %>
 	        </Data></Cell></Row>
       
 	      <Row>
@@ -185,6 +185,7 @@ unbatched_participants.sort! { |a,b| a.name <=> b.name }
       	query=querysegments.join(",\n")
       	
       	querysegments=query.split("\n")
+      	querysegments[querysegments.size-1] += ';'
       
         querysegments.each do |qs|
       %>
@@ -211,6 +212,7 @@ unbatched_participants.sort! { |a,b| a.name <=> b.name }
       	query=querysegments.join(",\n")
       	
       	querysegments=query.split("\n")
+      	querysegments[querysegments.size-1] += ';'
       
         querysegments.each do |qs|
       %>
