@@ -132,7 +132,7 @@ class BatchesController < ApplicationController
       
     flash[:success] = "Participant "+@participant.to_s+" successfully added to "+@batch.to_s
 
-    redirect_to controller:"batches", action: "show", id: @batch.id, gender:params[:gender]
+    redirect_to controller:"batches", action: "show", id: @batch.id, gender:cookies[:gender]
   end    
   def removeparticipant
     #admin and batcher only
@@ -144,7 +144,7 @@ class BatchesController < ApplicationController
       
     flash[:success] = "Participant "+@participant.to_s+" successfully removed from "+@batch.to_s
 
-    redirect_to controller:"batches", action: "show", id: @batch.id, gender:params[:gender]
+    redirect_to controller:"batches", action: "show", id: @batch.id, gender: cookies[:gender]
   end    
   def finalizeparticipant
     #admin and batcher only
@@ -153,7 +153,7 @@ class BatchesController < ApplicationController
     @participant=Participant.find(params[:participant_id])      
     @participant.update_attributes(is_finalized: true)  
     flash[:success] = "Participant "+@participant.to_s+" successfully finalized to "+@batch.to_s
-    redirect_to controller:"batches", action: "show", id: @batch.id, gender:params[:gender]
+    redirect_to controller:"batches", action: "show", id: @batch.id, gender:cookies[:gender]
   end 
   def massaddparticipant
     #admin and batcher only

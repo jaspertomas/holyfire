@@ -1,10 +1,10 @@
 class StaticPagesController < ApplicationController
   def index
-    @params=params
-    @cookies=cookies
   end
 
   def help
+    @params=params
+    @cookies=cookies
   end
 
   def admin
