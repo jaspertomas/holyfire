@@ -1,4 +1,4 @@
-<% headers["Content-Disposition"] = "attachment; filename=\"holyfire-#{@blessing.id.to_s}-#{@blessing.filenamefriendlylocation}-#{@blessing.date.to_s}\"" %>
+<% headers["Content-Disposition"] = "attachment; filename=\"holyfire-#{@blessing.id.to_s}-#{@blessing.filenamefriendlylocation}-#{@blessing.date.to_s}.xls\"" %>
 <% participant_column_names=["name", "sex", "age", "occupation", "introducer", "guarantor", "address", "tel", "missionary", "remark", "donation", "batch_id", "blessing_id", "is_finalized", "created_at", "updated_at", "created_by_id", "updated_by_id", "no"]%>
 <% 
 unbatched_participants=@blessing.participants.select{|participant| participant.batch_id == nil }
@@ -153,8 +153,7 @@ unbatched_participants.sort! { |a,b| a.name <=> b.name }
   </Worksheet>
   <Worksheet ss:Name="Sql">
   
-    <Table ss:ExpandedColumnCount="2" ss:ExpandedRowCount="5"
-           x:FullColumns="1" x:FullRows="1">
+    <Table x:FullColumns="1" x:FullRows="1">
 
 	<%
 	values=[]
