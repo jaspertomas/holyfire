@@ -22,26 +22,31 @@ class BlessingsController < ApplicationController
     @order = params[:order]
     @order="normal" if @order==nil
     #cookies.permanent[:gender] = @gender
-
+        
+      @participants=@blessing.participants
+      if @sort=='no'
+        @participants.sort! { |a,b| a.no <=> b.no }
+      elsif @sort=='fname'
+        @participants.sort! { |a,b| a.fname <=> b.fname }
+      elsif @sort=='mname'
+        @participants.sort! { |a,b| a.mname <=> b.mname }
+      elsif @sort=='lname'
+        @participants.sort! { |a,b| a.lname <=> b.lname }
+      elsif @sort=='sex'
+        @participants=@participants.sort_by{|x| [x.sex, x.donation, x.age ]}.reverse
+      elsif @sort=='age'
+        @participants=@participants.sort_by{|x| [x.age, x.donation ]}.reverse
+      elsif @sort=='donation'
+  #      @participants=@participants.sort_by{|x| [x.donation, x.age ]}.reverse
+        @participants.sort! { |a,b| b.donation <=> a.donation }
+  
+      else          
+        @participants=@participants.sort_by{|x| [x.sex, x.donation, x.age ]}.reverse
+      end
       
-    @participants=@blessing.participants
-    if @sort=='no'
-      @participants.sort! { |a,b| a.no <=> b.no }
-    elsif @sort=='name'
-      @participants.sort! { |a,b| a.name <=> b.name }
-    elsif @sort=='sex'
-      @participants.sort! { |a,b| a.sex <=> b.sex }
-    elsif @sort=='age'
-      @participants.sort! { |a,b| a.age <=> b.age }
-    elsif @sort=='donation'
-      @participants.sort! { |a,b| a.donation <=> b.donation }
-#    elsif @sort=='batch'
-#      @participants.sort! { |a,b| a.batch_id <=> b.batch_id }
-    end
-    
-    if @order=='reverse'
-      @participants=@participants.reverse
-    end    
+      if @order=='reverse'
+        @participants=@participants.reverse
+      end    
       
     respond_to do |format|
       format.html # show.html.erb

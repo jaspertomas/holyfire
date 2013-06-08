@@ -44,8 +44,14 @@
 		</td>
 	</tr>
 	<tr>
-		<td><%= f.label :name %></td>
-		<td colspan=7><%= f.text_field :name %></td>
+		<td>Name</td>
+		<td colspan=7><%= f.text_field :fname, size:15 %> <%= f.text_field :mname, size:5 %> <%= f.text_field :lname , size:15%></td>
+	</tr>
+	<tr>
+		<td colspan=7></td>
+	</tr>
+	<tr>
+		<td colspan=7></td>
 	</tr>
 	<tr>
 		<td><%= f.label :age %></td>

@@ -32,8 +32,10 @@ ActiveRecord::Schema.define(:version => 20130601073848) do
 
   create_table "participants", :force => true do |t|
     t.string   "sex"
-    t.string   "name"
-    t.string   "age"
+    t.string   "fname"
+    t.string   "mname"
+    t.string   "lname"
+    t.decimal  "age"
     t.string   "occupation"
     t.string   "introducer"
     t.string   "guarantor"
@@ -41,7 +43,7 @@ ActiveRecord::Schema.define(:version => 20130601073848) do
     t.string   "tel"
     t.string   "missionary"
     t.string   "remark"
-    t.string   "donation"
+    t.decimal  "donation"
     t.integer  "batch_id"
     t.integer  "blessing_id"
     t.boolean  "is_finalized"

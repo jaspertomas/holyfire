@@ -6,7 +6,9 @@
 <table border=1>
   <tr VALIGN=TOP>
     <th align=center><%=link_to 'No', blessing_path(@blessing) + '?sort=no'+(@order=='normal'&&@sort=='no' ? '&order=reverse' : "")%></td>
-    <th align=center><%=link_to 'Name', blessing_path(@blessing) + '?sort=name'+(@order=='normal'&&@sort=='name' ? '&order=reverse' : "")%></td>
+    <th align=center><%=link_to 'First Name', blessing_path(@blessing) + '?sort=fname'+(@order=='normal'&&@sort=='fname' ? '&order=reverse' : "")%></td>
+    <th align=center><%=link_to 'Middle Name', blessing_path(@blessing) + '?sort=mname'+(@order=='normal'&&@sort=='mname' ? '&order=reverse' : "")%></td>
+    <th align=center><%=link_to 'Last Name', blessing_path(@blessing) + '?sort=lname'+(@order=='normal'&&@sort=='lname' ? '&order=reverse' : "")%></td>
     <th align=center><%=link_to 'Sex', blessing_path(@blessing) + '?sort=sex'+(@order=='normal'&&@sort=='sex' ? '&order=reverse' : "")%></td>
     <th align=center><%=link_to 'Age', blessing_path(@blessing) + '?sort=age'+(@order=='normal'&&@sort=='age' ? '&order=reverse' : "")%></td>
     <th align=center><%=link_to 'Donation', blessing_path(@blessing) + '?sort=donation'+(@order=='normal'&&@sort=='donation' ? '&order=reverse' : "")%></td>
@@ -17,7 +19,9 @@
 %>  
   <tr VALIGN=TOP>
     <td align=center><%= participant.no %></td>
-    <td align=center><%=participant.to_s%></td>
+    <td align=center><%=participant.fname%></td>
+    <td align=center><%=participant.mname%></td>
+    <td align=center><%=participant.lname%></td>
     <td align=center><%= participant.sex %></td>
     <td align=center><%= participant.age %></td>
     <td align=center><%= participant.donation %></td>

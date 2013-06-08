@@ -2,8 +2,10 @@ class CreateParticipants < ActiveRecord::Migration
   def change
     create_table :participants do |t|
       t.string :sex
-      t.string :name
-      t.string :age
+      t.string :fname
+      t.string :mname
+      t.string :lname
+      t.decimal :age
       t.string :occupation
       t.string :introducer
       t.string :guarantor
@@ -11,7 +13,7 @@ class CreateParticipants < ActiveRecord::Migration
       t.string :tel
       t.string :missionary
       t.string :remark
-      t.string :donation
+      t.decimal :donation
       t.integer :batch_id
       t.integer :blessing_id
       t.boolean :is_finalized
