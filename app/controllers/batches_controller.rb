@@ -29,14 +29,22 @@ class BatchesController < ApplicationController
       
     @participants=@batch.blessing.participants
     if @sort=='no'
+      @participants.sort! { |a,b| a.donation <=> b.donation }
+      @participants.sort! { |a,b| a.age <=> b.age }
       @participants.sort! { |a,b| a.no <=> b.no }
     elsif @sort=='name'
+      @participants.sort! { |a,b| a.donation <=> b.donation }
+      @participants.sort! { |a,b| a.age <=> b.age }
       @participants.sort! { |a,b| a.name <=> b.name }
     elsif @sort=='sex'
+      @participants.sort! { |a,b| a.donation <=> b.donation }
+      @participants.sort! { |a,b| a.age <=> b.age }
       @participants.sort! { |a,b| a.sex <=> b.sex }
     elsif @sort=='age'
+      @participants.sort! { |a,b| a.donation <=> b.donation }
       @participants.sort! { |a,b| a.age <=> b.age }
     elsif @sort=='donation'
+      @participants.sort! { |a,b| a.age <=> b.age }
       @participants.sort! { |a,b| a.donation <=> b.donation }
     end
     
