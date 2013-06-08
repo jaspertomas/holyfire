@@ -53,6 +53,8 @@ class ParticipantsController < ApplicationController
     #admin and encoder only
     return redirect_to static_pages_encoderonlyerror_path if !current_user.is_admin && !current_user.is_encoder
     @participant = Participant.new(params[:participant])
+    @participant.donation=0 if @participant.donation==nil || @participant.donation==""
+    @participant.age=0 if @participant.age==nil || @participant.age==""
 
     respond_to do |format|
       if @participant.save
@@ -79,6 +81,8 @@ class ParticipantsController < ApplicationController
     #admin and encoder only
     return redirect_to static_pages_encoderonlyerror_path if !current_user.is_admin && !current_user.is_encoder
     @participant = Participant.find(params[:id])
+    params[:participant][:donation]=0 if params[:participant][:donation]==nil || params[:participant][:donation]==""
+    params[:participant][:age]=0 if params[:participant][:age]==nil || params[:participant][:age]==""
 
     respond_to do |format|
       if @participant.update_attributes(params[:participant])
