@@ -10,6 +10,7 @@ class ParticipantsController < ApplicationController
     end
   end
 
+
   # GET /participants/1
   # GET /participants/1.json
   def show
@@ -83,7 +84,7 @@ class ParticipantsController < ApplicationController
       if @participant.update_attributes(params[:participant])
         format.html do
           if @participant.batch_id!=nil 
-            redirect_to controller:"batches", action: "show", id: @participant.batch.id, gender:@participant.sex
+            redirect_to controller:"batches", action: "show", id: @participant.batch.id, gender:cookies[:gender]#@participant.sex
           else
             redirect_to @participant.blessing, notice: 'Participant was successfully updated.' 
           end

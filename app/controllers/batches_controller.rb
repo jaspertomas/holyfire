@@ -29,23 +29,17 @@ class BatchesController < ApplicationController
       
     @participants=@batch.blessing.participants
     if @sort=='no'
-      @participants.sort! { |a,b| a.donation <=> b.donation }
-      @participants.sort! { |a,b| a.age <=> b.age }
       @participants.sort! { |a,b| a.no <=> b.no }
     elsif @sort=='name'
-      @participants.sort! { |a,b| a.donation <=> b.donation }
-      @participants.sort! { |a,b| a.age <=> b.age }
       @participants.sort! { |a,b| a.name <=> b.name }
     elsif @sort=='sex'
-      @participants.sort! { |a,b| a.donation <=> b.donation }
-      @participants.sort! { |a,b| a.age <=> b.age }
-      @participants.sort! { |a,b| a.sex <=> b.sex }
+      @participants=@participants.sort_by{|x| [x.sex, x.donation, x.age ]}.reverse
     elsif @sort=='age'
-      @participants.sort! { |a,b| a.donation <=> b.donation }
-      @participants.sort! { |a,b| a.age <=> b.age }
+      @participants=@participants.sort_by{|x| [x.age, x.donation ]}.reverse
     elsif @sort=='donation'
-      @participants.sort! { |a,b| a.age <=> b.age }
-      @participants.sort! { |a,b| a.donation <=> b.donation }
+      @participants=@participants.sort_by{|x| [x.donation, x.age ]}.reverse
+    else          
+      @participants=@participants.sort_by{|x| [x.sex, x.donation, x.age ]}.reverse
     end
     
     if @order=='reverse'
