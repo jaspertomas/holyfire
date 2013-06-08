@@ -34,8 +34,9 @@
       <Font x:Family="Swiss" ss:Bold="1" />
     </Style>
   </Styles>
-  <Worksheet ss:Name="Sql">
-    <Table x:FullColumns="1" x:FullRows="1">
+  <Worksheet ss:Name="Sheet1">
+    <Table ss:ExpandedColumnCount="2" ss:ExpandedRowCount="5"
+           x:FullColumns="1" x:FullRows="1">
       <Row>
         <% Batch.column_names.each do |colname| %>
 	        <Cell><Data ss:Type="String"><%=colname%></Data></Cell>
