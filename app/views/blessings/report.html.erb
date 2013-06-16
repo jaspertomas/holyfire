@@ -1,0 +1,181 @@
+<% blessing_column_names=Blessing.column_names.delete_if{|x| x == 'id'} %>
+<% participant_column_names=["fname", "mname", "lname", "sex", "age", "donation", "occupation", "introducer", "guarantor", "address", "tel", "missionary", "remark", "batch_id", "blessing_id", "is_finalized", "created_by_id", "updated_by_id", "no"]%>
+<% 
+unbatched_participants=@blessing.participants.select{|participant| participant.batch_id == nil }
+#unbatched_participants.sort! { |a,b| a.sex <=> b.sex }
+#unbatched_participants.sort! { |a,b| a.donation <=> b.donation }
+#unbatched_participants.sort! { |a,b| a.name <=> b.name }
+unbatched_participants=unbatched_participants.sort_by{|x| [x.sex, x.donation, x.age ]}.reverse
+
+
+%>
+<br>
+<br>
+  <Worksheet ss:Name="Normal">
+  <h2>Report for Holy Fire Blessing, <%=@blessing.location %>, <%= @blessing.date ? l(@blessing.date, :format => :long) : "" %>
+  </h2>
+    <Table>
+
+	<!--Blessing header-->           
+           
+        <% blessing_column_names.each do |colname| %>
+      <tr>
+	        <td><Data ss:Type="String"><%=colname%></Data></td>
+	        <td><Data ss:Type="String"><%=@blessing.attributes.values_at(colname)[0]%></Data></td>
+      </tr>
+        <% end %>
+	<!--Blessing-->           
+      <tr>
+        <% blessing_column_names.each do |colname| %>
+        <% end %>
+      </tr>
+      
+      <tr>
+      </tr>
+      
+      <tr>
+	        <td><Data ss:Type="String">Total Participants. </Data></td>
+	        <td><Data ss:Type="String"><%=@blessing.participants.count%></Data></td>
+      </tr>
+      <tr>
+      <td><br></td>
+      </tr>
+
+      <tr>
+	        <td><Data ss:Type="String">Unbatched Participants: </Data></td>
+	        <td><Data ss:Type="String"><%=unbatched_participants.size%></Data></td>
+      </tr>
+      
+      <tr>
+    	<td></td>
+        <% participant_column_names.each do |colname| %>
+	        <td><Data ss:Type="String"><%=colname%></Data></td>
+        <% end %>
+      </tr>  
+      <%unbatched_participants.each do |participant|%>
+      <tr>
+    	<td></td>
+        <% participant_column_names.each do |colname| %>
+	        <td><Data ss:Type="String"><%=participant.attributes.values_at(colname)[0]%></Data></td>
+    	  <% end %>
+      </tr>
+      <%end%>
+        
+      <tr>
+      </tr>
+	<!--Batches-->           
+      <% @blessing.batches.each do |batch| %>
+      <tr>
+	        <td><Data ss:Type="String">Batch No. </Data></td>
+	        <td><Data ss:Type="String"><%=batch.no%></Data></td>
+	        <td><Data ss:Type="String">Participants: </Data></td>
+	        <td><Data ss:Type="String"><%=batch.participants.count%></Data></td>
+      </tr>
+  	<!--Participants header-->   
+      <tr>
+    	<td></td>
+        <% participant_column_names.each do |colname| %>
+	        <td><Data ss:Type="String"><%=colname%></Data></td>
+        <% end %>
+      </tr>
+      
+  	<!--Participants-->   
+      <% 
+        participants=batch.participants
+      	#participants.sort! { |a,b| a.sex <=> b.sex }
+		#participants.sort! { |a,b| a.name <=> b.name }
+		participants=participants.sort_by{|x| [x.sex, x.donation, x.age ]}.reverse
+      	participants.each do |participant| 
+      %>
+ 	 	<!--Participant-->   
+      <tr>
+  		<!--Spacer-->   
+  	  	<td></td>
+ 	 	<!--Participant attribs-->   
+        <% participant_column_names.each do |colname| %>
+	        <td><Data ss:Type="String"><%=participant.attributes.values_at(colname)[0]%></Data></td>
+    	  <% end %>
+      </tr>
+ 	 	<!--End Participant-->   
+ 	 	
+        <% end %>
+  	<!--End Participants-->   
+      <% end %>
+  	<!--End Batches-->   
+    </Table>    
+    
+  </Worksheet>
+  
+  
+  <Worksheet ss:Name="Sql">
+  <h2>SQL Dump for Holy Fire Blessing, <%=@blessing.location %>, <%= @blessing.date ? l(@blessing.date, :format => :long) : "" %>
+  </h2>
+  
+    <Table>
+
+	<%
+	values=[]
+	blessing_column_names.each do |colname|
+		values << "'"+@blessing.attributes.values_at(colname)[0].to_s+"'"
+	end
+	%>	
+      <tr><td><Data ss:Type="String"><%="INSERT INTO blessings (#{blessing_column_names.join(',')}) VALUES ( #{ values.join(",") } );" %>
+	        </Data></td></tr>
+      
+	      <tr>
+	      </tr>	      
+      <!--Batches header-->
+      <tr><td><Data ss:Type="String"><%="INSERT INTO batches (#{Batch.column_names.join(',')}) VALUES "%></Data></td></tr>
+
+      <!--Batches-->
+      <% 
+        querysegments=[]
+      	@blessing.batches.each do |batch| 
+			values=[]
+			Batch.column_names.each do |colname|
+				values << "'"+batch.attributes.values_at(colname)[0].to_s+"'"
+			end
+      		querysegments << "( #{ values.join(",") } )"
+      	end
+      	
+      	query=querysegments.join(",\n")
+      	
+      	querysegments=query.split("\n")
+      	querysegments[querysegments.size-1] += ';'
+      
+        querysegments.each do |qs|
+      %>
+	      <tr><td><Data ss:Type="String"><%=qs %></Data></td></tr>
+      <%end%>
+
+	      <tr>
+	      </tr>	      
+      <!--Participants header-->
+      <tr><td><Data ss:Type="String"><%="INSERT INTO participants (#{Participant.column_names.join(',')}) VALUES "%></Data></td></tr>
+
+
+      <!--Participants-->
+      <% 
+        querysegments=[]
+      	@blessing.participants.each do |participant| 
+			values=[]
+			Participant.column_names.each do |colname|
+				values << "'"+participant.attributes.values_at(colname)[0].to_s+"'"
+			end
+      		querysegments << "( #{ values.join(",") } )"
+      	end
+      	
+      	query=querysegments.join(",\n")
+      	
+      	querysegments=query.split("\n")
+      	querysegments[querysegments.size-1] += ';'
+      
+        querysegments.each do |qs|
+      %>
+	      <tr><td><Data ss:Type="String"><%=qs %></Data></td></tr>
+      <%end%>
+
+
+   </Table>  
+  </Worksheet>
+ </Workbook>

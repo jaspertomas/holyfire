@@ -42,3 +42,4 @@ gem 'kaminari'
 
 gem 'thin'
 gem 'clerk'
+gem 'taps'

@@ -49,12 +49,12 @@ end
   <tr VALIGN=TOP>
     <td align=left><%= link_to batch.to_s+"-Male", batch_path(batch)+"?gender=M" %></td>
     <td align=left><%= link_to 'Edit', edit_batch_path(batch) %></td>
-    <td align=left><%= link_to 'Delete', batch, confirm: 'Are you sure?', method: :delete %></td>
+    <td align=left><%#= link_to 'Delete', batch, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
   <tr VALIGN=TOP>
     <td align=left><%= link_to batch.to_s+"-Female", batch_path(batch)+"?gender=F" %></td>
     <td align=left><%= link_to 'Edit', edit_batch_path(batch) %></td>
-    <td align=left><%= link_to 'Delete', batch, confirm: 'Are you sure?', method: :delete %></td>
+    <td align=left><%#= link_to 'Delete', batch, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 
 <%

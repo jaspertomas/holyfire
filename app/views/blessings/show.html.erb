@@ -38,5 +38,6 @@
 <%= link_to 'Back', blessings_path %>
 <br>
 <br><%= link_to 'Download Backup', blessing_path(format: "xls") %>
+<br><%= link_to 'View report', blessings_report_path() + '?id='+@blessing.id.to_s, method: 'post' %>
 
 <%=render 'showchildren'%>

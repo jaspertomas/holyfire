@@ -203,4 +203,42 @@ class BlessingsController < ApplicationController
 #    flash[:success] = "Participant "+@participant.to_s+" successfully added to "+@batch.to_s
 #    redirect_to @batch    
   end     
+  def report
+    @blessing = Blessing.find(params[:id])
+
+    @sort = params[:sort]
+    @sort="id" if @sort==nil
+    @order = params[:order]
+    @order="normal" if @order==nil
+    #cookies.permanent[:gender] = @gender
+        
+      @participants=@blessing.participants
+      if @sort=='no'
+        @participants.sort! { |a,b| a.no <=> b.no }
+      elsif @sort=='fname'
+        @participants.sort! { |a,b| a.fname <=> b.fname }
+      elsif @sort=='mname'
+        @participants.sort! { |a,b| a.mname <=> b.mname }
+      elsif @sort=='lname'
+        @participants.sort! { |a,b| a.lname <=> b.lname }
+      elsif @sort=='sex'
+        @participants=@participants.sort_by{|x| [x.sex, x.donation, x.age ]}.reverse
+      elsif @sort=='age'
+        @participants=@participants.sort_by{|x| [x.age, x.donation ]}.reverse
+      elsif @sort=='donation'
+  #      @participants=@participants.sort_by{|x| [x.donation, x.age ]}.reverse
+        @participants.sort! { |a,b| b.donation <=> a.donation }
+  
+      else          
+        @participants=@participants.sort_by{|x| [x.sex, x.donation, x.age ]}.reverse
+      end
+      
+      if @order=='reverse'
+        @participants=@participants.reverse
+      end    
+      
+    respond_to do |format|
+      format.html # show.html.erb
+    end     
+  end
 end
