@@ -39,6 +39,93 @@ wb.add_worksheet(name: 'Normal') do |sheet|
 			row.add_cell participant.attributes.values_at(colname)[0]
 		end
 	end
-end
+	row=sheet.add_row   
 
+	#Batches
+	 
+	@blessing.batches.each do |batch|
+		row=sheet.add_row   ['Batch No. ', batch.no]
+		row=sheet.add_row   ['Participants: ', batch.participants.count]
+		
+		#Participants header
+		row=sheet.add_row
+		row.add_cell
+		participant_column_names.each do |colname|
+			row.add_cell colname
+		end
+		
+		#Participants
+        participants=batch.participants
+      	#participants.sort! { |a,b| a.sex <=> b.sex }
+		#participants.sort! { |a,b| a.name <=> b.name }
+		participants=participants.sort_by{|x| [x.sex, x.donation, x.age ]}.reverse
+      	participants.each do |participant| 
+			#Participants
+			row=sheet.add_row
+			row.add_cell
+			participant_column_names.each do |colname|
+				row.add_cell participant.attributes.values_at(colname)[0]
+			end
+		end
+
+		row=sheet.add_row   
+	end
+	wb.add_worksheet(name: 'SQL') do |sheet|
+	
+		#Blessing sql
+		values=[]
+		Blessing.column_names.each do |colname|
+			values << "'"+@blessing.attributes.values_at(colname)[0].to_s+"'"
+		end
+		sheet.add_row ["INSERT INTO blessings (#{Blessing.column_names.join(',')}) VALUES ( #{ values.join(",") } );"]
+
+		#Batches sql head
+		sheet.add_row
+		sheet.add_row ["INSERT INTO batches (#{Batch.column_names.join(',')}) VALUES "]
+		
+		#Batches sql body
+		querysegments=[]
+      	@blessing.batches.each do |batch| 
+			values=[]
+			Batch.column_names.each do |colname|
+				values << "'"+batch.attributes.values_at(colname)[0].to_s+"'"
+			end
+      		querysegments << "( #{ values.join(",") } )"
+      	end
+      	
+      	query=querysegments.join(",\n")
+      	
+      	querysegments=query.split("\n")
+      	querysegments[querysegments.size-1] += ';'
       
+        querysegments.each do |qs|
+	      sheet.add_row [qs]
+     	end
+      
+		#Participants sql head
+		sheet.add_row
+		sheet.add_row ["INSERT INTO participants (#{Participant.column_names.join(',')}) VALUES "]
+     
+		#Participants sql body
+        querysegments=[]
+      	@blessing.participants.each do |participant| 
+			values=[]
+			Participant.column_names.each do |colname|
+				values << "'"+participant.attributes.values_at(colname)[0].to_s+"'"
+			end
+      		querysegments << "( #{ values.join(",") } )"
+      	end
+      	
+      	query=querysegments.join(",\n")
+      	
+      	querysegments=query.split("\n")
+      	querysegments[querysegments.size-1] += ';'
+      
+        querysegments.each do |qs|
+			sheet.add_row [qs]
+		end
+
+
+
+	end
+end      
