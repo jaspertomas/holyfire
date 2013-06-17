@@ -1,0 +1,44 @@
+participant_column_names=["fname", "mname", "lname", "sex", "age", "donation", "occupation", "introducer", "guarantor", "address", "tel", "missionary", "remark", "batch_id", "blessing_id", "is_finalized", "created_at", "updated_at", "created_by_id", "updated_by_id", "no"]
+unbatched_participants=@blessing.participants.select{|participant| participant.batch_id == nil }
+#unbatched_participants.sort! { |a,b| a.sex <=> b.sex }
+#unbatched_participants.sort! { |a,b| a.donation <=> b.donation }
+#unbatched_participants.sort! { |a,b| a.name <=> b.name }
+unbatched_participants=unbatched_participants.sort_by{|x| [x.sex, x.donation, x.age ]}.reverse
+
+
+wb = xlsx_package.workbook
+wb.add_worksheet(name: 'Normal') do |sheet|
+	#Blessing header     
+	#Blessing      
+	
+    Blessing.column_names.each do |colname|
+    	row=sheet.add_row [colname,@blessing.attributes.values_at(colname)[0]]     
+    end
+   
+	row=sheet.add_row  ['Total ',@blessing.participants.count]    
+	row=sheet.add_row  ['Male',@blessing.participants.select{|p| p.sex == 'M' }.size]    
+	row=sheet.add_row  ['Female ',@blessing.participants.select{|p| p.sex == 'F' }.size]    
+	row=sheet.add_row  ['Batched ',@blessing.participants.select{|p| p.batch_id != nil }.size]    
+	row=sheet.add_row  ['Unbatched ',unbatched_participants.size]    
+
+
+
+	row=sheet.add_row   
+	row=sheet.add_row   ['Unbatched Participants']
+    
+
+	row=sheet.add_row   
+	row.add_cell 
+    participant_column_names.each do |colname|
+	     row.add_cell colname
+    end
+	unbatched_participants.each do |participant|
+		row=sheet.add_row   
+		row.add_cell 
+		participant_column_names.each do |colname|
+			row.add_cell participant.attributes.values_at(colname)[0]
+		end
+	end
+end
+
+      
