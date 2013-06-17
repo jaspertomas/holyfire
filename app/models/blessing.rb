@@ -12,6 +12,9 @@
 #
 
 class Blessing < ActiveRecord::Base
+  #allow creation of excel spreadsheet
+  acts_as_xlsx
+    
 
   attr_accessible :comments, :contactinfo, :date, :location
   has_many :batches

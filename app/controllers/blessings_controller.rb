@@ -52,8 +52,18 @@ class BlessingsController < ApplicationController
       format.html # show.html.erb
       format.json { render json: @blessing }
 #      format.csv
-      format.xls
-
+      #format.xls
+      format.xlsx {
+        xlsx_package = Blessing.to_xlsx
+        begin
+          temp = Tempfile.new("posts.xlsx")
+          xlsx_package.serialize temp.path
+          send_file temp.path, :filename => "holyfire-#{@blessing.id.to_s}-#{@blessing.filenamefriendlylocation}-#{@blessing.date.to_s}.xlsx", :type => "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        ensure
+          temp.close
+          temp.unlink
+        end
+      }      
     end
   end
 

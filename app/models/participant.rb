@@ -22,7 +22,9 @@
 #
 
 class Participant < ActiveRecord::Base
-  track_who_does_it
+  #allow creation of excel spreadsheet
+  acts_as_xlsx
+    
   attr_accessible :address, :age, :batch_id, :blessing_id, :donation, :guarantor, :introducer, :missionary, :fname, :mname, :lname, :occupation, :remark, :sex, :tel, :is_finalized, :created_by_id, :updated_by_id, :no
   belongs_to :blessing
   belongs_to :batch

@@ -18,6 +18,10 @@
 
 class User < ActiveRecord::Base
   include SentientUser
+  
+  #allow creation of excel spreadsheet
+  acts_as_xlsx
+    
   track_who_does_it
  attr_accessible :email, :is_admin, :is_encoder, :is_batcher, :name, :password, :password_confirmation
  has_secure_password
