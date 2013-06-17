@@ -53,7 +53,7 @@ class BlessingsController < ApplicationController
       format.json { render json: @blessing }
 #      format.csv
       #format.xls
-      format.xlsx       
+      format.xlsx  
     end
   end
 
