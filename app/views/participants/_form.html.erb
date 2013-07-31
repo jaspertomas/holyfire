@@ -88,8 +88,8 @@
   <div class="actions">
     <%= f.submit %>
     <% 
-    #only if action = new
-    if params[:action]=="new" 
+    #only if action = new / create
+    if params[:action]=="new" || params[:action]=="create" 
     %>
     	<br><%= f.submit "Create participant and add another" %>
     <%end%>
@@ -108,4 +108,12 @@ disabled: 'disabled',
 value: 'Processing, Please Wait...'
 });
 });
+
+$('#edit_participant').submit(function(){
+$('[name="commit"]').attr({
+disabled: 'disabled',
+value: 'Processing, Please Wait...'
+});
+});
+
 </script>
