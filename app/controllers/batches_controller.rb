@@ -189,15 +189,15 @@ class BatchesController < ApplicationController
       return 
     end
     
-    if params[:commit]=="Remove Multiple Participants"
+    if params[:commit]==["Remove Multiple Participants"]
       Participant.update_all(["batch_id=?",nil], :id=>params[:participant_ids])
       flash[:success] = " participant "+@participant.to_s+" successfully removed from "+@batch.to_s
       redirect_to controller:"batches", action: "show", id: @batch.id, gender:cookies[:gender]
-    elsif params[:commit]=="Move Multiple Participants to"
+    elsif params[:commit]==["Move Multiple Participants to"]
       Participant.update_all(["batch_id=?",params[:movetobatch_id]], :id=>params[:participant_ids])
       flash[:success] = "Participant "+@participant.to_s+" successfully removed from "+@batch.to_s
       redirect_to controller:"batches", action: "show", id: @batch.id, gender:cookies[:gender]
-    elsif params[:commit]=="Finalize Multiple Participants"
+    elsif params[:commit]==["Finalize Multiple Participants"]
       Participant.update_all(["is_finalized=?",true], :id=>params[:participant_ids])
       flash[:success] = "Participant "+@participant.to_s+" successfully finalized to "+@batch.to_s
       redirect_to controller:"batches", action: "show", id: @batch.id, gender:cookies[:gender]
