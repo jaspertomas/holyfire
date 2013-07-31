@@ -43,6 +43,10 @@ class BatchesController < ApplicationController
     elsif @sort=='donation'
 #      @participants=@participants.sort_by{|x| [x.donation, x.age ]}.reverse
       @participants.sort! { |a,b| b.donation <=> a.donation }
+    elsif @sort=='introducer'
+      @participants.sort! { |a,b| a.introducer <=> b.introducer }
+    elsif @sort=='guarantor'
+      @participants.sort! { |a,b| a.guarantor <=> b.guarantor }
 
     else          
       @participants=@participants.sort_by{|x| [x.sex, x.donation, x.age ]}.reverse
@@ -179,6 +183,7 @@ class BatchesController < ApplicationController
     redirect_to controller:"batches", action: "show", id: @batch.id, gender:cookies[:gender]
   end 
   def massprocessparticipant
+
     #admin and batcher only
     return redirect_to static_pages_batcheronlyerror_path if !current_user.is_admin && !current_user.is_batcher
     @batch = Batch.find(params[:id])
@@ -200,6 +205,11 @@ class BatchesController < ApplicationController
     elsif params[:commit]==["Finalize Multiple Participants"]
       Participant.update_all(["is_finalized=?",true], :id=>params[:participant_ids])
       flash[:success] = "Participant "+@participant.to_s+" successfully finalized to "+@batch.to_s
+      redirect_to controller:"batches", action: "show", id: @batch.id, gender:cookies[:gender]
+    elsif params[:commit]==["Set Introducer / Guarantor"]
+      Participant.update_all(["introducer=?",params[:introducer][:introducer]], :id=>params[:participant_ids]) if !params[:introducer][:introducer].empty?
+      Participant.update_all(["guarantor=?",params[:guarantor][:guarantor]], :id=>params[:participant_ids]) if !params[:guarantor][:guarantor].empty?
+      flash[:success] = "Successfully updated introducer / guarantor for participant "+@participant.to_s
       redirect_to controller:"batches", action: "show", id: @batch.id, gender:cookies[:gender]
     end
   end 

@@ -62,11 +62,15 @@
 	</tr>
 	<tr>
 		<td><%= f.label :introducer %></td>
-		<td colspan=7><%= f.text_field :introducer %></td>
+		<td colspan=7>
+		   <%= f.collection_select :introducer, Volunteer.all.sort! { |a,b| a.name <=> b.name }, :name, :name, :prompt => "Choose one"%>
+		</td>
 	</tr>
 	<tr>
 		<td><%= f.label :guarantor %></td>
-		<td colspan=7><%= f.text_field :guarantor %></td>
+		<td colspan=7>
+   			<%= f.collection_select :guarantor, Volunteer.all.sort! { |a,b| a.name <=> b.name }, :name, :name, :prompt => "Choose one"%>
+		</td>
 	</tr>
 	<tr>
 		<td><%= f.label :tel %></td>

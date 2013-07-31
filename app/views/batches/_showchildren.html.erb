@@ -17,6 +17,8 @@
     <th align=center><%=link_to 'Sex', batch_path(@batch) + '?gender='+@gender+'&sort=sex'+(@order=='normal'&&@sort=='sex' ? '&order=reverse' : "")%></td>
     <th align=center><%=link_to 'Age', batch_path(@batch) + '?gender='+@gender+'&sort=age'+(@order=='normal'&&@sort=='age' ? '&order=reverse' : "")%></td>
     <th align=center><%=link_to 'Donation', batch_path(@batch) + '?gender='+@gender+'&sort=donation'+(@order=='normal'&&@sort=='donation' ? '&order=reverse' : "")%></td>
+    <th align=center><%=link_to 'Introducer', batch_path(@batch) + '?gender='+@gender+'&sort=introducer'+(@order=='normal'&&@sort=='introducer' ? '&order=reverse' : "")%></td>
+    <th align=center><%=link_to 'Guarantor', batch_path(@batch) + '?gender='+@gender+'&sort=guarantor'+(@order=='normal'&&@sort=='guarantor' ? '&order=reverse' : "")%></td>
   </tr>
 
 <% @participants.each do |participant|
@@ -31,6 +33,8 @@
     <td align=center><%= participant.sex %></td>
     <td align=center><%= participant.age %></td>
     <td align=center><%= participant.donation %></td>
+    <td align=center><font size=1><%= participant.introducer %></font></td>
+    <td align=center><font size=1><%= participant.guarantor %></font></td>
     <td align=center><%= link_to 'View', participant_path(participant) %></td>
     <td align=center><%= link_to 'Edit', edit_participant_path(participant) %></td>
     <td align=center><%= link_to 'Delete', participant, confirm: 'Are you sure?', method: :delete %></td>
@@ -69,6 +73,8 @@ end
     <th align=center><%=link_to 'Sex', batch_path(@batch) + '?gender='+@gender+'&sort=sex'+(@order=='normal'&&@sort=='sex' ? '&order=reverse' : "")%></td>
     <th align=center><%=link_to 'Age', batch_path(@batch) + '?gender='+@gender+'&sort=age'+(@order=='normal'&&@sort=='age' ? '&order=reverse' : "")%></td>
     <th align=center><%=link_to 'Donation', batch_path(@batch) + '?gender='+@gender+'&sort=donation'+(@order=='normal'&&@sort=='donation' ? '&order=reverse' : "")%></td>
+    <th align=center><%=link_to 'Introducer', batch_path(@batch) + '?gender='+@gender+'&sort=introducer'+(@order=='normal'&&@sort=='introducer' ? '&order=reverse' : "")%></td>
+    <th align=center><%=link_to 'Guarantor', batch_path(@batch) + '?gender='+@gender+'&sort=guarantor'+(@order=='normal'&&@sort=='guarantor' ? '&order=reverse' : "")%></td>
   </tr>
 <% @participants.each do |participant| 
   if participant.batch_id==@batch.id && ( @gender=="Both" || participant.sex==@gender)
@@ -82,10 +88,12 @@ end
     <td align=center><%= participant.sex %></td>
     <td align=center><%= participant.age %></td>
     <td align=center><%= participant.donation %></td>
+    <td align=center><font size=1><%= participant.introducer %></font></td>
+    <td align=center><font size=1><%= participant.guarantor %></font></td>
     <td align=center><%= link_to 'View', participant_path(participant) %></td>
     <td align=center><%= link_to 'Edit', edit_participant_path(participant) %></td>
     <td align=center><%if !participant.is_finalized %><%= link_to 'Delete', participant, confirm: 'Delete: Are you sure?', method: :delete %><%end%></td>
-    <td align=center><%if !participant.is_finalized %><%= link_to 'Remove from Batch', batches_removeparticipant_path+"?id=" + @batch.id.to_s + "&participant_id=" + participant.id.to_s, method: :post %><%end%></td>
+    <td align=center><%if !participant.is_finalized %><%= link_to 'Unbatch', batches_removeparticipant_path+"?id=" + @batch.id.to_s + "&participant_id=" + participant.id.to_s, method: :post %><%end%></td>
     <td align=center><%if !participant.is_finalized %><%= link_to 'Finalize', batches_finalizeparticipant_path+"?id=" + @batch.id.to_s + "&participant_id=" + participant.id.to_s, confirm: 'Finalize: Are you sure?', method: :post %><%end%></td>
   </tr>
 
@@ -105,6 +113,13 @@ end
 %>
 <%=select_tag "movetobatch_id", batches.html_safe %>
 <br><%= submit_tag "Finalize Multiple Participants", confirm: 'Finalize: Are you sure?', name: "commit[]" %>
+<br>
+<br><%= submit_tag "Set Introducer / Guarantor", name: "commit[]" %>
+<br>Introducer:<%= collection_select :introducer, :introducer, Volunteer.all.sort! { |a,b| a.name <=> b.name }, :name, :name, :prompt => "No Change"%>
+<br>Guarantor: <%= collection_select :guarantor, :guarantor, Volunteer.all.sort! { |a,b| a.name <=> b.name }, :name, :name, :prompt => "No Change"%>
+
+
+
 <%end%>
 
 <script>
