@@ -99,21 +99,12 @@
 
 <script>
 //disable submit buttons after first click
-//form id="new_participant"
 //submit buttons all named "commit"
 
-$('#new_participant').submit(function(){
+$('form').submit(function(){
 $('[name="commit"]').attr({
 disabled: 'disabled',
 value: 'Processing, Please Wait...'
 });
 });
-
-$('#edit_participant').submit(function(){
-$('[name="commit"]').attr({
-disabled: 'disabled',
-value: 'Processing, Please Wait...'
-});
-});
-
 </script>
