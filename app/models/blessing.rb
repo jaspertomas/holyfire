@@ -20,7 +20,7 @@ class Blessing < ActiveRecord::Base
   has_many :batches
   has_many :participants
   validates :location, presence: true
-#  validate :validate_date
+#  validates :validate_date
   validates_date :date#, :on_or_before => lambda { Date.current }
 
   

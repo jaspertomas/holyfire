@@ -36,13 +36,21 @@ gem 'rack', '1.4.1'
 
 gem 'jquery-ui-rails'
 gem 'validates_timeliness', '~> 3.0'
+
+#this is a pagination gem
 gem 'kaminari'
 
 
 
 gem 'thin'
+
+#this automatically adds creator, updater fields to your ActiveRecord objects
 gem 'clerk'
-gem 'taps'
+
+#this is for migrating the database to heroku 
+gem 'taps' 
+
+#this is for generating an excel file (doesn't work in all spreadsheet programs)
 gem 'axlsx' 
 gem 'axlsx_rails' 
 gem 'acts_as_xlsx' 
