@@ -38,12 +38,12 @@
 
     <% 
     #only if action = new / create
-    if params[:action]=="new" || params[:action]=="create" 
+    #if params[:action]=="new" || params[:action]=="create" 
     %>
 		<td colspan=7><%= f.hidden_field :no %><%= @participant.no %></td>
-    <%else%>
-		<td colspan=7><%= f.text_field :no %></td>
-    <%end%>
+    <%#else%>
+		<!--td colspan=7><%#= f.text_field :no %></td-->
+    <%#end%>
 
 	</tr>
 	<tr>

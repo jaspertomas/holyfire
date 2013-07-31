@@ -59,6 +59,22 @@ class BatchesController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @batch }
+      format.pdf do
+
+        template=""
+        case params[:documenttype]
+        when "ids"
+          template="batches/ids.pdf.erb"
+        else #default: brgy clearance
+          template="batches/ids.pdf.erb"
+        end
+        
+        render :pdf => @batch.to_s+"ids.pdf", # pdf will download as my_pdf.pdf
+        :layout => 'empty', 
+        #:show_as_html => params[:debug].present?, # renders html version if you set debug=true in URL
+       template: template
+
+      end
     end
   end
 

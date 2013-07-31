@@ -54,3 +54,6 @@ gem 'taps'
 gem 'axlsx' 
 gem 'axlsx_rails' 
 gem 'acts_as_xlsx' 
+
+gem 'wkhtmltopdf-binary', "0.9.9"
+gem 'wicked_pdf'
