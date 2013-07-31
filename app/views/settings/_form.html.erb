@@ -27,3 +27,16 @@
     <%= f.submit %>
   </div>
 <% end %>
+
+
+<script>
+//disable submit buttons for all forms after first click
+//submit buttons all named "commit"
+
+$('form').submit(function(){
+ $('[name="commit"]').attr({
+  disabled: 'disabled',
+  value: 'Processing, Please Wait...'
+ });
+});
+</script>
