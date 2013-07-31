@@ -35,7 +35,16 @@
 	</tr>
 	<tr>
 		<td>Number</td>
+
+    <% 
+    #only if action = new / create
+    if params[:action]=="new" || params[:action]=="create" 
+    %>
 		<td colspan=7><%= f.hidden_field :no %><%= @participant.no %></td>
+    <%else%>
+		<td colspan=7><%= f.text_field :no %></td>
+    <%end%>
+
 	</tr>
 	<tr>
 		<td><%= f.label :sex %></td>
