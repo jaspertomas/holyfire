@@ -35,7 +35,7 @@
 	</tr>
 	<tr>
 		<td>Number</td>
-		<td colspan=7><%= f.text_field :no, readonly:true %></td>
+		<td colspan=7><%= f.hidden_field :no %><%= @participant.no %></td>
 	</tr>
 	<tr>
 		<td><%= f.label :sex %></td>
@@ -86,12 +86,12 @@
 
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Create participant", name: "commit[]" %>
     <% 
     #only if action = new / create
     if params[:action]=="new" || params[:action]=="create" 
     %>
-    	<br><%= f.submit "Create participant and add another" %>
+    	<br><%= f.submit "Create participant and add another", name: "commit[]" %>
     <%end%>
     
   </div>
