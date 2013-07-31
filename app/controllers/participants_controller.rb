@@ -28,11 +28,11 @@ class ParticipantsController < ApplicationController
     #admin and encoder only
     return redirect_to static_pages_encoderonlyerror_path if !current_user.is_admin && !current_user.is_encoder
     @participant = Participant.new
-    @nextno=Participant.maximum("no",conditions:['blessing_id = ? ', params[:blessing_id]])#.where('blessing.id = ?', params[:blessing_id])
-    @nextno=0 if @nextno==nil
-    @nextno+=1
+    #@nextno=Participant.maximum("no",conditions:['blessing_id = ? ', params[:blessing_id]])#.where('blessing.id = ?', params[:blessing_id])
+    #@nextno=0 if @nextno==nil
+    #@nextno+=1
     @participant.blessing_id=params[:blessing_id]
-    @participant.no=@nextno
+    #@participant.no=@nextno
 
     respond_to do |format|
       format.html # new.html.erb
@@ -55,6 +55,11 @@ class ParticipantsController < ApplicationController
     @participant = Participant.new(params[:participant])
     @participant.donation=0 if @participant.donation==nil || @participant.donation==""
     @participant.age=0 if @participant.age==nil || @participant.age==""
+
+    maxno=Participant.find_by_sql("select max(no) as maxno from participants where blessing_id="+@participant.blessing_id.to_s)[0].maxno
+    maxno=maxno ? maxno : 0
+    @participant.no=maxno+1
+
 
     respond_to do |format|
       if @participant.save
