@@ -1,0 +1,46 @@
+<%= form_for(@volunteer) do |f| %>
+  <% if @volunteer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@volunteer.errors.count, "error") %> prohibited this volunteer from being saved:</h2>
+
+      <ul>
+      <% @volunteer.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Create volunteer", name: "commit[]" %>
+    <% 
+    #only if action = new / create
+    if params[:action]=="new" || params[:action]=="create" 
+    %>
+    	<br><%= f.submit "Create volunteer and add another", name: "commit[]" %>
+    <%end%>
+    
+  </div>
+<% end %>
+
+
+
+
+<script>
+//disable submit buttons after first click
+//submit buttons all named "commit"
+
+$('form').submit(function(){
+$('[name="commit"]').attr({
+disabled: 'disabled',
+value: 'Processing, Please Wait...'
+});
+});
+
+//enable buttons on refresh
+$('[name="commit"]').removeAttr("disabled");   
+</script>

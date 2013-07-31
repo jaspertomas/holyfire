@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130601073848) do
+ActiveRecord::Schema.define(:version => 20130731084335) do
 
   create_table "batches", :force => true do |t|
     t.integer  "no"
@@ -76,5 +76,11 @@ ActiveRecord::Schema.define(:version => 20130601073848) do
 
   add_index "users", ["name"], :name => "index_users_on_name", :unique => true
   add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
+
+  create_table "volunteers", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
 end

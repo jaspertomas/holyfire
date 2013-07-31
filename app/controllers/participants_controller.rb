@@ -57,8 +57,8 @@ class ParticipantsController < ApplicationController
     @participant.age=0 if @participant.age==nil || @participant.age==""
 
     maxno=Participant.find_by_sql("select max(no) as maxno from participants where blessing_id="+@participant.blessing_id.to_s)[0].maxno
-    maxno=maxno ? maxno : 0
-    @participant.no=(maxno.to_i + 1).to_s
+    maxno=maxno ? maxno.to_i : 0
+    @participant.no=(maxno + 1).to_s
 
 
     respond_to do |format|

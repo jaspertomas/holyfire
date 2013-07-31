@@ -1,4 +1,6 @@
 Holyfire::Application.routes.draw do
+  resources :volunteers
+
   resources :participants
   post "/participants/finalize"
 
