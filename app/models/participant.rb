@@ -32,7 +32,7 @@ class Participant < ActiveRecord::Base
   belongs_to :updated_by, :class_name => "User", :foreign_key => 'updated_by_id'
   validates :fname, presence: true
   validates :lname, presence: true
-  validates :age, presence: true
+  validates :age, presence: true, :numericality => {:greater_than => 0}
   validates :sex, presence: true
   validates :blessing_id, presence: true
 
