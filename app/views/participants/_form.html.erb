@@ -87,7 +87,9 @@
 	</tr>
 	<tr>
 		<td><%= f.label :missionary %></td>
-		<td colspan=7><%= f.text_field :missionary %></td>
+		<td colspan=7>
+   			<%= f.collection_select :missionary, Pastor.all.sort! { |a,b| a.name <=> b.name }, :name, :name, :prompt => "Choose one"%>
+		</td>
 	</tr>
 	<tr>
 		<td><%= f.label :remark %></td>
@@ -99,12 +101,12 @@
 
 
   <div class="actions">
-    <%= f.submit "Create participant", name: "commit[]" %>
+    <%= f.submit "Save participant", name: "commit[]" %>
     <% 
     #only if action = new / create
     if params[:action]=="new" || params[:action]=="create" 
     %>
-    	<br><%= f.submit "Create participant and add another", name: "commit[]" %>
+    	<br><%= f.submit "Save participant and add another", name: "commit[]" %>
     <%end%>
     
   </div>
