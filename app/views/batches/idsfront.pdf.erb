@@ -10,8 +10,10 @@ backcounter=0
 %>
 	<tr height=200>
 		<td align=center style="width:50%;">
-			<br>		
-			<table align=left>
+			<table align=center>
+				<tr>
+					<td align=right><font color=blue>#<%=@participants[counter].no.to_s%></font></td>
+				</tr>
 				<tr>
 					<td align=left><font color=blue>NAME: <%=@participants[counter].to_s%></font></td>
 				</tr>
@@ -40,8 +42,10 @@ backcounter=0
 			backcounter+=1
 		%>
 		<td align=center style="width:50%;">
-			<br>
-			<table align=left>
+			<table align=center>
+				<tr>
+					<td align=right><font color=blue>#<%=@participants[counter+1].no.to_s%></font></td>
+				</tr>
 				<tr>
 					<td align=left><font color=blue>NAME: <%=@participants[counter+1].to_s%></font></td>
 				</tr>
