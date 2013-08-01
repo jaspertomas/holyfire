@@ -241,4 +241,12 @@ class BlessingsController < ApplicationController
       format.html # show.html.erb
     end     
   end
+  
+  def summary
+    @blessing = Blessing.find(params[:id])
+      
+    respond_to do |format|
+      format.html # show.html.erb
+    end     
+  end  
 end

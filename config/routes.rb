@@ -14,6 +14,7 @@ Holyfire::Application.routes.draw do
   post "/blessings/addbatch"
   post "/blessings/massdeleteparticipant"
   post "/blessings/report"
+  post "/blessings/summary"
 
 
   resources :batches
