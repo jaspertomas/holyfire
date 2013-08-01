@@ -1,4 +1,6 @@
 Holyfire::Application.routes.draw do
+  resources :ctimes
+
   resources :pastors
 
   resources :volunteers

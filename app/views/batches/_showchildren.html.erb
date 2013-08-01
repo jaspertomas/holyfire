@@ -9,7 +9,7 @@
 
 <table border=1 id="unbatchedparticipantstable">
   <tr VALIGN=TOP>
-    <th align=center><%=check_box_tag "unbatched_participants_check_all"%></th>
+    <th align=center><%=check_box_tag "unbatched_participants_check_all", name: "unbatchedcheckbox"%></th>
     <th align=center><%=link_to 'No', batch_path(@batch) + '?gender='+@gender+'&sort=no'+(@order=='normal'&&@sort=='no' ? '&order=reverse' : "")%></td>
     <th align=center><%=link_to 'First Name', batch_path(@batch) + '?gender='+@gender+'&sort=fname'+(@order=='normal'&&@sort=='fname' ? '&order=reverse' : "")%></td>
     <th align=center><%=link_to 'Middle Name', batch_path(@batch) + '?gender='+@gender+'&sort=mname'+(@order=='normal'&&@sort=='mname' ? '&order=reverse' : "")%></td>
@@ -67,7 +67,7 @@ end
 
 <table border=1 id="batchedparticipantstable">
   <tr VALIGN=TOP>
-    <th align=center><%=check_box_tag "batched_participants_check_all"%></th>
+    <th align=center><%=check_box_tag "batched_participants_check_all", name: "unbatchedcheckbox"%></th>
     <th align=center><%=link_to 'No', batch_path(@batch) + '?gender='+@gender+'&sort=no'+(@order=='normal'&&@sort=='no' ? '&order=reverse' : "")%></td>
     <th align=center><%=link_to 'First Name', batch_path(@batch) + '?gender='+@gender+'&sort=fname'+(@order=='normal'&&@sort=='fname' ? '&order=reverse' : "")%></td>
     <th align=center><%=link_to 'Middle Name', batch_path(@batch) + '?gender='+@gender+'&sort=mname'+(@order=='normal'&&@sort=='mname' ? '&order=reverse' : "")%></td>
@@ -154,4 +154,7 @@ $('form').submit(function(){
 });
 
  $('[name="commit"]').removeAttr("disabled");    
+</script>
+
+<script>
 </script>

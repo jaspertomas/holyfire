@@ -1,0 +1,2 @@
+module CtimesHelper
+end
