@@ -16,10 +16,10 @@ backcounter=0
 					<td align=left><font color=blue>NAME: <%=@participants[counter].to_s%></font></td>
 				</tr>
 				<tr>
-					<td align=left><font color=blue>TEMPLE: </font></td>
+					<td align=left><font color=blue>TEMPLE: <%=@temple%></font></td>
 				</tr>
 				<tr>
-					<td align=left><font color=blue>MISSIONARY: </font></td>
+					<td align=left><font color=blue>MISSIONARY: <%=@participants[counter].missionary%></font></td>
 				</tr>
 				<tr>
 					<td align=left><font color=blue>INTRODUCER: <%=@participants[counter].introducer%></font></td>
@@ -28,7 +28,7 @@ backcounter=0
 					<td align=left><font color=blue>SPONSOR: <%=@participants[counter].guarantor%></font></td>
 				</tr>
 				<tr>
-					<td align=left><font color=blue>DATE: </font></td>
+					<td align=left><font color=blue>DATE: <%=@participants[counter].blessing.date.to_formatted_s(:long) %></font></td>
 				</tr>
 			</table>
 			<br>
@@ -46,10 +46,10 @@ backcounter=0
 					<td align=left><font color=blue>NAME: <%=@participants[counter+1].to_s%></font></td>
 				</tr>
 				<tr>
-					<td align=left><font color=blue>TEMPLE: </font></td>
+					<td align=left><font color=blue>TEMPLE: <%=@temple%></font></td>
 				</tr>
 				<tr>
-					<td align=left><font color=blue>MISSIONARY: </font></td>
+					<td align=left><font color=blue>MISSIONARY: <%=@participants[counter+1].missionary%></font></td>
 				</tr>
 				<tr>
 					<td align=left><font color=blue>INTRODUCER: <%=@participants[counter+1].introducer%></font></td>
@@ -58,7 +58,7 @@ backcounter=0
 					<td align=left><font color=blue>SPONSOR: <%=@participants[counter+1].guarantor%></font></td>
 				</tr>
 				<tr>
-					<td align=left><font color=blue>DATE: </font></td>
+					<td align=left><font color=blue>DATE: <%=@participants[counter+1].blessing.date.to_formatted_s(:long) %></font></td>
 				</tr>
 			</table>
 			<br>
@@ -89,7 +89,7 @@ backcounter=0
 					<tr>
 						<td align=center>
 						<font color=blue size=3><b>THE GREAT</b></font> <font color=blue size=4><b>TAO</b></font>
-						<font color=blue size=1>
+						<font color=blue size=2>
 						<br>TRUTH IS THE PATH TO HEAVEN ABOVE
 						<br>HE WHO FINDS IT RIGHT NOW ON EARTH
 						<br>ELUDES ALL SUFFERINGS OF RE-BIRTH
@@ -113,7 +113,7 @@ backcounter=0
 					<tr>
 						<td align=center>
 						<font color=blue size=3><b>THE GREAT</b></font> <font color=blue size=4><b>TAO</b></font>
-						<font color=blue size=1>
+						<font color=blue size=2>
 						<br>TRUTH IS THE PATH TO HEAVEN ABOVE
 						<br>HE WHO FINDS IT RIGHT NOW ON EARTH
 						<br>ELUDES ALL SUFFERINGS OF RE-BIRTH
@@ -160,7 +160,7 @@ backcounter=0
 					<tr>
 						<td align=center>
 						<font color=blue size=3><b>THE GREAT</b></font> <font color=blue size=4><b>TAO</b></font>
-						<font color=blue size=1>
+						<font color=blue size=2>
 						<br>TRUTH IS THE PATH TO HEAVEN ABOVE
 						<br>HE WHO FINDS IT RIGHT NOW ON EARTH
 						<br>ELUDES ALL SUFFERINGS OF RE-BIRTH
@@ -184,7 +184,7 @@ backcounter=0
 					<tr>
 						<td align=center>
 						<font color=blue size=3><b>THE GREAT</b></font> <font color=blue size=4><b>TAO</b></font>
-						<font color=blue size=1>
+						<font color=blue size=2>
 						<br>TRUTH IS THE PATH TO HEAVEN ABOVE
 						<br>HE WHO FINDS IT RIGHT NOW ON EARTH
 						<br>ELUDES ALL SUFFERINGS OF RE-BIRTH
