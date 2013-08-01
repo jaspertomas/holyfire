@@ -21,13 +21,31 @@ backcounter=0
 					<td align=left><font color=blue>TEMPLE: <%=@temple%></font></td>
 				</tr>
 				<tr>
-					<td align=left><font color=blue>MISSIONARY: <%=@participants[counter].missionary%></font></td>
+					<td align=left><font color=blue>MISSIONARY: 
+					<% if Pastor.find_by_name(@participants[counter].missionary) and Pastor.find_by_name(@participants[counter].missionary).chinesename %>
+						<%=@participants[counter].missionary%> (<%=Pastor.find_by_name(@participants[counter].missionary).chinesename%>)
+					<%else%>
+						<%=@participants[counter].missionary%>
+					<%end%>
+					</font></td>
 				</tr>
 				<tr>
-					<td align=left><font color=blue>INTRODUCER: <%=@participants[counter].introducer%></font></td>
+					<td align=left><font color=blue>INTRODUCER: 
+					<% if Volunteer.find_by_name(@participants[counter].introducer) and Volunteer.find_by_name(@participants[counter].introducer).chinesename %>
+						<%=@participants[counter].introducer%> (<%=Volunteer.find_by_name(@participants[counter].introducer).chinesename%>)
+					<%else%>
+						<%=@participants[counter].introducer%>
+					<%end%>
+					</font></td>
 				</tr>
 				<tr>
-					<td align=left><font color=blue>SPONSOR: <%=@participants[counter].guarantor%></font></td>
+					<td align=left><font color=blue>SPONSOR: 
+					<% if Volunteer.find_by_name(@participants[counter].guarantor) and Volunteer.find_by_name(@participants[counter].guarantor).chinesename %>
+						<%=@participants[counter].guarantor%> (<%=Volunteer.find_by_name(@participants[counter].guarantor).chinesename%>)
+					<%else%>
+						<%=@participants[counter].guarantor%>
+					<%end%>
+					</font></td>
 				</tr>
 				<tr>
 					<td align=left><font color=blue>DATE: <%=@participants[counter].blessing.date.to_formatted_s(:long) %></font></td>
@@ -53,15 +71,32 @@ backcounter=0
 					<td align=left><font color=blue>TEMPLE: <%=@temple%></font></td>
 				</tr>
 				<tr>
-					<td align=left><font color=blue>MISSIONARY: <%=@participants[counter+1].missionary%></font></td>
+					<td align=left><font color=blue>MISSIONARY: 
+					<% if Pastor.find_by_name(@participants[counter+1].missionary) and Pastor.find_by_name(@participants[counter+1].missionary).chinesename %>
+						<%=@participants[counter+1].missionary%> (<%=Pastor.find_by_name(@participants[counter+1].missionary).chinesename%>)
+					<%else%>
+						<%=@participants[counter+1].missionary%>
+					<%end%>
+					</font></td>
 				</tr>
 				<tr>
-					<td align=left><font color=blue>INTRODUCER: <%=@participants[counter+1].introducer%></font></td>
+					<td align=left><font color=blue>INTRODUCER: 
+					<% if Volunteer.find_by_name(@participants[counter+1].introducer) and Volunteer.find_by_name(@participants[counter+1].introducer).chinesename %>
+						<%=@participants[counter+1].introducer%> (<%=Volunteer.find_by_name(@participants[counter+1].introducer).chinesename%>)
+					<%else%>
+						<%=@participants[counter+1].introducer%>
+					<%end%>
+					</font></td>
 				</tr>
 				<tr>
-					<td align=left><font color=blue>SPONSOR: <%=@participants[counter+1].guarantor%></font></td>
-				</tr>
-				<tr>
+					<td align=left><font color=blue>SPONSOR: 
+					<% if Volunteer.find_by_name(@participants[counter+1].guarantor) and Volunteer.find_by_name(@participants[counter+1].guarantor).chinesename %>
+						<%=@participants[counter+1].guarantor%> (<%=Volunteer.find_by_name(@participants[counter+1].guarantor).chinesename%>)
+					<%else%>
+						<%=@participants[counter+1].guarantor%>
+					<%end%>
+					</font></td>
+				</tr>				<tr>
 					<td align=left><font color=blue>DATE: <%=@participants[counter+1].blessing.date.to_formatted_s(:long) %></font></td>
 				</tr>
 			</table>
