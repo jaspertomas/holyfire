@@ -1,1 +1,54 @@
-hello world
+<% @blessing.batches.each do |batch|%>
+
+<table border=1>
+	<tr>
+		<td align=center><b><%=@summaryheader[0]%></b></td>
+		<td align=center><b><%=@summaryheader[1]%></b></td>
+		<td align=center><b><%=@summaryheader[2]%></b></td>
+		<td align=center><b><%=@summaryheader[3]%></b></td>
+		<td align=center><b><%=@summaryheader[4]%></b></td>
+		<td colspan=3 align=center><b><%=@summaryheader[5]%></b></td>
+		<td align=center><b><%=@summaryheader[6]%></b></td>
+		<td align=center><b><%=@summaryheader[7]%></b></td>
+		<td colspan=2 align=center><b><%=@summaryheader[8]%></b></td>
+	</tr>
+	<tr>
+		<td><b><%=@cnumber%></b></td>
+		<td><b><%=@cintroducer%></b></td>
+		<td><b><%=@cguarantor%></b></td>
+		<td><b><%=@csex%></b></td>
+		<td><b><%=@cname%></b></td>
+		<td><b><%=@cage%></b></td>
+		<td><b><%=@ceducation%></b></td>
+		<td><b><%=@clivelihood%></b></td>
+		<td><b><%=@crelationship%></b></td>
+		<td><b><%=@clocation%></b></td>
+		<td><b><%=@ccontact%></b></td>
+		<td><b><%=@cdonation%></b></td>
+	</tr>
+	<%batch.participants.sort!{ |a,b| a.no <=> b.no }.each do |p|%>	
+	<tr>
+		<td><%=p.no%></td>
+		<td>
+					<% if Volunteer.find_by_name(p.introducer) and Volunteer.find_by_name(p.introducer).chinesename %>
+						<%=p.introducer%> (<%=Volunteer.find_by_name(p.introducer).chinesename%>)
+					<%else%>
+						<%=p.introducer%>
+					<%end%>		</td>
+		<td><%=p.guarantor%></td>
+		<td><%=p.sex=='M'?@cmale:@cfemale%></td>
+		<td><%=p.to_s%></td>
+		<td><%=p.age%></td>
+		<td></td>
+		<td></td>
+		<td><%=@cfriend%></td>
+		<td><%=@blessing.location%></td>
+		<td></td>
+		<td><%=p.donation%></td>
+	</tr>
+	
+	<%end%>
+	
+</table>
+<br>
+<%end%>
