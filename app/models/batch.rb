@@ -14,7 +14,7 @@ class Batch < ActiveRecord::Base
   #allow creation of excel spreadsheet
   acts_as_xlsx
     
-  attr_accessible :blessing_id, :gender, :no
+  attr_accessible :blessing_id, :gender, :no, :ctime_id
   belongs_to :blessing
   has_many :participants
 
