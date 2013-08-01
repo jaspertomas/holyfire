@@ -1,4 +1,8 @@
-<% @blessing.batches.each do |batch|%>
+<% 
+batchcounter=0
+@blessing.batches.each do |batch|
+	batchcounter+=1
+%>
 
 <table border=1>
 	<tr>
@@ -6,25 +10,28 @@
 		<td align=center><b><%=@summaryheader[1]%></b></td>
 		<td align=center><b><%=@summaryheader[2]%></b></td>
 		<td align=center><b><%=@summaryheader[3]%></b></td>
-		<td align=center><b><%=@summaryheader[4]%></b></td>
+		<%
+		@summaryheader4=@summaryheader[4].sub('0',@cnumbers[batchcounter])
+		%>
+		<td align=center><b><%=@summaryheader4%></b></td>
 		<td colspan=3 align=center><b><%=@summaryheader[5]%></b></td>
 		<td align=center><b><%=@summaryheader[6]%></b></td>
 		<td align=center><b><%=@summaryheader[7]%></b></td>
 		<td colspan=2 align=center><b><%=@summaryheader[8]%></b></td>
 	</tr>
 	<tr>
-		<td><b><%=@cnumber%></b></td>
-		<td><b><%=@cintroducer%></b></td>
-		<td><b><%=@cguarantor%></b></td>
-		<td><b><%=@csex%></b></td>
-		<td><b><%=@cname%></b></td>
-		<td><b><%=@cage%></b></td>
-		<td><b><%=@ceducation%></b></td>
-		<td><b><%=@clivelihood%></b></td>
-		<td><b><%=@crelationship%></b></td>
-		<td><b><%=@clocation%></b></td>
-		<td><b><%=@ccontact%></b></td>
-		<td><b><%=@cdonation%></b></td>
+		<td align=center><b><%=@summaryheader2[0]%></b></td>
+		<td align=center><b><%=@summaryheader2[1]%></b></td>
+		<td align=center><b><%=@summaryheader2[2]%></b></td>
+		<td align=center><b><%=@summaryheader2[3]%></b></td>
+		<td align=center><b><%=@summaryheader2[4]%></b></td>
+		<td align=center><b><%=@summaryheader2[5]%></b></td>
+		<td align=center><b><%=@summaryheader2[6]%></b></td>
+		<td align=center><b><%=@summaryheader2[7]%></b></td>
+		<td align=center><b><%=@summaryheader2[8]%></b></td>
+		<td align=center><b><%=@summaryheader2[9]%></b></td>
+		<td align=center><b><%=@summaryheader2[10]%></b></td>
+		<td align=center><b><%=@summaryheader2[11]%></b></td>
 	</tr>
 	<%batch.participants.sort!{ |a,b| a.no <=> b.no }.each do |p|%>	
 	<tr>
