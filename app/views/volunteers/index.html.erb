@@ -3,6 +3,7 @@
 <table>
   <tr>
     <th>Name</th>
+    <th>Chinesename</th>
     <th></th>
     <th></th>
     <th></th>
@@ -11,6 +12,7 @@
 <% @volunteers.each do |volunteer| %>
   <tr>
     <td><%= volunteer.name %></td>
+    <td><%= volunteer.chinesename %></td>
     <td><%= link_to 'Show', volunteer %></td>
     <td><%= link_to 'Edit', edit_volunteer_path(volunteer) %></td>
     <td><%= link_to 'Destroy', volunteer, confirm: 'Are you sure?', method: :delete %></td>

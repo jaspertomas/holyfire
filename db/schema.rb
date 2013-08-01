@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130731084335) do
+ActiveRecord::Schema.define(:version => 20130801044354) do
 
   create_table "batches", :force => true do |t|
     t.integer  "no"
@@ -54,6 +54,13 @@ ActiveRecord::Schema.define(:version => 20130731084335) do
     t.integer  "no"
   end
 
+  create_table "pastors", :force => true do |t|
+    t.string   "name"
+    t.string   "chinesename"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "settings", :force => true do |t|
     t.string   "name"
     t.string   "datatype"
@@ -79,8 +86,9 @@ ActiveRecord::Schema.define(:version => 20130731084335) do
 
   create_table "volunteers", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.string   "chinesename"
   end
 
 end

@@ -1,3 +1,3 @@
-class Volunteer < ActiveRecord::Base
+class Pastor < ActiveRecord::Base
   attr_accessible :chinesename, :name
 end

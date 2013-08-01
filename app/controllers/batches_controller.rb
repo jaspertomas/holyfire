@@ -216,7 +216,7 @@ class BatchesController < ApplicationController
         
         render :pdf => @batch.to_s+"ids.pdf", # pdf will download as my_pdf.pdf
         :layout => 'empty', 
-        #:show_as_html => params[:debug].present?, # renders html version if you set debug=true in URL
+        :show_as_html => params[:debug].present?, # renders html version if you set debug=true in URL
        template: "batches/ids.pdf.erb"
     end
   end 

@@ -111,6 +111,7 @@ batches=""
 	batches+="<option value="+batch.id.to_s+">Batch "+batch.no.to_s+"</option>\n"
 end
 %>
+<!--input type=hidden id=debug name=debug value=true-->
 <%=select_tag "movetobatch_id", batches.html_safe %>
 <br><%= submit_tag "Finalize Multiple Participants", confirm: 'Finalize: Are you sure?', name: "commit[]" %>
 <br><%= submit_tag "Print IDs", name: "commit[]" %>
