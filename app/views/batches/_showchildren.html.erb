@@ -113,6 +113,7 @@ end
 %>
 <%=select_tag "movetobatch_id", batches.html_safe %>
 <br><%= submit_tag "Finalize Multiple Participants", confirm: 'Finalize: Are you sure?', name: "commit[]" %>
+<br><%= submit_tag "Print IDs", name: "commit[]" %>
 <br>
 <br><%= submit_tag "Set Introducer / Guarantor", name: "commit[]" %>
 <br>Introducer:<%= collection_select :introducer, :introducer, Volunteer.all.sort! { |a,b| a.name <=> b.name }, :name, :name, :prompt => "No Change"%>

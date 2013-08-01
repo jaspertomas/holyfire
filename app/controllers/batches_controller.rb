@@ -59,22 +59,6 @@ class BatchesController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @batch }
-      format.pdf do
-
-        template=""
-        case params[:documenttype]
-        when "ids"
-          template="batches/ids.pdf.erb"
-        else #default: brgy clearance
-          template="batches/ids.pdf.erb"
-        end
-        
-        render :pdf => @batch.to_s+"ids.pdf", # pdf will download as my_pdf.pdf
-        :layout => 'empty', 
-        #:show_as_html => params[:debug].present?, # renders html version if you set debug=true in URL
-       template: template
-
-      end
     end
   end
 
@@ -227,9 +211,15 @@ class BatchesController < ApplicationController
       Participant.update_all(["guarantor=?",params[:guarantor][:guarantor]], :id=>params[:participant_ids]) if !params[:guarantor][:guarantor].empty?
       flash[:success] = "Successfully updated introducer / guarantor for participant "+@participant.to_s
       redirect_to controller:"batches", action: "show", id: @batch.id, gender:cookies[:gender]
+    elsif params[:commit]==["Print IDs"]
+        @participants=Participant.find_by_sql("select * from participants where id in (#{params[:participant_ids].join(', ')})")
+        
+        render :pdf => @batch.to_s+"ids.pdf", # pdf will download as my_pdf.pdf
+        :layout => 'empty', 
+        #:show_as_html => params[:debug].present?, # renders html version if you set debug=true in URL
+       template: "batches/ids.pdf.erb"
     end
   end 
-
 
   def error
     @title=params[:title]

@@ -1,1 +1,209 @@
-<%= @batch.to_s%>
+<table border=1 width=100%>
+<%
+counter=-1
+#this counts the number of back sides to print
+backcounter=0 
+@participants.each do |p|
+	counter+=1
+	if(counter % 2 == 0)
+		backcounter+=1
+%>
+	<tr height=200>
+		<td align=center style="width:50%;">
+			<br>		
+			<table align=left>
+				<tr>
+					<td align=left><font color=blue>NAME: <%=@participants[counter].to_s%></font></td>
+				</tr>
+				<tr>
+					<td align=left><font color=blue>TEMPLE: </font></td>
+				</tr>
+				<tr>
+					<td align=left><font color=blue>MISSIONARY: </font></td>
+				</tr>
+				<tr>
+					<td align=left><font color=blue>INTRODUCER: <%=@participants[counter].introducer%></font></td>
+				</tr>
+				<tr>
+					<td align=left><font color=blue>SPONSOR: <%=@participants[counter].guarantor%></font></td>
+				</tr>
+				<tr>
+					<td align=left><font color=blue>DATE: </font></td>
+				</tr>
+			</table>
+			<br>
+			
+		
+		</td>
+		<%
+		if counter+1 < @participants.size
+			backcounter+=1
+		%>
+		<td align=center style="width:50%;">
+			<br>
+			<table align=left>
+				<tr>
+					<td align=left><font color=blue>NAME: <%=@participants[counter+1].to_s%></font></td>
+				</tr>
+				<tr>
+					<td align=left><font color=blue>TEMPLE: </font></td>
+				</tr>
+				<tr>
+					<td align=left><font color=blue>MISSIONARY: </font></td>
+				</tr>
+				<tr>
+					<td align=left><font color=blue>INTRODUCER: <%=@participants[counter+1].introducer%></font></td>
+				</tr>
+				<tr>
+					<td align=left><font color=blue>SPONSOR: <%=@participants[counter+1].guarantor%></font></td>
+				</tr>
+				<tr>
+					<td align=left><font color=blue>DATE: </font></td>
+				</tr>
+			</table>
+			<br>
+		
+		</td>
+		<% else %>
+		<td style="width:50%;"></td>
+		<% end %>
+	</tr>
+	
+	<%
+		if(counter % 10 == 8) || counter == @participants.size || counter+1 == @participants.size
+		%>
+		</table>
+		<div style="display:block; clear:both; page-break-after:always;"></div>
+
+		<% #===============print back pages================== %>
+
+		<table border=1 width=100%>
+		<%
+		while backcounter > 0
+			backcounter-=2
+		%>
+		<tr height=200>
+			<td align=center style="width:50%;">
+				<br>		
+				<table align=center>
+					<tr>
+						<td align=center>
+						<font color=blue size=3><b>THE GREAT</b></font> <font color=blue size=4><b>TAO</b></font>
+						<font color=blue size=1>
+						<br>TRUTH IS THE PATH TO HEAVEN ABOVE
+						<br>HE WHO FINDS IT RIGHT NOW ON EARTH
+						<br>ELUDES ALL SUFFERINGS OF RE-BIRTH
+						<br>GRACE TO OUR FATHER, THE CREATOR OF ALL
+						<br>RELEASING THE WAY TO SAVE OUR FALL
+						<br>EVERY MAN WITH FAITH IN MIND
+						<br>AND REPENTANCE SINCERE WILL SURELY FIND
+						<br>THESE A HOUSE SO PURELY DIVINE
+						<br>THUS FULFILLING A GREATEST WISH
+						<br>AT LAST A TREASURE WE MUST NOT MISS
+						<br>OF ETERNAL BLISS
+						</font>
+						</td>
+					</tr>
+				</table>
+				<br>
+			</td>
+			<td align=center style="width:50%;">
+				<br>		
+				<table align=center>
+					<tr>
+						<td align=center>
+						<font color=blue size=3><b>THE GREAT</b></font> <font color=blue size=4><b>TAO</b></font>
+						<font color=blue size=1>
+						<br>TRUTH IS THE PATH TO HEAVEN ABOVE
+						<br>HE WHO FINDS IT RIGHT NOW ON EARTH
+						<br>ELUDES ALL SUFFERINGS OF RE-BIRTH
+						<br>GRACE TO OUR FATHER, THE CREATOR OF ALL
+						<br>RELEASING THE WAY TO SAVE OUR FALL
+						<br>EVERY MAN WITH FAITH IN MIND
+						<br>AND REPENTANCE SINCERE WILL SURELY FIND
+						<br>THESE A HOUSE SO PURELY DIVINE
+						<br>THUS FULFILLING A GREATEST WISH
+						<br>AT LAST A TREASURE WE MUST NOT MISS
+						<br>OF ETERNAL BLISS
+						</font>
+						</td>
+					</tr>
+				</table>
+				<br>
+			</td>
+		</tr>
+		<%end%>
+		</table>
+		<% #=============end==print back pages================== %>
+
+		<div style="display:block; clear:both; page-break-after:always;"></div>
+		<table border=1 width=100%>
+		<%end%>
+	
+	<% end %>
+<%end%>
+
+		</table>
+		<div style="display:block; clear:both; page-break-after:always;"></div>
+
+		<% #===============print back pages================== %>
+
+		<table border=1 width=100%>
+		<%
+		while backcounter > 0
+			backcounter-=2
+		%>
+		<tr height=200>
+			<td align=center style="width:50%;">
+				<br>		
+				<table align=center>
+					<tr>
+						<td align=center>
+						<font color=blue size=3><b>THE GREAT</b></font> <font color=blue size=4><b>TAO</b></font>
+						<font color=blue size=1>
+						<br>TRUTH IS THE PATH TO HEAVEN ABOVE
+						<br>HE WHO FINDS IT RIGHT NOW ON EARTH
+						<br>ELUDES ALL SUFFERINGS OF RE-BIRTH
+						<br>GRACE TO OUR FATHER, THE CREATOR OF ALL
+						<br>RELEASING THE WAY TO SAVE OUR FALL
+						<br>EVERY MAN WITH FAITH IN MIND
+						<br>AND REPENTANCE SINCERE WILL SURELY FIND
+						<br>THESE A HOUSE SO PURELY DIVINE
+						<br>THUS FULFILLING A GREATEST WISH
+						<br>AT LAST A TREASURE WE MUST NOT MISS
+						<br>OF ETERNAL BLISS
+						</font>
+						</td>
+					</tr>
+				</table>
+				<br>
+			</td>
+			<td align=center style="width:50%;">
+				<br>		
+				<table align=center>
+					<tr>
+						<td align=center>
+						<font color=blue size=3><b>THE GREAT</b></font> <font color=blue size=4><b>TAO</b></font>
+						<font color=blue size=1>
+						<br>TRUTH IS THE PATH TO HEAVEN ABOVE
+						<br>HE WHO FINDS IT RIGHT NOW ON EARTH
+						<br>ELUDES ALL SUFFERINGS OF RE-BIRTH
+						<br>GRACE TO OUR FATHER, THE CREATOR OF ALL
+						<br>RELEASING THE WAY TO SAVE OUR FALL
+						<br>EVERY MAN WITH FAITH IN MIND
+						<br>AND REPENTANCE SINCERE WILL SURELY FIND
+						<br>THESE A HOUSE SO PURELY DIVINE
+						<br>THUS FULFILLING A GREATEST WISH
+						<br>AT LAST A TREASURE WE MUST NOT MISS
+						<br>OF ETERNAL BLISS
+						</font>
+						</td>
+					</tr>
+				</table>
+				<br>
+			</td>
+		</tr>
+		<%end%>
+		</table>
+		<% #=============end==print back pages================== %>
+
