@@ -57,6 +57,7 @@ end
 <br>
 <br>
 <hr>
+
 <b>Batch Participants:</b>
 <%=form_tag batches_massprocessparticipant_path, :method => :post do%>
 <input type=hidden name=gender id=gender value=<%= @gender %>>
@@ -76,8 +77,31 @@ end
     <th align=center><%=link_to 'Introducer', batch_path(@batch) + '?gender='+@gender+'&sort=introducer'+(@order=='normal'&&@sort=='introducer' ? '&order=reverse' : "")%></td>
     <th align=center><%=link_to 'Guarantor', batch_path(@batch) + '?gender='+@gender+'&sort=guarantor'+(@order=='normal'&&@sort=='guarantor' ? '&order=reverse' : "")%></td>
   </tr>
-<% @participants.each do |participant| 
-  if participant.batch_id==@batch.id && ( @gender=="Both" || participant.sex==@gender)
+<% 
+	participantcounter=0
+	linebreakcounter=0
+	linebreakprinted=false
+	@participants.each do |participant| 
+
+	#print line break
+	if(!linebreakprinted && participantcounter%20==0)
+		%>
+		<tr>
+		<td colspan=100 align=center>
+		<%
+		linebreakcounter+=1
+		linebreaktext=linebreakcounter.to_s
+		(1..80).each { |i| %><%=linebreaktext%><% }
+		%>
+		</td>
+		</tr>
+		<%
+		linebreakprinted=true
+	end
+	
+  	if participant.batch_id==@batch.id && ( @gender=="Both" || participant.sex==@gender)
+  		participantcounter+=1
+  		linebreakprinted=false
 %>  
   <tr VALIGN=TOP>
     <td align=center><%if !participant.is_finalized %><%=check_box_tag "participant_ids[]", participant.id %><%else%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%end%></td>
