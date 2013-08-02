@@ -97,7 +97,17 @@ batchcounter=0
 		%>
 		</td>
 		<td><%=p.to_s%></td>
-		<td><%=p.age%></td>
+		<td>
+			<%if p.age==0.25%>
+				3 mo.
+			<%elsif p.age==0.5%>
+				6 mo.
+			<%elsif p.age==0.75%>
+				9 mo.
+			<%else%>
+				<%=p.age%>
+			<%end%>
+		</td>
 		<td></td>
 		<td></td>
 		<td><%=@cfriend%></td>
