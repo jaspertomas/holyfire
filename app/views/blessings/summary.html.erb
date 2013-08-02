@@ -66,11 +66,18 @@ batchcounter=0
 		</td>
 		<td>
 					<% if Volunteer.find_by_name(p.introducer) and Volunteer.find_by_name(p.introducer).chinesename %>
-						<%=p.introducer%> (<%=Volunteer.find_by_name(p.introducer).chinesename%>)
+						<%=Volunteer.find_by_name(p.introducer).chinesename%>
 					<%else%>
 						<%=p.introducer%>
-					<%end%>		</td>
-		<td><%=p.guarantor%></td>
+					<%end%>		
+		</td>
+		<td>
+					<% if Volunteer.find_by_name(p.guarantor) and Volunteer.find_by_name(p.guarantor).chinesename %>
+						<%=Volunteer.find_by_name(p.guarantor).chinesename%>
+					<%else%>
+						<%=p.guarantor%>
+					<%end%>		
+		</td>
 		<td>
 		<%
 
