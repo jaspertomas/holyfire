@@ -66,6 +66,7 @@ end
 
 <table border=1 id="batchedparticipantstable">
   <tr VALIGN=TOP>
+  	<th>count</th>
     <th align=center><%=check_box_tag "batched_participants_check_all"%></th>
     <th align=center><%=link_to 'No', batch_path(@batch) + '?gender='+@gender+'&sort=no'+(@order=='normal'&&@sort=='no' ? '&order=reverse' : "")%></td>
     <th align=center><%=link_to 'First Name', batch_path(@batch) + '?gender='+@gender+'&sort=fname'+(@order=='normal'&&@sort=='fname' ? '&order=reverse' : "")%></td>
@@ -78,6 +79,7 @@ end
     <th align=center><%=link_to 'Guarantor', batch_path(@batch) + '?gender='+@gender+'&sort=guarantor'+(@order=='normal'&&@sort=='guarantor' ? '&order=reverse' : "")%></td>
   </tr>
 <% 
+	finalizedcounter=0
 	participantcounter=0
 	linebreakcounter=0
 	linebreakprinted=false
@@ -86,24 +88,36 @@ end
 	#print line break
 	if(!linebreakprinted && participantcounter%20==0)
 		%>
-		<tr>
-		<td colspan=100 align=center>
+		<!-------LINEBREAK---->
+		<!--tr>
 		<%
 		linebreakcounter+=1
-		linebreaktext=linebreakcounter.to_s
-		(1..80).each { |i| %><%=linebreaktext%><% }
+		%>
+		<td colspan=100 align=center 		
+			<% #if linebreakcounter % 2 == 0 %>
+			style="background-color:#CCFFCC"
+			<%#else%>
+			style="background-color:#FFFFCC"
+			<%#end%>
+		>
+		<%
+		#linebreaktext=linebreakcounter.to_s
+		#(1..80).each { |i| %><%#=linebreaktext%><% }
 		%>
 		</td>
-		</tr>
+		</tr-->
 		<%
 		linebreakprinted=true
 	end
 	
   	if participant.batch_id==@batch.id && ( @gender=="Both" || participant.sex==@gender)
+  		finalizedcounter+=1 if participant.is_finalized
   		participantcounter+=1
   		linebreakprinted=false
 %>  
-  <tr VALIGN=TOP>
+  <tr VALIGN=TOP 		<% if linebreakcounter % 2 == 0 %>style="background-color:#CCFFCC"<%else%>style="background-color:#FFFFCC"<%end%>
+  >
+  	<td><%=participantcounter%></td>
     <td align=center><%if !participant.is_finalized %><%=check_box_tag "participant_ids[]", participant.id %><%else%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%end%></td>
     <td align=center><%= participant.no %></td>
     <td align=center><%=participant.fname%></td>
