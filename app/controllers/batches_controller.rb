@@ -245,5 +245,11 @@ class BatchesController < ApplicationController
     @message=params[:message]
     @redirectto=params[:redirectto]
   end  
+  def settime
+    @batch = Batch.find(params[:id])
+    @batch.update_attributes(ctime_id: params[:ctime_id][:ctime_id])
+    flash[:success]="Successfully set batch blessing time to "+@batch.ctime.span
+    redirect_to request.referer
+  end  
 end
 

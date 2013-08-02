@@ -16,6 +16,7 @@ class Batch < ActiveRecord::Base
     
   attr_accessible :blessing_id, :gender, :no, :ctime_id
   belongs_to :blessing
+  belongs_to :ctime
   has_many :participants
 
   validates :no, presence: true

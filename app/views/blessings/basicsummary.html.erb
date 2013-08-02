@@ -1,15 +1,3 @@
-<font color=red>
-<% 
-@blessing.batches.each do |batch|
-	if batch.ctime==nil
-%>
-Batch <%=batch.no%> blessing time not set!<br>
-<%
-	end
-end
-%>
-</font>
-
 <% 
 batchcounter=0
 @blessing.batches.each do |batch|
@@ -21,15 +9,7 @@ batchcounter=0
 		<td align=center><b><%=@summaryheader[0]%></b></td>
 		<td align=center><b><%=@summaryheader[1]%></b></td>
 		<td align=center><b><%=@summaryheader[2]%></b></td>
-		<%if batch.ctime==nil%>
-			<td align=center><font color=red>BATCH TIME NOT SET!</font></td>
-		<%else%>
-			<%
-			@summaryheader3=@summaryheader[3].sub('0',batch.ctime.value)
-			%>
-			<td align=center><b><%=@summaryheader3%></b></td>
-		<%end%>
-
+		<td align=center><b><%=@summaryheader[3]%></b></td>
 		<%
 		@summaryheader4=@summaryheader[4].sub('0',@cnumbers[batchcounter])
 		%>
@@ -54,8 +34,8 @@ batchcounter=0
 		<td align=center><b><%=@summaryheader2[11]%></b></td>
 	</tr>
 	<%
-	batch.participants.sort_by{|x| [x.donation, x.age ]}.reverse.each do |p|
-		if p.sex==@page
+	batch.participants.sort!{ |a,b| a.no <=> b.no }.each do |p|
+	if p.sex==@page
 	%>	
 	<tr>
 		<td><%=p.no%></td>

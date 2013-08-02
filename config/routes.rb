@@ -28,6 +28,7 @@ Holyfire::Application.routes.draw do
 #  post "/batches/massfinalizeparticipant"
   post "/batches/finalizeparticipant"
   post "/batches/error"
+  post "/batches/settime"
 #  post "/batches/moveparticipant"
 
   resources :sessions, only: [:new, :create, :destroy]

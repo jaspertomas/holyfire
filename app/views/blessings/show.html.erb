@@ -47,6 +47,9 @@
 <br>
 <br><%= link_to 'Download Backup', blessing_path(format: "xlsx") %>
 <br><%= link_to 'View report', blessings_report_path() + '?id='+@blessing.id.to_s, method: 'post' %>
-<br><%= link_to 'View summary', blessings_summary_path() + '?id='+@blessing.id.to_s, method: 'post' %>
+<br>View summary: 
+<%= link_to 'Basic', blessings_summary_path() + '?page=B&id='+@blessing.id.to_s, method: 'post' %> | 
+<%= link_to 'Male', blessings_summary_path() + '?page=M&id='+@blessing.id.to_s, method: 'post' %> | 
+<%= link_to 'Female', blessings_summary_path() + '?page=F&id='+@blessing.id.to_s, method: 'post' %> 
 
 <%=render 'showchildren'%>

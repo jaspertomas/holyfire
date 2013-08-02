@@ -128,13 +128,8 @@ end
 <br>Guarantor: <%= collection_select :guarantor, :guarantor, Volunteer.all.sort! { |a,b| a.name <=> b.name }, :name, :name, :prompt => "No Change"%>
 <br>Missionary: <%= collection_select :missionary, :missionary, Pastor.all.sort! { |a,b| a.name <=> b.name }, :name, :name, :prompt => "No Change"%>
 
-<hr>
-
-Blessing Time:
-<%= collection_select :ctime_id, :ctime_id, Ctime.all, :id, :span, :prompt => "Choose One"%>
-<input type=submit value="Set Time">
-
 <%end%>
+
 
 <script>
 

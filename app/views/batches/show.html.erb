@@ -33,5 +33,13 @@
 <%= link_to 'Edit', edit_batch_path(@batch) %> |
 <%= link_to 'Back to '+@batch.blessing.to_s, @batch.blessing %>
 
+<hr>
+
+<%= form_tag batches_settime_path do %>
+Set Blessing Time:
+<%= collection_select :ctime_id, :ctime_id, Ctime.all, :id, :span, {:prompt => "Choose One", :selected => @batch.ctime_id}%>
+<%= submit_tag "Set Time" %>
+<%= hidden_field_tag :id, @batch.id %>
+<% end %>
 
 <%=render 'showchildren'%>
