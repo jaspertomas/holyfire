@@ -183,6 +183,15 @@ class BatchesController < ApplicationController
     flash[:success] = "Participant "+@participant.to_s+" successfully finalized to "+@batch.to_s
     redirect_to controller:"batches", action: "show", id: @batch.id, gender:cookies[:gender]
   end 
+  def unfinalizeparticipant
+    #admin and batcher only
+    return redirect_to static_pages_batcheronlyerror_path if !current_user.is_admin && !current_user.is_batcher
+    @batch = Batch.find(params[:id])
+    @participant=Participant.find(params[:participant_id])      
+    @participant.update_attributes(is_finalized: false)  
+    flash[:success] = "Participant "+@participant.to_s+" successfully unfinalized to "+@batch.to_s
+    redirect_to controller:"batches", action: "show", id: @batch.id, gender:cookies[:gender]
+  end 
   def massaddparticipant
     #admin and batcher only
     return redirect_to static_pages_batcheronlyerror_path if !current_user.is_admin && !current_user.is_batcher

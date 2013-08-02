@@ -94,7 +94,13 @@ end
     <td align=center><%= link_to 'Edit', edit_participant_path(participant) %></td>
     <td align=center><%if !participant.is_finalized %><%= link_to 'Delete', participant, confirm: 'Delete: Are you sure?', method: :delete %><%end%></td>
     <td align=center><%if !participant.is_finalized %><%= link_to 'Unbatch', batches_removeparticipant_path+"?id=" + @batch.id.to_s + "&participant_id=" + participant.id.to_s, method: :post %><%end%></td>
-    <td align=center><%if !participant.is_finalized %><%= link_to 'Finalize', batches_finalizeparticipant_path+"?id=" + @batch.id.to_s + "&participant_id=" + participant.id.to_s, confirm: 'Finalize: Are you sure?', method: :post %><%end%></td>
+    <td align=center>
+    	<%if !participant.is_finalized %>
+    		<%= link_to 'Finalize', batches_finalizeparticipant_path+"?id=" + @batch.id.to_s + "&participant_id=" + participant.id.to_s, confirm: 'Finalize: Are you sure?', method: :post %>
+    	<%else%>
+	    	<%= link_to 'Unfinalize', batches_unfinalizeparticipant_path+"?id=" + @batch.id.to_s + "&participant_id=" + participant.id.to_s, confirm: 'Finalize: Are you sure?', method: :post %>
+    	<%end%>
+    </td>
   </tr>
 
 <%

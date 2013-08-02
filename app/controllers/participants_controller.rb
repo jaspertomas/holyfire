@@ -121,17 +121,28 @@ class ParticipantsController < ApplicationController
     end
   end
 
-  def finalize
-    #admin and encoder only
-    return redirect_to static_pages_encoderonlyerror_path if !current_user.is_admin && !current_user.is_encoder
-    @participant = Participant.find(params[:id])
-    @participant.update_attributes(finalized_id:1)
-
-    respond_to do |format|
-      format.html { redirect_to controller:"batches", action: "show", id: @batch.id, gender:@participant.sex }
-      format.json { head :no_content }
-    end
-  end
-
+#  def finalize
+#    #admin and batcher only
+#    return redirect_to static_pages_batcheronlyerror_path if !current_user.is_admin && !current_user.is_batcher
+#    @participant = Participant.find(params[:id])
+#    @participant.update_attributes(finalized_id:1)
+#
+#    respond_to do |format|
+#      format.html { redirect_to controller:"batches", action: "show", id: @batch.id, gender:@participant.sex }
+#      format.json { head :no_content }
+#    end
+#  end
+#
+#  def unfinalize
+#    #admin and batcher only
+#    return redirect_to static_pages_batcheronlyerror_path if !current_user.is_admin && !current_user.is_batcher
+#    @participant = Participant.find(params[:id])
+#    @participant.update_attributes(finalized_id:1)
+#  
+#    respond_to do |format|
+#      format.html { redirect_to controller:"batches", action: "show", id: @batch.id, gender:@participant.sex }
+#      format.json { head :no_content }
+#    end
+#  end
 
 end

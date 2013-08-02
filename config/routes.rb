@@ -2,7 +2,8 @@ Holyfire::Application.routes.draw do
   resources :volunteers
 
   resources :participants
-  post "/participants/finalize"
+#  post "/participants/finalize"
+#  post "/participants/unfinalize"
 
   resources :settings
 
@@ -22,6 +23,7 @@ Holyfire::Application.routes.draw do
   post "/batches/massprocessparticipant"
 #  post "/batches/massfinalizeparticipant"
   post "/batches/finalizeparticipant"
+  post "/batches/unfinalizeparticipant"
   post "/batches/error"
 #  post "/batches/moveparticipant"
 
