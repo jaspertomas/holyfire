@@ -99,13 +99,13 @@
 
 
   <div class="actions">
-    <%= f.submit "Create participant", name: "commit[]" %>
     <% 
     #only if action = new / create
     if params[:action]=="new" || params[:action]=="create" 
     %>
     	<br><%= f.submit "Create participant and add another", name: "commit[]" %>
     <%end%>
+    <br><%= f.submit "Create participant", name: "commit[]" %>
     
   </div>
 <% end %>
