@@ -110,7 +110,7 @@ class ParticipantsController < ApplicationController
   # DELETE /participants/1.json
   def destroy
     #admin and encoder only
-    return redirect_to static_pages_encoderonlyerror_path if !current_user.is_admin && !current_user.is_encoder
+    return redirect_to static_pages_adminonlyerror_path if !current_user.is_admin #&& !current_user.is_encoder
     @participant = Participant.find(params[:id])
     @participant.destroy
 
