@@ -14,6 +14,7 @@ end
 batchcounter=0
 @blessing.batches.each do |batch|
 	batchcounter+=1
+	participantcounter=0
 %>
 
 <table border=1>
@@ -56,9 +57,13 @@ batchcounter=0
 	<%
 	batch.participants.sort_by{|x| [x.donation, x.age ]}.reverse.each do |p|
 		if p.sex==@page
+			participantcounter+=1
 	%>	
 	<tr>
-		<td><%=p.no%></td>
+		<td>
+			<%#=p.no%>
+			<%=participantcounter%>
+		</td>
 		<td>
 					<% if Volunteer.find_by_name(p.introducer) and Volunteer.find_by_name(p.introducer).chinesename %>
 						<%=p.introducer%> (<%=Volunteer.find_by_name(p.introducer).chinesename%>)
