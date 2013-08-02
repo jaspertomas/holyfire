@@ -1,0 +1,32 @@
+<%
+%>
+
+<table border=1>
+	<tr>
+		<td align=center><b>Batch No.</td>
+		<td align=center><b>Total Number of <%=@coldermale%></b></td>
+		<td align=center><b>Total Number of <%=@cyoungermale%></b></td>
+		<td align=center><b>Total Number of <%=@colderfemale%></b></td>
+		<td align=center><b>Total Number of <%=@cyoungerfemale%></b></td>
+		<td align=center><b>Total Number of the Batch</b></td>
+	</tr>
+<%@blessing.batches.each do |batch|%>
+	<tr>
+		<td align=center><%=batch.no%></td>
+		<td align=center><%=batch.participants.select{|p| p.sex=='M' && p.age > 15 }.size%></td>
+		<td align=center><%=batch.participants.select{|p| p.sex=='M' && p.age <= 15 }.size%></td>
+		<td align=center><%=batch.participants.select{|p| p.sex=='F' && p.age > 15 }.size%></td>
+		<td align=center><%=batch.participants.select{|p| p.sex=='F' && p.age <= 15 }.size%></td>
+		<td align=center><%=batch.participants.count%></td>
+	</tr>
+<%end%>
+	<tr>
+		<td align=right colspan=5><b>Total # of Participants</b></td>
+		<td align=center><b><%=@blessing.participants.count%></b></td>
+	</tr>
+</table>
+
+
+
+
+

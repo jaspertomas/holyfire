@@ -243,14 +243,22 @@ class BlessingsController < ApplicationController
   end
   
   def summary
+    
+    @blessing = Blessing.find(params[:id])
+    
     #page 1: basic
-    if params[:page]=='B'
+    if params[:page]=='T'
+      @coldermale=Setting.find_by_name('coldermale').value
+      @colderfemale=Setting.find_by_name('colderfemale').value
+      @cyoungermale=Setting.find_by_name('cyoungermale').value
+      @cyoungerfemale=Setting.find_by_name('cyoungerfemale').value
+      
+      render template: "blessings/totalsummary"
       
     #page 2 or 3: Male / Female
     else
       @page = params[:page]
     
-      
       @blessing = Blessing.find(params[:id])
       @cfriend=Setting.find_by_name('cfriend').value
       @coldermale=Setting.find_by_name('coldermale').value
