@@ -63,7 +63,7 @@ class ParticipantsController < ApplicationController
 
     respond_to do |format|
       if @participant.save
-        flash[:success] = 'Participant '+@participant.to_s+' was successfully created as #'+@participant.no.to_s+'.'
+        flash[:success] = 'Participant '+@participant.to_s+' was successfully created as #'+@participant.no.to_s
         if params[:commit]==["Create participant and add another"]
           cookies['latestaddparticipantno']=@participant.no.to_s
           format.html { redirect_to action:"new", controller:"participants", blessing_id: @participant.blessing_id }

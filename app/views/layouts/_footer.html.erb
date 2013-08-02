@@ -1,0 +1,22 @@
+<script>
+
+var str=$('.alert-success').html();
+if(str.search(" was successfully created as #")!=-1)
+{
+	alert (str.split(" was successfully created as #")[1]);
+	//$("#example").html("<div align=center>"+str.split(" was successfully created as #")[1]+"</div>");
+	//$("#example").dialog();
+} 
+
+</script>
+
+
+
+  
+  <script>
+
+function showDialog(){
+    $("#example").dialog();
+    return false;
+}
+</script>
