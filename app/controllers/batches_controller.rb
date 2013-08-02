@@ -125,7 +125,7 @@ class BatchesController < ApplicationController
   # DELETE /batches/1.json
   def destroy
     #admin and batcher only
-    return redirect_to static_pages_batcheronlyerror_path if !current_user.is_admin
+    return redirect_to static_pages_adminonlyerror_path if !current_user.is_admin
     @batch = Batch.find(params[:id])
     @batch.destroy
 
