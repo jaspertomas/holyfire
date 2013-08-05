@@ -142,7 +142,8 @@ class BatchesController < ApplicationController
     @batch = Batch.find(params[:id])
     @participant=Participant.find(params[:participant_id])      
     
-    @participant.update_attributes(batch_id: @batch.id)  
+    current_user=User.find_by_remember_token(cookies[:remember_token])
+    @participant.update_attributes(batch_id: @batch.id, batched_by_id:current_user.id )  
       
     flash[:success] = "Participant "+@participant.to_s+" successfully added to "+@batch.to_s
 
@@ -207,21 +208,23 @@ class BatchesController < ApplicationController
     
     if params[:commit]==["Remove Multiple Participants"]
       Participant.update_all(["batch_id=?",nil], :id=>params[:participant_ids])
-      flash[:success] = " participant "+@participant.to_s+" successfully removed from "+@batch.to_s
+      current_user=User.find_by_remember_token(cookies[:remember_token])
+      Participant.update_all(["batched_by_id=?",current_user.id], :id=>params[:participant_ids])
+      flash[:success] = params[:participant_ids].size.to_s+" participants successfully removed from "+@batch.to_s
       redirect_to controller:"batches", action: "show", id: @batch.id, gender:cookies[:gender]
     elsif params[:commit]==["Move Multiple Participants to"]
       Participant.update_all(["batch_id=?",params[:movetobatch_id]], :id=>params[:participant_ids])
-      flash[:success] = "Participant "+@participant.to_s+" successfully removed from "+@batch.to_s
+      flash[:success] = params[:participant_ids].size.to_s+" participants successfully removed from "+@batch.to_s
       redirect_to controller:"batches", action: "show", id: @batch.id, gender:cookies[:gender]
     elsif params[:commit]==["Finalize Multiple Participants"]
       Participant.update_all(["is_finalized=?",true], :id=>params[:participant_ids])
-      flash[:success] = "Participant "+@participant.to_s+" successfully finalized to "+@batch.to_s
+      flash[:success] = params[:participant_ids].size.to_s+" participants successfully finalized to "+@batch.to_s
       redirect_to controller:"batches", action: "show", id: @batch.id, gender:cookies[:gender]
     elsif params[:commit]==["Set Introducer / Guarantor"]
       Participant.update_all(["introducer=?",params[:introducer][:introducer]], :id=>params[:participant_ids]) if !params[:introducer][:introducer].empty?
       Participant.update_all(["guarantor=?",params[:guarantor][:guarantor]], :id=>params[:participant_ids]) if !params[:guarantor][:guarantor].empty?
       Participant.update_all(["missionary=?",params[:missionary][:missionary]], :id=>params[:participant_ids]) if !params[:missionary][:missionary].empty?
-      flash[:success] = "Successfully updated introducer / guarantor for participant "+@participant.to_s
+      flash[:success] = "Successfully updated introducer / guarantor for "+params[:participant_ids].size.to_s+" participants"
       redirect_to controller:"batches", action: "show", id: @batch.id, gender:cookies[:gender]
 #    elsif params[:commit]==["Print IDs"]
 #      @participants=Participant.find_by_sql("select * from participants where id in (#{params[:participant_ids].join(', ')})")

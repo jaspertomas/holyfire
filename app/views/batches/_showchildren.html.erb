@@ -20,7 +20,7 @@
     <th align=center><%=link_to 'Introducer', batch_path(@batch) + '?gender='+@gender+'&sort=introducer'+(@order=='normal'&&@sort=='introducer' ? '&order=reverse' : "")%></td>
     <th align=center><%=link_to 'Guarantor', batch_path(@batch) + '?gender='+@gender+'&sort=guarantor'+(@order=='normal'&&@sort=='guarantor' ? '&order=reverse' : "")%></td>
     <th align=center><%=link_to 'Missionary', batch_path(@batch) + '?gender='+@gender+'&sort=missionary'+(@order=='normal'&&@sort=='missionary' ? '&order=reverse' : "")%></td>
-    <th align=center><font size=1>Created by</font></td>
+    <th align=center><font size=1>Creator/ updater/ batcher</font></td>
   </tr>
 
 <% @participants.each do |participant|
@@ -38,11 +38,17 @@
     <td align=center><font size=1><%= participant.introducer %></font></td>
     <td align=center><font size=1><%= participant.guarantor %></font></td>
     <td align=center><font size=1><%= participant.missionary %></font></td>
-    <td align=center><font size=1><%= participant.created_by ? participant.created_by.name : "" %></font></td>
+    <td align=center>
+    	<font size=1>
+    	<%= participant.created_by ? participant.created_by.name : "" %>
+    	<br><%= participant.updated_by ? participant.updated_by.name : "" %>
+    	<br><%= participant.batched_by ? participant.batched_by.name : "" %>
+    	</font>
+    </td>
+    <td align=center><%= link_to 'Add to Batch', batches_addparticipant_path+"?id=" + @batch.id.to_s + "&participant_id=" + participant.id.to_s, method: :post %></td>
     <td align=center><%= link_to 'View', participant_path(participant) %></td>
     <td align=center><%= link_to 'Edit', edit_participant_path(participant) %></td>
     <td align=center><%= link_to 'Delete', participant, confirm: 'Are you sure?', method: :delete %></td>
-    <td align=center><%= link_to 'Add to Batch', batches_addparticipant_path+"?id=" + @batch.id.to_s + "&participant_id=" + participant.id.to_s, method: :post %></td>
   </tr>
 
 <%
@@ -82,7 +88,7 @@ end
     <th align=center><%=link_to 'Introducer', batch_path(@batch) + '?gender='+@gender+'&sort=introducer'+(@order=='normal'&&@sort=='introducer' ? '&order=reverse' : "")%></td>
     <th align=center><%=link_to 'Guarantor', batch_path(@batch) + '?gender='+@gender+'&sort=guarantor'+(@order=='normal'&&@sort=='guarantor' ? '&order=reverse' : "")%></td>
     <th align=center><%=link_to 'Missionary', batch_path(@batch) + '?gender='+@gender+'&sort=missionary'+(@order=='normal'&&@sort=='missionary' ? '&order=reverse' : "")%></td>
-    <th align=center><font size=1>Created by</font></td>
+    <th align=center><font size=1>Creator/ updater/ batcher</font></td>
   </tr>
 <% 
 	finalizedcounter=0
@@ -135,10 +141,13 @@ end
     <td align=center><font size=1><%= participant.introducer %></font></td>
     <td align=center><font size=1><%= participant.guarantor %></font></td>
     <td align=center><font size=1><%= participant.missionary %></font></td>
-    <td align=center><font size=1><%= participant.created_by ? participant.created_by.name : "" %></font></td>
-    <td align=center><%= link_to 'View', participant_path(participant) %></td>
-    <td align=center><%= link_to 'Edit', edit_participant_path(participant) %></td>
-    <td align=center><%if !participant.is_finalized %><%= link_to 'Delete', participant, confirm: 'Delete: Are you sure?', method: :delete %><%end%></td>
+    <td align=center>
+    	<font size=1>
+    	<%= participant.created_by ? participant.created_by.name : "" %>
+    	<br><%= participant.updated_by ? participant.updated_by.name : "" %>
+    	<br><%= participant.batched_by ? participant.batched_by.name : "" %>
+    	</font>
+    </td>    
     <td align=center><%if !participant.is_finalized %><%= link_to 'Unbatch', batches_removeparticipant_path+"?id=" + @batch.id.to_s + "&participant_id=" + participant.id.to_s, method: :post %><%end%></td>
     <td align=center>
     	<%if !participant.is_finalized %>
@@ -147,6 +156,9 @@ end
 	    	<%= link_to 'Unfinalize', batches_unfinalizeparticipant_path+"?id=" + @batch.id.to_s + "&participant_id=" + participant.id.to_s, confirm: 'Finalize: Are you sure?', method: :post %>
     	<%end%>
     </td>
+    <td align=center><%= link_to 'View', participant_path(participant) %></td>
+    <td align=center><%= link_to 'Edit', edit_participant_path(participant) %></td>
+    <td align=center><%if !participant.is_finalized %><%= link_to 'Delete', participant, confirm: 'Delete: Are you sure?', method: :delete %><%end%></td>
   </tr>
 
 <%
