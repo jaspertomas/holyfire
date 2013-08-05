@@ -59,7 +59,7 @@ batchcounter=0
 		if p.sex==@page
 			participantcounter+=1
 	%>	
-	<tr>
+	<tr align=center>
 		<td>
 			<%#=p.no%>
 			<%=participantcounter%>
@@ -105,7 +105,7 @@ batchcounter=0
 			<%elsif p.age==0.75%>
 				9 mo.
 			<%else%>
-				<%=p.age%>
+				<%=p.age.to_i%>
 			<%end%>
 		</td>
 		<td></td>
