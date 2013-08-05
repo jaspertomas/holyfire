@@ -57,12 +57,11 @@
 <hr>
 <div id=participantslist>
 <%#=render 'showchildren'%>
-<%#= link_to "Show unbatched participants", "/blessings/unbatchedlist?id=#{@blessing.id.to_s}"%>
-<a href=# onclick="getunbatchedlist()">Show unbatched participants</a>
+<a href=# onclick="getunbatchedlist()"><b>Show unbatched participants</b></a>
 <br>
 <br>
 </div>
-<%=link_to "New participant",new_participant_path+"?blessing_id="+@blessing.id.to_s%>
+<b><%=link_to "New participant",new_participant_path+"?blessing_id="+@blessing.id.to_s%></b>
 
 <script>
 function getunbatchedlist() {

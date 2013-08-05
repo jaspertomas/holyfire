@@ -36,7 +36,7 @@
 <hr>
 
 <%= form_tag batches_settime_path do %>
-Set Blessing Time:
+<b>Set Blessing Time:</b>
 <%= collection_select :ctime_id, :ctime_id, Ctime.all, :id, :span, {:prompt => "Choose One", :selected => @batch.ctime_id}%>
 <%= submit_tag "Set Time" %>
 <%= hidden_field_tag :id, @batch.id %>

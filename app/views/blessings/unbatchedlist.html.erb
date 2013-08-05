@@ -10,7 +10,7 @@
     <th align=center><%=link_to 'Sex', blessing_path(@blessing) + '?sort=sex'+(@order=='normal'&&@sort=='sex' ? '&order=reverse' : "")%></td>
     <th align=center><%=link_to 'Age', blessing_path(@blessing) + '?sort=age'+(@order=='normal'&&@sort=='age' ? '&order=reverse' : "")%></td>
     <th align=center><%=link_to 'Donation', blessing_path(@blessing) + '?sort=donation'+(@order=='normal'&&@sort=='donation' ? '&order=reverse' : "")%></td>
-    <th>Created by</th>
+    <th>Registered by / at</th>
     <!--th align=center>Batch<%#=link_to 'Batch', blessing_path(@blessing) + '?sort=batch'+(@order=='normal'&&@sort=='donation' ? '&order=reverse' : "")%></td-->
   </tr>
   <% @participants.each do |participant|
@@ -24,7 +24,7 @@
     <td align=center><%= participant.sex %></td>
     <td align=center><%= participant.age %></td>
     <td align=center><%= participant.donation %></td>
-    <td align=center><%= participant.created_by ? participant.created_by.name : "" %></td>
+    <td><font size=1><%= participant.created_by ? participant.created_by.name : "" %>, <%=participant.created_at.getlocal.strftime("%I:%M %p")%></font></td>    
     <!--td align=center><%#= participant.batch ? (link_to participant.batch, participant.batch) : ""%></td-->
     <td align=center><%= link_to 'Edit', edit_participant_path(participant) %></td>
     <td align=center><%= link_to 'Delete', participant, confirm: 'Are you sure?', method: :delete %></td>

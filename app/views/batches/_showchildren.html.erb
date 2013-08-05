@@ -8,47 +8,41 @@
 <input type=hidden name=id id=id value=<%=@batch.id%> >
 
 <table border=1 id="unbatchedparticipantstable">
-  <tr VALIGN=TOP>
-    <th align=center><%=check_box_tag "unbatched_participants_check_all"%></th>
-    <th align=center><%=link_to 'No', batch_path(@batch) + '?gender='+@gender+'&sort=no'+(@order=='normal'&&@sort=='no' ? '&order=reverse' : "")%></td>
-    <th align=center><%=link_to 'First Name', batch_path(@batch) + '?gender='+@gender+'&sort=fname'+(@order=='normal'&&@sort=='fname' ? '&order=reverse' : "")%></td>
-    <th align=center><%=link_to 'Middle Name', batch_path(@batch) + '?gender='+@gender+'&sort=mname'+(@order=='normal'&&@sort=='mname' ? '&order=reverse' : "")%></td>
-    <th align=center><%=link_to 'Last Name', batch_path(@batch) + '?gender='+@gender+'&sort=lname'+(@order=='normal'&&@sort=='lname' ? '&order=reverse' : "")%></td>
-    <th align=center><%=link_to 'Sex', batch_path(@batch) + '?gender='+@gender+'&sort=sex'+(@order=='normal'&&@sort=='sex' ? '&order=reverse' : "")%></td>
-    <th align=center><%=link_to 'Age', batch_path(@batch) + '?gender='+@gender+'&sort=age'+(@order=='normal'&&@sort=='age' ? '&order=reverse' : "")%></td>
-    <th align=center><%=link_to 'Donation', batch_path(@batch) + '?gender='+@gender+'&sort=donation'+(@order=='normal'&&@sort=='donation' ? '&order=reverse' : "")%></td>
-    <th align=center><%=link_to 'Introducer', batch_path(@batch) + '?gender='+@gender+'&sort=introducer'+(@order=='normal'&&@sort=='introducer' ? '&order=reverse' : "")%></td>
-    <th align=center><%=link_to 'Guarantor', batch_path(@batch) + '?gender='+@gender+'&sort=guarantor'+(@order=='normal'&&@sort=='guarantor' ? '&order=reverse' : "")%></td>
-    <th align=center><%=link_to 'Missionary', batch_path(@batch) + '?gender='+@gender+'&sort=missionary'+(@order=='normal'&&@sort=='missionary' ? '&order=reverse' : "")%></td>
-    <th align=center><font size=1>Creator/ updater/ batcher</font></td>
+  <tr VALIGN=TOP align=center>
+    <th><%=check_box_tag "unbatched_participants_check_all"%></th>
+    <th><%=link_to 'No', batch_path(@batch) + '?gender='+@gender+'&sort=no'+(@order=='normal'&&@sort=='no' ? '&order=reverse' : "")%></td>
+    <th><%=link_to 'First Name', batch_path(@batch) + '?gender='+@gender+'&sort=fname'+(@order=='normal'&&@sort=='fname' ? '&order=reverse' : "")%></td>
+    <th><%=link_to 'Middle Name', batch_path(@batch) + '?gender='+@gender+'&sort=mname'+(@order=='normal'&&@sort=='mname' ? '&order=reverse' : "")%></td>
+    <th><%=link_to 'Last Name', batch_path(@batch) + '?gender='+@gender+'&sort=lname'+(@order=='normal'&&@sort=='lname' ? '&order=reverse' : "")%></td>
+    <th><%=link_to 'Sex', batch_path(@batch) + '?gender='+@gender+'&sort=sex'+(@order=='normal'&&@sort=='sex' ? '&order=reverse' : "")%></td>
+    <th><%=link_to 'Age', batch_path(@batch) + '?gender='+@gender+'&sort=age'+(@order=='normal'&&@sort=='age' ? '&order=reverse' : "")%></td>
+    <th><%=link_to 'Donation', batch_path(@batch) + '?gender='+@gender+'&sort=donation'+(@order=='normal'&&@sort=='donation' ? '&order=reverse' : "")%></td>
+    <th><%=link_to 'Introducer', batch_path(@batch) + '?gender='+@gender+'&sort=introducer'+(@order=='normal'&&@sort=='introducer' ? '&order=reverse' : "")%></td>
+    <th><%=link_to 'Guarantor', batch_path(@batch) + '?gender='+@gender+'&sort=guarantor'+(@order=='normal'&&@sort=='guarantor' ? '&order=reverse' : "")%></td>
+    <th><%=link_to 'Missionary', batch_path(@batch) + '?gender='+@gender+'&sort=missionary'+(@order=='normal'&&@sort=='missionary' ? '&order=reverse' : "")%></td>
+    <th><font size=1>Registered by / at</font></td>
   </tr>
 
 <% @participants.each do |participant|
   if participant.batch_id.nil? && ( @gender=="Both" || participant.sex==@gender)
 %>  
-  <tr VALIGN=TOP>
-    <td align=center><%=check_box_tag "participant_ids[]", participant.id %></td>
-    <td align=center><%= participant.no %></td>
-    <td align=center><%=participant.fname%></td>
-    <td align=center><%=participant.mname%></td>
-    <td align=center><%=participant.lname%></td>
-    <td align=center><%= participant.sex %></td>
-    <td align=center><%= participant.age %></td>
-    <td align=center><%= participant.donation %></td>
-    <td align=center><font size=1><%= participant.introducer %></font></td>
-    <td align=center><font size=1><%= participant.guarantor %></font></td>
-    <td align=center><font size=1><%= participant.missionary %></font></td>
-    <td align=center>
-    	<font size=1>
-    	<%= participant.created_by ? participant.created_by.name : "" %>
-    	<br><%= participant.updated_by ? participant.updated_by.name : "" %>
-    	<br><%= participant.batched_by ? participant.batched_by.name : "" %>
-    	</font>
-    </td>
-    <td align=center><%= link_to 'Add to Batch', batches_addparticipant_path+"?id=" + @batch.id.to_s + "&participant_id=" + participant.id.to_s, method: :post %></td>
-    <td align=center><%= link_to 'View', participant_path(participant) %></td>
-    <td align=center><%= link_to 'Edit', edit_participant_path(participant) %></td>
-    <td align=center><%= link_to 'Delete', participant, confirm: 'Are you sure?', method: :delete %></td>
+  <tr VALIGN=TOP align=center>
+    <td><%=check_box_tag "participant_ids[]", participant.id %></td>
+    <td><%= participant.no %></td>
+    <td><%=participant.fname%></td>
+    <td><%=participant.mname%></td>
+    <td><%=participant.lname%></td>
+    <td><%= participant.sex %></td>
+    <td><%= participant.age %></td>
+    <td><%= participant.donation %></td>
+    <td><font size=1><%= participant.introducer %></font></td>
+    <td><font size=1><%= participant.guarantor %></font></td>
+    <td><font size=1><%= participant.missionary %></font></td>
+    <td><font size=1><%= participant.created_by ? participant.created_by.name : "" %>, <%=participant.created_at.getlocal.strftime("%I:%M %p")%></font></td>    
+    <td><%= link_to 'Add', batches_addparticipant_path+"?id=" + @batch.id.to_s + "&participant_id=" + participant.id.to_s, method: :post %></td>
+    <td><%= link_to 'View', participant_path(participant) %></td>
+    <td><%#= link_to 'Edit', edit_participant_path(participant) %></td>
+    <td><%#= link_to 'Delete', participant, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 
 <%
@@ -75,20 +69,20 @@ end
 <input type=hidden name=id id=id value=<%=@batch.id%> >
 
 <table border=1 id="batchedparticipantstable">
-  <tr VALIGN=TOP>
+  <tr VALIGN=TOP align=center>
   	<th>count</th>
-    <th align=center><%=check_box_tag "batched_participants_check_all"%></th>
-    <th align=center><%=link_to 'No', batch_path(@batch) + '?gender='+@gender+'&sort=no'+(@order=='normal'&&@sort=='no' ? '&order=reverse' : "")%></td>
-    <th align=center><%=link_to 'First Name', batch_path(@batch) + '?gender='+@gender+'&sort=fname'+(@order=='normal'&&@sort=='fname' ? '&order=reverse' : "")%></td>
-    <th align=center><%=link_to 'Middle Name', batch_path(@batch) + '?gender='+@gender+'&sort=mname'+(@order=='normal'&&@sort=='mname' ? '&order=reverse' : "")%></td>
-    <th align=center><%=link_to 'Last Name', batch_path(@batch) + '?gender='+@gender+'&sort=lname'+(@order=='normal'&&@sort=='lname' ? '&order=reverse' : "")%></td>
-    <th align=center><%=link_to 'Sex', batch_path(@batch) + '?gender='+@gender+'&sort=sex'+(@order=='normal'&&@sort=='sex' ? '&order=reverse' : "")%></td>
-    <th align=center><%=link_to 'Age', batch_path(@batch) + '?gender='+@gender+'&sort=age'+(@order=='normal'&&@sort=='age' ? '&order=reverse' : "")%></td>
-    <th align=center><%=link_to 'Donation', batch_path(@batch) + '?gender='+@gender+'&sort=donation'+(@order=='normal'&&@sort=='donation' ? '&order=reverse' : "")%></td>
-    <th align=center><%=link_to 'Introducer', batch_path(@batch) + '?gender='+@gender+'&sort=introducer'+(@order=='normal'&&@sort=='introducer' ? '&order=reverse' : "")%></td>
-    <th align=center><%=link_to 'Guarantor', batch_path(@batch) + '?gender='+@gender+'&sort=guarantor'+(@order=='normal'&&@sort=='guarantor' ? '&order=reverse' : "")%></td>
-    <th align=center><%=link_to 'Missionary', batch_path(@batch) + '?gender='+@gender+'&sort=missionary'+(@order=='normal'&&@sort=='missionary' ? '&order=reverse' : "")%></td>
-    <th align=center><font size=1>Creator/ updater/ batcher</font></td>
+    <th><%=check_box_tag "batched_participants_check_all"%></th>
+    <th><%=link_to 'No', batch_path(@batch) + '?gender='+@gender+'&sort=no'+(@order=='normal'&&@sort=='no' ? '&order=reverse' : "")%></td>
+    <th><%=link_to 'First Name', batch_path(@batch) + '?gender='+@gender+'&sort=fname'+(@order=='normal'&&@sort=='fname' ? '&order=reverse' : "")%></td>
+    <th><%=link_to 'Middle Name', batch_path(@batch) + '?gender='+@gender+'&sort=mname'+(@order=='normal'&&@sort=='mname' ? '&order=reverse' : "")%></td>
+    <th><%=link_to 'Last Name', batch_path(@batch) + '?gender='+@gender+'&sort=lname'+(@order=='normal'&&@sort=='lname' ? '&order=reverse' : "")%></td>
+    <th><%=link_to 'Sex', batch_path(@batch) + '?gender='+@gender+'&sort=sex'+(@order=='normal'&&@sort=='sex' ? '&order=reverse' : "")%></td>
+    <th><%=link_to 'Age', batch_path(@batch) + '?gender='+@gender+'&sort=age'+(@order=='normal'&&@sort=='age' ? '&order=reverse' : "")%></td>
+    <th><%=link_to 'Donation', batch_path(@batch) + '?gender='+@gender+'&sort=donation'+(@order=='normal'&&@sort=='donation' ? '&order=reverse' : "")%></td>
+    <th><%=link_to 'Introducer', batch_path(@batch) + '?gender='+@gender+'&sort=introducer'+(@order=='normal'&&@sort=='introducer' ? '&order=reverse' : "")%></td>
+    <th><%=link_to 'Guarantor', batch_path(@batch) + '?gender='+@gender+'&sort=guarantor'+(@order=='normal'&&@sort=='guarantor' ? '&order=reverse' : "")%></td>
+    <th><%=link_to 'Missionary', batch_path(@batch) + '?gender='+@gender+'&sort=missionary'+(@order=='normal'&&@sort=='missionary' ? '&order=reverse' : "")%></td>
+    <th><font size=1>Registered by / at</font></td>
   </tr>
 <% 
 	finalizedcounter=0
@@ -105,7 +99,7 @@ end
 		<%
 		linebreakcounter+=1
 		%>
-		<td colspan=100 align=center 		
+		<td colspan=100 		
 			<% #if linebreakcounter % 2 == 0 %>
 			style="background-color:#CCFFCC"
 			<%#else%>
@@ -127,38 +121,36 @@ end
   		participantcounter+=1
   		linebreakprinted=false
 %>  
-  <tr VALIGN=TOP 		<% if linebreakcounter % 2 == 0 %>style="background-color:#CCFFCC"<%else%>style="background-color:#FFFFCC"<%end%>
+  <tr VALIGN=TOP align=center <% if linebreakcounter % 2 == 0 %>style="background-color:#CCFFCC"<%else%>style="background-color:#FFFFCC"<%end%>
   >
   	<td><%=participantcounter%></td>
-    <td align=center><%if !participant.is_finalized %><%=check_box_tag "participant_ids[]", participant.id %><%else%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%end%></td>
-    <td align=center><%= participant.no %></td>
-    <td align=center><%=participant.fname%></td>
-    <td align=center><%=participant.mname%></td>
-    <td align=center><%=participant.lname%></td>
-    <td align=center><%= participant.sex %></td>
-    <td align=center><%= participant.age %></td>
-    <td align=center><%= participant.donation %></td>
-    <td align=center><font size=1><%= participant.introducer %></font></td>
-    <td align=center><font size=1><%= participant.guarantor %></font></td>
-    <td align=center><font size=1><%= participant.missionary %></font></td>
-    <td align=center>
-    	<font size=1>
-    	<%= participant.created_by ? participant.created_by.name : "" %>
-    	<br><%= participant.updated_by ? participant.updated_by.name : "" %>
-    	<br><%= participant.batched_by ? participant.batched_by.name : "" %>
-    	</font>
-    </td>    
-    <td align=center><%if !participant.is_finalized %><%= link_to 'Unbatch', batches_removeparticipant_path+"?id=" + @batch.id.to_s + "&participant_id=" + participant.id.to_s, method: :post %><%end%></td>
-    <td align=center>
+    <td><%if !participant.is_finalized %><%=check_box_tag "participant_ids[]", participant.id %><%else%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%end%></td>
+    <td><%= participant.no %></td>
+    <td><%=participant.fname%></td>
+    <td><%=participant.mname%></td>
+    <td><%=participant.lname%></td>
+    <td><%= participant.sex %></td>
+    <td><%= participant.age %></td>
+    <td><%= participant.donation %></td>
+    <td><font size=1><%= participant.introducer %></font></td>
+    <td><font size=1><%= participant.guarantor %></font></td>
+    <td><font size=1><%= participant.missionary %></font></td>
+    <td><font size=1><%= participant.created_by ? participant.created_by.name : "" %>, <%=participant.created_at.getlocal.strftime("%I:%M %p")%></font></td>    
+    <td><%if !participant.is_finalized %><%= link_to 'Unbatch', batches_removeparticipant_path+"?id=" + @batch.id.to_s + "&participant_id=" + participant.id.to_s, method: :post %><%end%></td>
+    <td>
     	<%if !participant.is_finalized %>
     		<%= link_to 'Finalize', batches_finalizeparticipant_path+"?id=" + @batch.id.to_s + "&participant_id=" + participant.id.to_s, confirm: 'Finalize: Are you sure?', method: :post %>
     	<%else%>
 	    	<%= link_to 'Unfinalize', batches_unfinalizeparticipant_path+"?id=" + @batch.id.to_s + "&participant_id=" + participant.id.to_s, confirm: 'Finalize: Are you sure?', method: :post %>
     	<%end%>
     </td>
-    <td align=center><%= link_to 'View', participant_path(participant) %></td>
-    <td align=center><%= link_to 'Edit', edit_participant_path(participant) %></td>
-    <td align=center><%if !participant.is_finalized %><%= link_to 'Delete', participant, confirm: 'Delete: Are you sure?', method: :delete %><%end%></td>
+    <td><%= link_to 'View', participant_path(participant) %></td>
+    <td><%#= link_to 'Edit', edit_participant_path(participant) %></td>
+    <td>
+    	<%#if !participant.is_finalized %>
+    	<%#= link_to 'Delete', participant, confirm: 'Delete: Are you sure?', method: :delete %>
+    	<%#end%>
+    </td>
   </tr>
 
 <%

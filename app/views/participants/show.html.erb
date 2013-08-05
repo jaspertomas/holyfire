@@ -74,4 +74,5 @@ Updated by <%= @participant.updated_by ? @participant.updated_by.name : "()" %> 
 
 
 <%= link_to 'Edit', edit_participant_path(@participant) %> |
+<%= link_to 'Delete', @participant, confirm: 'Delete: Are you sure?', method: :delete %> |
 <%= link_to 'Back', participants_path %>
