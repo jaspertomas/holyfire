@@ -16,7 +16,7 @@
     <th><%=link_to 'Last Name', batch_path(@batch) + '?gender='+@gender+'&sort=lname'+(@order=='normal'&&@sort=='lname' ? '&order=reverse' : "")%></td>
     <th><%=link_to 'Sex', batch_path(@batch) + '?gender='+@gender+'&sort=sex'+(@order=='normal'&&@sort=='sex' ? '&order=reverse' : "")%></td>
     <th><%=link_to 'Age', batch_path(@batch) + '?gender='+@gender+'&sort=age'+(@order=='normal'&&@sort=='age' ? '&order=reverse' : "")%></td>
-    <th><%=link_to 'Donation', batch_path(@batch) + '?gender='+@gender+'&sort=donation'+(@order=='normal'&&@sort=='donation' ? '&order=reverse' : "")%></td>
+    <th><font size=1><%=link_to 'Donation', batch_path(@batch) + '?gender='+@gender+'&sort=donation'+(@order=='normal'&&@sort=='donation' ? '&order=reverse' : "")%></font></td>
     <th><%=link_to 'Introducer', batch_path(@batch) + '?gender='+@gender+'&sort=introducer'+(@order=='normal'&&@sort=='introducer' ? '&order=reverse' : "")%></td>
     <th><%=link_to 'Guarantor', batch_path(@batch) + '?gender='+@gender+'&sort=guarantor'+(@order=='normal'&&@sort=='guarantor' ? '&order=reverse' : "")%></td>
     <th><%=link_to 'Missionary', batch_path(@batch) + '?gender='+@gender+'&sort=missionary'+(@order=='normal'&&@sort=='missionary' ? '&order=reverse' : "")%></td>
@@ -78,7 +78,7 @@ end
     <th><%=link_to 'Last Name', batch_path(@batch) + '?gender='+@gender+'&sort=lname'+(@order=='normal'&&@sort=='lname' ? '&order=reverse' : "")%></td>
     <th><%=link_to 'Sex', batch_path(@batch) + '?gender='+@gender+'&sort=sex'+(@order=='normal'&&@sort=='sex' ? '&order=reverse' : "")%></td>
     <th><%=link_to 'Age', batch_path(@batch) + '?gender='+@gender+'&sort=age'+(@order=='normal'&&@sort=='age' ? '&order=reverse' : "")%></td>
-    <th><%=link_to 'Donation', batch_path(@batch) + '?gender='+@gender+'&sort=donation'+(@order=='normal'&&@sort=='donation' ? '&order=reverse' : "")%></td>
+    <th><font size=1><%=link_to 'Donation', batch_path(@batch) + '?gender='+@gender+'&sort=donation'+(@order=='normal'&&@sort=='donation' ? '&order=reverse' : "")%></font></td>
     <th><%=link_to 'Introducer', batch_path(@batch) + '?gender='+@gender+'&sort=introducer'+(@order=='normal'&&@sort=='introducer' ? '&order=reverse' : "")%></td>
     <th><%=link_to 'Guarantor', batch_path(@batch) + '?gender='+@gender+'&sort=guarantor'+(@order=='normal'&&@sort=='guarantor' ? '&order=reverse' : "")%></td>
     <th><%=link_to 'Missionary', batch_path(@batch) + '?gender='+@gender+'&sort=missionary'+(@order=='normal'&&@sort=='missionary' ? '&order=reverse' : "")%></td>

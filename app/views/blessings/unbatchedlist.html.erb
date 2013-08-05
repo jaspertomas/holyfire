@@ -2,32 +2,32 @@
 
 <b>Unbatched Participants:</b>
 <table border=1>
-  <tr VALIGN=TOP>
-    <th align=center><%=link_to 'No', blessing_path(@blessing) + '?sort=no'+(@order=='normal'&&@sort=='no' ? '&order=reverse' : "")%></td>
-    <th align=center><%=link_to 'First Name', blessing_path(@blessing) + '?sort=fname'+(@order=='normal'&&@sort=='fname' ? '&order=reverse' : "")%></td>
-    <th align=center><%=link_to 'Middle Name', blessing_path(@blessing) + '?sort=mname'+(@order=='normal'&&@sort=='mname' ? '&order=reverse' : "")%></td>
-    <th align=center><%=link_to 'Last Name', blessing_path(@blessing) + '?sort=lname'+(@order=='normal'&&@sort=='lname' ? '&order=reverse' : "")%></td>
-    <th align=center><%=link_to 'Sex', blessing_path(@blessing) + '?sort=sex'+(@order=='normal'&&@sort=='sex' ? '&order=reverse' : "")%></td>
-    <th align=center><%=link_to 'Age', blessing_path(@blessing) + '?sort=age'+(@order=='normal'&&@sort=='age' ? '&order=reverse' : "")%></td>
-    <th align=center><%=link_to 'Donation', blessing_path(@blessing) + '?sort=donation'+(@order=='normal'&&@sort=='donation' ? '&order=reverse' : "")%></td>
+  <tr VALIGN=TOP align=center>
+    <th><%=link_to 'No', blessing_path(@blessing) + '?sort=no'+(@order=='normal'&&@sort=='no' ? '&order=reverse' : "")%></td>
+    <th><%=link_to 'First Name', blessing_path(@blessing) + '?sort=fname'+(@order=='normal'&&@sort=='fname' ? '&order=reverse' : "")%></td>
+    <th><%=link_to 'Middle Name', blessing_path(@blessing) + '?sort=mname'+(@order=='normal'&&@sort=='mname' ? '&order=reverse' : "")%></td>
+    <th><%=link_to 'Last Name', blessing_path(@blessing) + '?sort=lname'+(@order=='normal'&&@sort=='lname' ? '&order=reverse' : "")%></td>
+    <th><%=link_to 'Sex', blessing_path(@blessing) + '?sort=sex'+(@order=='normal'&&@sort=='sex' ? '&order=reverse' : "")%></td>
+    <th><%=link_to 'Age', blessing_path(@blessing) + '?sort=age'+(@order=='normal'&&@sort=='age' ? '&order=reverse' : "")%></td>
+    <th><%=link_to 'Donation', blessing_path(@blessing) + '?sort=donation'+(@order=='normal'&&@sort=='donation' ? '&order=reverse' : "")%></td>
     <th>Registered by / at</th>
-    <!--th align=center>Batch<%#=link_to 'Batch', blessing_path(@blessing) + '?sort=batch'+(@order=='normal'&&@sort=='donation' ? '&order=reverse' : "")%></td-->
+    <!--th>Batch<%#=link_to 'Batch', blessing_path(@blessing) + '?sort=batch'+(@order=='normal'&&@sort=='donation' ? '&order=reverse' : "")%></td-->
   </tr>
   <% @participants.each do |participant|
   if participant.batch_id.nil?
 %>  
-  <tr VALIGN=TOP>
-    <td align=center><%= participant.no %></td>
-    <td align=center><%=participant.fname%></td>
-    <td align=center><%=participant.mname%></td>
-    <td align=center><%=participant.lname%></td>
-    <td align=center><%= participant.sex %></td>
-    <td align=center><%= participant.age %></td>
-    <td align=center><%= participant.donation %></td>
+  <tr VALIGN=TOP align=center>
+    <td><%= participant.no %></td>
+    <td><%=participant.fname%></td>
+    <td><%=participant.mname%></td>
+    <td><%=participant.lname%></td>
+    <td><%= participant.sex %></td>
+    <td><%= participant.age %></td>
+    <td><%= participant.donation %></td>
     <td><font size=1><%= participant.created_by ? participant.created_by.name : "" %>, <%=participant.created_at.getlocal.strftime("%I:%M %p")%></font></td>    
-    <!--td align=center><%#= participant.batch ? (link_to participant.batch, participant.batch) : ""%></td-->
-    <td align=center><%= link_to 'Edit', edit_participant_path(participant) %></td>
-    <td align=center><%= link_to 'Delete', participant, confirm: 'Are you sure?', method: :delete %></td>
+    <!--td><%#= participant.batch ? (link_to participant.batch, participant.batch) : ""%></td-->
+    <td><%= link_to 'Edit', edit_participant_path(participant) %></td>
+    <td><%= link_to 'Delete', participant, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 
 <%
