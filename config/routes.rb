@@ -11,13 +11,17 @@ Holyfire::Application.routes.draw do
 
   resources :settings
 
-  resources :blessings
   post "/blessings/current"
   post "/blessings/set"
   post "/blessings/addbatch"
   post "/blessings/massdeleteparticipant"
   post "/blessings/report"
   post "/blessings/summary"
+  #match '/unbatchedlist', to: 'blessings#unbatchedlist'
+  #get :unbatchedlist, :to => "blessings#unbatchedlist"
+  get '/blessings/unbatchedlist', :to => "blessings#unbatchedlist"
+  resources :blessings
+
 
 
   resources :batches

@@ -286,4 +286,16 @@ class BlessingsController < ApplicationController
 #      end
     end
   end  
+
+  def unbatchedlist
+    @blessing = Blessing.find(params[:id])
+    #@participants=Participant.find_by_sql('select * from participants where blessing_id='+@blessing.id.to_s+" and batch_id=0")
+    @participants=@blessing.participants.select{|p| p.batch_id == nil }
+    render :layout => 'empty'
+
+  end
+  
+
 end
+
+

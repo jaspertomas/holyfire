@@ -52,4 +52,28 @@
 <%= link_to 'Male', blessings_summary_path() + '?page=M&id='+@blessing.id.to_s, method: 'post' %> | 
 <%= link_to 'Female', blessings_summary_path() + '?page=F&id='+@blessing.id.to_s, method: 'post' %> 
 
-<%=render 'showchildren'%>
+<br>
+<br>
+<hr>
+<div id=participantslist>
+<%#=render 'showchildren'%>
+<%#= link_to "Show unbatched participants", "/blessings/unbatchedlist?id=#{@blessing.id.to_s}"%>
+<a href=# onclick="getunbatchedlist()">Show unbatched participants</a>
+<br>
+<br>
+</div>
+<%=link_to "New participant",new_participant_path+"?blessing_id="+@blessing.id.to_s%>
+
+<script>
+function getunbatchedlist() {
+        $.ajax({
+            //type: "POST",
+            url: '<%="unbatchedlist?id=#{@blessing.id.to_s}"%>',
+            success: function (data) {
+				$('#participantslist').html(data);
+            }
+        });
+    }
+</script>
+
+<%=render 'showbatches'%>

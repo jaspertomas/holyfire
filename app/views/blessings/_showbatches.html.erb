@@ -1,0 +1,24 @@
+
+<br>
+<hr>
+  
+<b>Batches:</b>
+<table border=1>
+<%
+@blessing.batches.reverse.each do |batch|
+%>  
+  <tr VALIGN=TOP>
+    <td align=left>Batch <%= batch.no %></td>
+    <td align=left><%= link_to "Male", batch_path(batch)+"?gender=M" %></td>
+    <td align=left><%= link_to "Female", batch_path(batch)+"?gender=F" %></td>
+    <td align=left><%= link_to "Both", batch_path(batch)+"?gender=Both" %></td>
+    <td align=left><%= link_to 'Edit', edit_batch_path(batch) %></td>
+    <td align=left><%= link_to 'Delete', batch, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<%
+end
+%>
+</table>  
+<%=link_to "New Batch",blessings_addbatch_path+"?id="+@blessing.id.to_s, method: :post%>
+
+  
