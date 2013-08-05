@@ -1,0 +1,123 @@
+<font color=red>
+<% 
+@blessing.batches.each do |batch|
+	if batch.ctime==nil
+%>
+Batch <%=batch.no%> blessing time not set!<br>
+<%
+	end
+end
+%>
+</font>
+
+<% 
+batchcounter=0
+@blessing.batches.each do |batch|
+	batchcounter+=1
+	participantcounter=0
+%>
+
+<table border=1>
+	<tr>
+		<td align=center><b><%=@summaryheader[0]%></b></td>
+		<td align=center><b><%=@summaryheader[1]%></b></td>
+		<td align=center><b><%=@summaryheader[2]%></b></td>
+		<%if batch.ctime==nil%>
+			<td align=center><font color=red>BATCH TIME NOT SET!</font></td>
+		<%else%>
+			<%
+			@summaryheader3=@summaryheader[3].sub('0',batch.ctime.value)
+			%>
+			<td align=center><b><%=@summaryheader3%></b></td>
+		<%end%>
+
+		<%
+		@summaryheader4=@summaryheader[4].sub('0',@cnumbers[batchcounter])
+		%>
+		<td align=center><b><%=@summaryheader4%></b></td>
+		<td colspan=3 align=center><b><%=@summaryheader[5]%></b></td>
+		<td align=center><b><%=@summaryheader[6]%></b></td>
+		<td align=center><b><%=@summaryheader[7]%></b></td>
+		<td colspan=2 align=center><b><%=@summaryheader[8]%></b></td>
+	</tr>
+	<tr>
+		<td align=center><b><%=@summaryheader2[0]%></b></td>
+		<td align=center><b><%=@summaryheader2[1]%></b></td>
+		<td align=center><b><%=@summaryheader2[2]%></b></td>
+		<td align=center><b><%=@summaryheader2[3]%></b></td>
+		<td align=center><b><%=@summaryheader2[4]%></b></td>
+		<td align=center><b><%=@summaryheader2[5]%></b></td>
+		<td align=center><b><%=@summaryheader2[6]%></b></td>
+		<td align=center><b><%=@summaryheader2[7]%></b></td>
+		<td align=center><b><%=@summaryheader2[8]%></b></td>
+		<td align=center><b><%=@summaryheader2[9]%></b></td>
+		<td align=center><b><%=@summaryheader2[10]%></b></td>
+		<td align=center><b><%=@summaryheader2[11]%></b></td>
+	</tr>
+	<%
+	batch.participants.sort_by{|x| [x.donation, x.age ]}.reverse.each do |p|
+		if p.sex==@page
+			participantcounter+=1
+	%>	
+	<tr>
+		<td>
+			<%#=p.no%>
+			<%=participantcounter%>
+		</td>
+		<td>
+					<% if Volunteer.find_by_name(p.introducer) and Volunteer.find_by_name(p.introducer).chinesename %>
+						<%=Volunteer.find_by_name(p.introducer).chinesename%>
+					<%else%>
+						<%=p.introducer%>
+					<%end%>		
+		</td>
+		<td>
+					<% if Volunteer.find_by_name(p.guarantor) and Volunteer.find_by_name(p.guarantor).chinesename %>
+						<%=Volunteer.find_by_name(p.guarantor).chinesename%>
+					<%else%>
+						<%=p.guarantor%>
+					<%end%>		
+		</td>
+		<td>
+		<%
+
+		if(p.sex=='M')
+			if(p.age > 15)
+				%><%=@coldermale%><%
+			else
+				%><%=@cyoungermale%><%
+			end
+		else
+			if(p.age > 15)
+				%><%=@colderfemale%><%
+			else
+				%><%=@cyoungerfemale%><%
+			end
+		end
+		%>
+		</td>
+		<td><%=p.to_s%></td>
+		<td>
+			<%if p.age==0.25%>
+				3 mo.
+			<%elsif p.age==0.5%>
+				6 mo.
+			<%elsif p.age==0.75%>
+				9 mo.
+			<%else%>
+				<%=p.age%>
+			<%end%>
+		</td>
+		<td></td>
+		<td></td>
+		<td><%=@cfriend%></td>
+		<td><%=@blessing.location%></td>
+		<td></td>
+		<td><%=p.donation%></td>
+	</tr>
+	<%end%>
+	<%end%>
+	
+</table>
+<br>
+<%end%>

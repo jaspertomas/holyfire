@@ -1,4 +1,8 @@
 Holyfire::Application.routes.draw do
+  resources :ctimes
+
+  resources :pastors
+
   resources :volunteers
 
   resources :participants
@@ -13,6 +17,7 @@ Holyfire::Application.routes.draw do
   post "/blessings/addbatch"
   post "/blessings/massdeleteparticipant"
   post "/blessings/report"
+  post "/blessings/summary"
 
 
   resources :batches
@@ -25,6 +30,7 @@ Holyfire::Application.routes.draw do
   post "/batches/finalizeparticipant"
   post "/batches/unfinalizeparticipant"
   post "/batches/error"
+  post "/batches/settime"
 #  post "/batches/moveparticipant"
 
   resources :sessions, only: [:new, :create, :destroy]

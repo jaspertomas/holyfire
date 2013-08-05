@@ -47,6 +47,8 @@ class BatchesController < ApplicationController
       @participants.sort! { |a,b| a.introducer <=> b.introducer }
     elsif @sort=='guarantor'
       @participants.sort! { |a,b| a.guarantor <=> b.guarantor }
+      elsif @sort=='missionary'
+        @participants.sort! { |a,b| a.missionary <=> b.missionary }
 
     else          
       @participants=@participants.sort_by{|x| [x.sex, x.donation, x.age ]}.reverse
@@ -59,22 +61,6 @@ class BatchesController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @batch }
-      format.pdf do
-
-        template=""
-        case params[:documenttype]
-        when "ids"
-          template="batches/ids.pdf.erb"
-        else #default: brgy clearance
-          template="batches/ids.pdf.erb"
-        end
-        
-        render :pdf => @batch.to_s+"ids.pdf", # pdf will download as my_pdf.pdf
-        :layout => 'empty', 
-        #:show_as_html => params[:debug].present?, # renders html version if you set debug=true in URL
-       template: template
-
-      end
     end
   end
 
@@ -234,16 +220,45 @@ class BatchesController < ApplicationController
     elsif params[:commit]==["Set Introducer / Guarantor"]
       Participant.update_all(["introducer=?",params[:introducer][:introducer]], :id=>params[:participant_ids]) if !params[:introducer][:introducer].empty?
       Participant.update_all(["guarantor=?",params[:guarantor][:guarantor]], :id=>params[:participant_ids]) if !params[:guarantor][:guarantor].empty?
+      Participant.update_all(["missionary=?",params[:missionary][:missionary]], :id=>params[:participant_ids]) if !params[:missionary][:missionary].empty?
       flash[:success] = "Successfully updated introducer / guarantor for participant "+@participant.to_s
       redirect_to controller:"batches", action: "show", id: @batch.id, gender:cookies[:gender]
+#    elsif params[:commit]==["Print IDs"]
+#      @participants=Participant.find_by_sql("select * from participants where id in (#{params[:participant_ids].join(', ')})")
+#      
+#      render :pdf => @batch.to_s+"ids.pdf", # pdf will download as my_pdf.pdf
+#      :layout => 'empty', 
+#      :show_as_html => params[:debug].present?, # renders html version if you set debug=true in URL
+#     template: "batches/ids.pdf.erb"
+    elsif params[:commit]==["IDs Front Page"]
+      @participants=Participant.find_by_sql("select * from participants where id in (#{params[:participant_ids].join(', ')})")
+      @temple=Setting.find_by_name("temple").value
+      
+      render :pdf => @batch.to_s+"idsfront.pdf", # pdf will download as my_pdf.pdf
+      :layout => 'empty', 
+      :show_as_html => params[:debug].present?, # renders html version if you set debug=true in URL
+     template: "batches/idsfront.pdf.erb"
+    elsif params[:commit]==["IDs Back Page"]
+      @participants=Participant.find_by_sql("select * from participants where id in (#{params[:participant_ids].join(', ')})")
+      @temple=Setting.find_by_name("temple").value
+      
+      render :pdf => @batch.to_s+"idsback.pdf", # pdf will download as my_pdf.pdf
+      :layout => 'empty', 
+      :show_as_html => params[:debug].present?, # renders html version if you set debug=true in URL
+     template: "batches/idsback.pdf.erb"
     end
   end 
-
 
   def error
     @title=params[:title]
     @message=params[:message]
     @redirectto=params[:redirectto]
+  end  
+  def settime
+    @batch = Batch.find(params[:id])
+    @batch.update_attributes(ctime_id: params[:ctime_id][:ctime_id])
+    flash[:success]="Successfully set batch blessing time to "+@batch.ctime.span
+    redirect_to request.referer
   end  
 end
 

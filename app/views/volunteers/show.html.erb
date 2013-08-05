@@ -4,7 +4,10 @@
   <b>Name:</b>
   <%= @volunteer.name %>
 </p>
-
+<p>
+  <b>Chinese Name:</b>
+  <%= @volunteer.chinesename %>
+</p>
 
 <%= link_to 'Edit', edit_volunteer_path(@volunteer) %> |
 <%= link_to 'Back', volunteers_path %>

@@ -58,13 +58,7 @@
 		<td colspan=7><%= f.text_field :fname, size:15 %> <%= f.text_field :mname, size:5 %> <%= f.text_field :lname , size:15%></td>
 	</tr>
 	<tr>
-		<td colspan=7></td>
-	</tr>
-	<tr>
-		<td colspan=7></td>
-	</tr>
-	<tr>
-		<td><%= f.label :age %></td>
+		<td><%= f.label :age %></td> 
 		<td colspan=3><%= f.text_field :age %></td>
 		<td><%= f.label :occupation %></td>
 		<td colspan=3><%= f.text_field :occupation %></td>
@@ -87,7 +81,9 @@
 	</tr>
 	<tr>
 		<td><%= f.label :missionary %></td>
-		<td colspan=7><%= f.text_field :missionary %></td>
+		<td colspan=7>
+   			<%= f.collection_select :missionary, Pastor.all.sort! { |a,b| a.name <=> b.name }, :name, :name, :prompt => "Choose one"%>
+		</td>
 	</tr>
 	<tr>
 		<td><%= f.label :remark %></td>
@@ -99,13 +95,13 @@
 
 
   <div class="actions">
+    <%= f.submit "Save participant", name: "commit[]" %>
     <% 
     #only if action = new / create
     if params[:action]=="new" || params[:action]=="create" 
     %>
-    	<br><%= f.submit "Create participant and add another", name: "commit[]" %>
+    	<br><%= f.submit "Save participant and add another", name: "commit[]" %>
     <%end%>
-    <br><%= f.submit "Create participant", name: "commit[]" %>
     
   </div>
 <% end %>

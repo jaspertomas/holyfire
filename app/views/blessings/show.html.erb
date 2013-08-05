@@ -24,7 +24,7 @@
   <b>Participant count:</b> 
   Total:
   <%= @blessing.participants.count %>, 
-  Male:
+  <br>Male:
   <%= @blessing.participants.select{|p| p.sex == 'M' }.size %>, 
   Female:
   <%= @blessing.participants.select{|p| p.sex == 'F' }.size %>, 
@@ -32,6 +32,14 @@
   <%= @blessing.participants.select{|p| p.batch_id != nil }.size %>, 
   Unbatched:
   <%= @blessing.participants.select{|p| p.batch_id == nil }.size %>
+  <br>Male Batched:
+  <%= @blessing.participants.select{|p| p.sex == 'M' && p.batch_id != nil}.size %>, 
+  Male Unbatched:
+  <%= @blessing.participants.select{|p| p.sex == 'M' && p.batch_id == nil }.size %>, 
+  Female Batched:
+  <%= @blessing.participants.select{|p| p.sex == 'F' && p.batch_id != nil }.size %>, 
+  Female Unbatched:
+  <%= @blessing.participants.select{|p| p.sex == 'F' && p.batch_id == nil }.size %>
 </p>
 
 <%= link_to 'Edit', edit_blessing_path(@blessing) %> |
@@ -39,5 +47,9 @@
 <br>
 <br><%= link_to 'Download Backup', blessing_path(format: "xlsx") %>
 <br><%= link_to 'View report', blessings_report_path() + '?id='+@blessing.id.to_s, method: 'post' %>
+<br>View summary: 
+<%= link_to 'Total', blessings_summary_path() + '?page=T&id='+@blessing.id.to_s, method: 'post' %> | 
+<%= link_to 'Male', blessings_summary_path() + '?page=M&id='+@blessing.id.to_s, method: 'post' %> | 
+<%= link_to 'Female', blessings_summary_path() + '?page=F&id='+@blessing.id.to_s, method: 'post' %> 
 
 <%=render 'showchildren'%>

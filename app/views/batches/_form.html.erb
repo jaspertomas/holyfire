@@ -24,6 +24,10 @@
     Batch <%= f.label :gender %><br />
     <%= f.text_field :gender %>
   </div>
+  <div class="field">
+    Time <br>
+   <%= f.collection_select :ctime_id, Ctime.all, :id, :span, :prompt => "Choose one"%>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>

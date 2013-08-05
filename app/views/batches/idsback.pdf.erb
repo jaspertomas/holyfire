@@ -1,0 +1,64 @@
+<table border=1 width=100%>
+<%
+counter=-1
+#this counts the number of back sides to print
+@participants.each do |p|
+	counter+=1
+	if(counter % 2 == 0)
+%>
+	<tr height=200>
+		<td align=center style="width:50%;">
+			<br>		
+			<table align=center>
+				<tr>
+					<td align=center>
+					<font color=blue size=3><b>THE GREAT</b></font> <font color=blue size=4><b>TAO</b></font>
+					<font color=blue size=2>
+					<br>TRUTH IS THE PATH TO HEAVEN ABOVE
+					<br>HE WHO FINDS IT RIGHT NOW ON EARTH
+					<br>ELUDES ALL SUFFERINGS OF RE-BIRTH
+					<br>GRACE TO OUR FATHER, THE CREATOR OF ALL
+					<br>RELEASING THE WAY TO SAVE OUR FALL
+					<br>EVERY MAN WITH FAITH IN MIND
+					<br>AND REPENTANCE SINCERE WILL SURELY FIND
+					<br>THESE A HOUSE SO PURELY DIVINE
+					<br>THUS FULFILLING A GREATEST WISH
+					<br>AT LAST A TREASURE WE MUST NOT MISS
+					<br>OF ETERNAL BLISS
+					</font>
+					</td>
+				</tr>
+			</table>
+			<br>
+			
+		
+		</td>
+		<td align=center style="width:50%;">
+			<br>
+			<table align=center>
+				<tr>
+					<td align=center>
+					<font color=blue size=3><b>THE GREAT</b></font> <font color=blue size=4><b>TAO</b></font>
+					<font color=blue size=2>
+					<br>TRUTH IS THE PATH TO HEAVEN ABOVE
+					<br>HE WHO FINDS IT RIGHT NOW ON EARTH
+					<br>ELUDES ALL SUFFERINGS OF RE-BIRTH
+					<br>GRACE TO OUR FATHER, THE CREATOR OF ALL
+					<br>RELEASING THE WAY TO SAVE OUR FALL
+					<br>EVERY MAN WITH FAITH IN MIND
+					<br>AND REPENTANCE SINCERE WILL SURELY FIND
+					<br>THESE A HOUSE SO PURELY DIVINE
+					<br>THUS FULFILLING A GREATEST WISH
+					<br>AT LAST A TREASURE WE MUST NOT MISS
+					<br>OF ETERNAL BLISS
+					</font>
+					</td>
+				</tr>
+			</table>
+			<br>
+		
+		</td>
+	</tr>
+	<% end %>
+<%end%>
+</table>

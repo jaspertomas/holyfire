@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130731084335) do
+ActiveRecord::Schema.define(:version => 20130801125810) do
 
   create_table "batches", :force => true do |t|
     t.integer  "no"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(:version => 20130731084335) do
     t.integer  "blessing_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.integer  "ctime_id"
   end
 
   create_table "blessings", :force => true do |t|
@@ -28,6 +29,13 @@ ActiveRecord::Schema.define(:version => 20130731084335) do
     t.text     "comments"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+  end
+
+  create_table "ctimes", :force => true do |t|
+    t.string   "span",       :limit => 10
+    t.string   "value",      :limit => 2
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
   end
 
   create_table "participants", :force => true do |t|
@@ -52,6 +60,13 @@ ActiveRecord::Schema.define(:version => 20130731084335) do
     t.integer  "created_by_id"
     t.integer  "updated_by_id"
     t.integer  "no"
+  end
+
+  create_table "pastors", :force => true do |t|
+    t.string   "name"
+    t.string   "chinesename"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "settings", :force => true do |t|
@@ -79,8 +94,9 @@ ActiveRecord::Schema.define(:version => 20130731084335) do
 
   create_table "volunteers", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.string   "chinesename"
   end
 
 end

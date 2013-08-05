@@ -241,4 +241,49 @@ class BlessingsController < ApplicationController
       format.html # show.html.erb
     end     
   end
+  
+  def summary
+    
+    @blessing = Blessing.find(params[:id])
+    
+    #page 1: basic
+    if params[:page]=='T'
+      @coldermale=Setting.find_by_name('coldermale').value
+      @colderfemale=Setting.find_by_name('colderfemale').value
+      @cyoungermale=Setting.find_by_name('cyoungermale').value
+      @cyoungerfemale=Setting.find_by_name('cyoungerfemale').value
+      
+      render template: "blessings/totalsummary"
+      
+    #page 2 or 3: Male / Female
+    else
+      @page = params[:page]
+    
+      @blessing = Blessing.find(params[:id])
+      @cfriend=Setting.find_by_name('cfriend').value
+      @coldermale=Setting.find_by_name('coldermale').value
+      @colderfemale=Setting.find_by_name('colderfemale').value
+      @cyoungermale=Setting.find_by_name('cyoungermale').value
+      @cyoungerfemale=Setting.find_by_name('cyoungerfemale').value
+  #    @cnumber=Setting.find_by_name('cnumber').value
+  #    @cintroducer=Setting.find_by_name('cintroducer').value
+  #    @cguarantor=Setting.find_by_name('cguarantor').value
+  #    @csex=Setting.find_by_name('csex').value
+  #    @cname=Setting.find_by_name('cname').value
+  #    @cage=Setting.find_by_name('cage').value
+  #    @ceducation=Setting.find_by_name('ceducation').value
+  #    @clivelihood=Setting.find_by_name('clivelihood').value
+  #    @crelationship=Setting.find_by_name('crelationship').value
+  #    @clocation=Setting.find_by_name('clocation').value
+  #    @ccontact=Setting.find_by_name('ccontact').value
+  #    @cdonation=Setting.find_by_name('cdonation').value
+      @summaryheader=Setting.find_by_name('summaryheader').value.split(',')  
+      @summaryheader2=Setting.find_by_name('summaryheader2').value.split(',')  
+      @cnumbers=Setting.find_by_name('cnumbers').value.split(',')  
+      
+#      respond_to do |format|
+#        format.html # show.html.erb
+#      end
+    end
+  end  
 end

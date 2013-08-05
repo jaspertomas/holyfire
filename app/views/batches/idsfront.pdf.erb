@@ -1,0 +1,102 @@
+<table border=1 width=100%>
+<%
+counter=-1
+#this counts the number of back sides to print
+backcounter=0 
+@participants.each do |p|
+	counter+=1
+	if(counter % 2 == 0)
+		backcounter+=1
+%>
+	<tr height=200>
+		<td align=center style="width:50%;">
+			<table align=center>
+				<tr>
+					<td align=right><font color=blue>#<%=@participants[counter].no.to_s%></font></td>
+				</tr>
+				<tr>
+					<td align=left><font color=blue>NAME: <%=@participants[counter].to_s%></font></td>
+				</tr>
+				<tr>
+					<td align=left><font color=blue>TEMPLE: <%=@temple%></font></td>
+				</tr>
+				<tr>
+					<td align=left><font color=blue>MISSIONARY: 
+					<% if Pastor.find_by_name(@participants[counter].missionary) and Pastor.find_by_name(@participants[counter].missionary).chinesename %>
+						<%=Pastor.find_by_name(@participants[counter].missionary).chinesename%>
+					<%else%>
+						<%=@participants[counter].missionary%>
+					<%end%>
+					</font></td>
+				</tr>
+				<tr>
+					<td align=left><font color=blue>INTRODUCER: 
+					<%=@participants[counter].introducer%>
+					</font></td>
+				</tr>
+				<tr>
+					<td align=left><font color=blue>SPONSOR: 
+					<%=@participants[counter].guarantor%>
+					</font></td>
+				</tr>
+				<tr>
+					<td align=left><font color=blue>DATE: <%=@participants[counter].blessing.date.to_formatted_s(:long) %></font></td>
+				</tr>
+			</table>
+			<br>
+			
+		
+		</td>
+		<%
+		if counter+1 < @participants.size
+			backcounter+=1
+		%>
+		<td align=center style="width:50%;">
+			<table align=center>
+				<tr>
+					<td align=right><font color=blue>#<%=@participants[counter+1].no.to_s%></font></td>
+				</tr>
+				<tr>
+					<td align=left><font color=blue>NAME: <%=@participants[counter+1].to_s%></font></td>
+				</tr>
+				<tr>
+					<td align=left><font color=blue>TEMPLE: <%=@temple%></font></td>
+				</tr>
+				<tr>
+					<td align=left><font color=blue>MISSIONARY: 
+					<% if Pastor.find_by_name(@participants[counter+1].missionary) and Pastor.find_by_name(@participants[counter+1].missionary).chinesename %>
+						<%=Pastor.find_by_name(@participants[counter+1].missionary).chinesename%>
+					<%else%>
+						<%=@participants[counter+1].missionary%>
+					<%end%>
+					</font></td>
+				</tr>
+				<tr>
+					<td align=left><font color=blue>INTRODUCER: 
+					<%=@participants[counter+1].introducer%>
+					</font></td>
+				</tr>
+				<tr>
+					<td align=left><font color=blue>SPONSOR: 
+					<%=@participants[counter+1].guarantor%>
+					</font></td>
+				</tr>				<tr>
+					<td align=left><font color=blue>DATE: <%=@participants[counter+1].blessing.date.to_formatted_s(:long) %></font></td>
+				</tr>
+			</table>
+			<br>
+		
+		</td>
+		<% else %>
+		<td style="width:50%;"></td>
+		<% end %>
+	</tr>
+	
+	<%
+		if(counter % 10 == 8) || counter == @participants.size || counter+1 == @participants.size
+		%>
+		<%end%>
+	<% end %>
+<%end%>
+
+		</table>

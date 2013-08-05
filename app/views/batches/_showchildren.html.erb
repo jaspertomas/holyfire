@@ -19,6 +19,7 @@
     <th align=center><%=link_to 'Donation', batch_path(@batch) + '?gender='+@gender+'&sort=donation'+(@order=='normal'&&@sort=='donation' ? '&order=reverse' : "")%></td>
     <th align=center><%=link_to 'Introducer', batch_path(@batch) + '?gender='+@gender+'&sort=introducer'+(@order=='normal'&&@sort=='introducer' ? '&order=reverse' : "")%></td>
     <th align=center><%=link_to 'Guarantor', batch_path(@batch) + '?gender='+@gender+'&sort=guarantor'+(@order=='normal'&&@sort=='guarantor' ? '&order=reverse' : "")%></td>
+    <th align=center><%=link_to 'Missionary', batch_path(@batch) + '?gender='+@gender+'&sort=missionary'+(@order=='normal'&&@sort=='missionary' ? '&order=reverse' : "")%></td>
   </tr>
 
 <% @participants.each do |participant|
@@ -35,6 +36,7 @@
     <td align=center><%= participant.donation %></td>
     <td align=center><font size=1><%= participant.introducer %></font></td>
     <td align=center><font size=1><%= participant.guarantor %></font></td>
+    <td align=center><font size=1><%= participant.missionary %></font></td>
     <td align=center><%= link_to 'View', participant_path(participant) %></td>
     <td align=center><%= link_to 'Edit', edit_participant_path(participant) %></td>
     <td align=center><%= link_to 'Delete', participant, confirm: 'Are you sure?', method: :delete %></td>
@@ -77,6 +79,7 @@ end
     <th align=center><%=link_to 'Donation', batch_path(@batch) + '?gender='+@gender+'&sort=donation'+(@order=='normal'&&@sort=='donation' ? '&order=reverse' : "")%></td>
     <th align=center><%=link_to 'Introducer', batch_path(@batch) + '?gender='+@gender+'&sort=introducer'+(@order=='normal'&&@sort=='introducer' ? '&order=reverse' : "")%></td>
     <th align=center><%=link_to 'Guarantor', batch_path(@batch) + '?gender='+@gender+'&sort=guarantor'+(@order=='normal'&&@sort=='guarantor' ? '&order=reverse' : "")%></td>
+    <th align=center><%=link_to 'Missionary', batch_path(@batch) + '?gender='+@gender+'&sort=missionary'+(@order=='normal'&&@sort=='missionary' ? '&order=reverse' : "")%></td>
   </tr>
 <% 
 	finalizedcounter=0
@@ -128,6 +131,7 @@ end
     <td align=center><%= participant.donation %></td>
     <td align=center><font size=1><%= participant.introducer %></font></td>
     <td align=center><font size=1><%= participant.guarantor %></font></td>
+    <td align=center><font size=1><%= participant.missionary %></font></td>
     <td align=center><%= link_to 'View', participant_path(participant) %></td>
     <td align=center><%= link_to 'Edit', edit_participant_path(participant) %></td>
     <td align=center><%if !participant.is_finalized %><%= link_to 'Delete', participant, confirm: 'Delete: Are you sure?', method: :delete %><%end%></td>
@@ -155,16 +159,21 @@ batches=""
 	batches+="<option value="+batch.id.to_s+">Batch "+batch.no.to_s+"</option>\n"
 end
 %>
+
+<!--display ids as html, not pdf-->
+<input type=hidden id=debug name=debug value=true>
+
 <%=select_tag "movetobatch_id", batches.html_safe %>
 <br><%= submit_tag "Finalize Multiple Participants", confirm: 'Finalize: Are you sure?', name: "commit[]" %>
+<br>Print IDs <%= submit_tag "IDs Front Page", name: "commit[]" %> <%= submit_tag "IDs Back Page", name: "commit[]" %> (Pls limit to 10 participants at a time, to fit on bond paper size)
 <br>
 <br><%= submit_tag "Set Introducer / Guarantor", name: "commit[]" %>
 <br>Introducer:<%= collection_select :introducer, :introducer, Volunteer.all.sort! { |a,b| a.name <=> b.name }, :name, :name, :prompt => "No Change"%>
 <br>Guarantor: <%= collection_select :guarantor, :guarantor, Volunteer.all.sort! { |a,b| a.name <=> b.name }, :name, :name, :prompt => "No Change"%>
-
-
+<br>Missionary: <%= collection_select :missionary, :missionary, Pastor.all.sort! { |a,b| a.name <=> b.name }, :name, :name, :prompt => "No Change"%>
 
 <%end%>
+
 
 <script>
 
@@ -188,4 +197,7 @@ $('form').submit(function(){
 });
 
  $('[name="commit"]').removeAttr("disabled");    
+</script>
+
+<script>
 </script>
