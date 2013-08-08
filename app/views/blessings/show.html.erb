@@ -9,7 +9,10 @@
   <b>Date:</b>
   <%= l(@blessing.date, :format => :long) %>
 </p>
-
+<p>
+  <b>Chinese Date:</b>
+  <%= @blessing.chineseyear.to_s + "-"+@blessing.chinesemonth.to_s + "-"+@blessing.chineseday.to_s  %>
+</p>
 <p>
   <b>Contactinfo:</b>
   <%= @blessing.contactinfo %>

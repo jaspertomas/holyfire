@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130805093202) do
+ActiveRecord::Schema.define(:version => 20130808071736) do
 
   create_table "batches", :force => true do |t|
     t.integer  "no"
@@ -27,8 +27,11 @@ ActiveRecord::Schema.define(:version => 20130805093202) do
     t.date     "date"
     t.text     "contactinfo"
     t.text     "comments"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.integer  "chineseday"
+    t.integer  "chinesemonth"
+    t.integer  "chineseyear"
   end
 
   create_table "ctimes", :force => true do |t|

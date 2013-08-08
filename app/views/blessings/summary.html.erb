@@ -1,5 +1,14 @@
 <font color=red>
 <% 
+
+if @blessing.chineseyear==nil ||  @blessing.chinesemonth==nil ||  @blessing.chineseday==nil
+%>
+Blessing Chinese Date not properly set!<br>
+<%
+
+end
+%>
+<% 
 @blessing.batches.each do |batch|
 	if batch.ctime==nil
 %>
@@ -20,8 +29,8 @@ batchcounter=0
 <table border=1>
 	<tr>
 		<td align=center><b><%=@summaryheader[0]%></b></td>
-		<td align=center><b><%=@summaryheader[1]%></b></td>
-		<td align=center><b><%=@summaryheader[2]%></b></td>
+		<td align=center><b><%=@summaryheader[1].sub('YYYY',@blessing.cchineseyear)%></b></td>
+		<td align=center><b><%=@summaryheader[2].sub('MM',@blessing.cchinesemonth).sub('DD',@blessing.cchineseday)%></b></td>
 		<%if batch.ctime==nil%>
 			<td align=center><font color=red>BATCH TIME NOT SET!</font></td>
 		<%else%>
