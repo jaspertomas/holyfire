@@ -57,18 +57,27 @@
 <hr>
 <div id=participantslist>
 <%#=render 'showchildren'%>
-<a href=# onclick="getunbatchedlist()"><b>Show unbatched participants</b></a>
+<a href="#nowhere" onclick="getunbatchedlist()"><b>Show unbatched participants</b></a>
 <br>
 <br>
 </div>
 <b><%=link_to "New participant",new_participant_path+"?blessing_id="+@blessing.id.to_s%></b>
+
+
 
 <script>
 function getunbatchedlist() {
         $.ajax({
             //type: "POST",
             url: '<%="unbatchedlist?id=#{@blessing.id.to_s}"%>',
+            beforeSend: function()
+            {
+            	//show spinner
+            	$("#participantslist").spin("small");
+            },
             success: function (data) {
+            	//hide spinner
+            	$("#participantslist").spin(false);
 				$('#participantslist').html(data);
             }
         });

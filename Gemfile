@@ -57,3 +57,6 @@ gem 'acts_as_xlsx'
 
 gem 'wkhtmltopdf-binary', "0.9.9"
 gem 'wicked_pdf'
+
+#spinner for jquery
+gem 'spinjs-rails'
