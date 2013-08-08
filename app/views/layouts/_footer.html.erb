@@ -1,13 +1,6 @@
 <script>
-
-var str=$('.alert-success').html();
-if(str.search(" was successfully created as #")!=-1)
-{
-	alert (str.split(" was successfully created as #")[1]);
-	//$("#example").html("<div align=center>"+str.split(" was successfully created as #")[1]+"</div>");
-	//$("#example").dialog();
-} 
-
+//display popup if participantaddedpopupmessage exists
+if($('#participantaddedpopupmessage').length>0){alert($('#participantaddedpopupmessage').attr('value'));}
 </script>
 
 

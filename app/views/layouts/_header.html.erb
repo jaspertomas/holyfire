@@ -29,13 +29,11 @@
 <hr>
 	<font color=green>
       <% flash.each do |key, value| %>
-	      <% if value != notice %>
-    	    <div class="alert alert-<%= key %>"><%= value %></div>
+	      <% if key == :lastaddedparticipant #special %>
+	      	<input type=hidden id=participantaddedpopupmessage value="<%=flash[:lastaddedparticipant]%>">
+	      <% elsif !(key == :notice && request['action']=='show')  %>
+    	    <div class="flash-<%= key %>"><%= value %></div>
 	      <% end %>
       <% end %>
   </font>
-    
 
-
-
-  

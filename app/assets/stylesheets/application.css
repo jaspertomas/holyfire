@@ -12,3 +12,4 @@
  *= require_tree .
  *= require jquery.ui.datepicker
 */
+.flash-error { color:#8a1f11 }

@@ -63,9 +63,13 @@ class ParticipantsController < ApplicationController
 
     respond_to do |format|
       if @participant.save
-        flash[:success] = 'Participant '+@participant.to_s+' was successfully created as #'+@participant.no.to_s
+        flash[:success] = "Participant #{@participant.to_s} (age #{@participant.age}, #{@participant.sex=='M'?'male':'female'}) was successfully created as ##{@participant.no.to_s}"
+        flash[:lastaddedparticipant]="
+Number: #{@participant.no}\n
+Name: #{@participant.to_s}\n
+Sex: #{@participant.sex}\n
+Age: #{@participant.age.to_s}\n"
         if params[:commit]==["Save participant and add another"]
-          cookies['latestaddparticipantno']=@participant.no.to_s
           format.html { redirect_to action:"new", controller:"participants", blessing_id: @participant.blessing_id }
           format.json { render json: @participant, status: :created, location: @participant }
         elsif
